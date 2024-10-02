@@ -874,7 +874,7 @@ mkdir /userdata/system/switch/extra/downloads 2>/dev/null
 if [ "$3" = "YUZU" ]; then
 T=$THEME_COLOR_YUZU
 #version=$(echo "$link_yuzu" | sed 's,^.*/download/,,g' | cut -d "/" -f1 | cut -d "-" -f3)
-link_yuzu="/userdata/system/switch/yuzu.AppImage"
+link_yuzu="/userdata/system/switch/yuzu1734.AppImage"
 version="1734"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_yuzu" ]; then
@@ -973,7 +973,7 @@ if [ -f "$link_yuzu" ]; then
 		   echo $version >> /userdata/system/switch/extra/yuzu/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   place yuzu.AppImage in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   place yuzu1734.AppImage in /userdata/system/switch/"	
 	fi	
 fi 
 ##
@@ -987,7 +987,7 @@ fi
 if [ "$3" = "YUZUEA" ]; then
 T=$THEME_COLOR_YUZUEA
 #version=$(echo "$link_yuzuea" | sed 's,^.*Linux-Yuzu-EA-,,g' | sed 's,.AppImage,,g')
-link_yuzuEA="/userdata/system/switch/yuzuEA.AppImage"
+link_yuzuEA="/userdata/system/switch/yuzuea4176.AppImage"
 version="4176"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_yuzuEA" ]; then	
@@ -1086,7 +1086,7 @@ if [ -f "$link_yuzuEA" ]; then
 		  echo $version >> /userdata/system/switch/extra/yuzuea/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   place yuzuEA.AppImage in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   place yuzuea4176.AppImage in /userdata/system/switch/"	
 	fi	
 fi
 ##
@@ -1104,7 +1104,7 @@ T=$THEME_COLOR_RYUJINX
 #      else 
 #      version=$(echo "$link_ryujinx" | sed 's,^.*/download/,,g' | cut -d "/" -f1)
 #   fi
-link_ryujinx="/userdata/system/switch/ryujinx-1.1.1403-linux_x64.tar.gz"
+link_ryujinx="/userdata/system/switch/ryujinx1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -1256,7 +1256,7 @@ if [ -f "$link_ryujinx" ]; then
 		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx1403.tar.gz in /userdata/system/switch/"	
 	fi
 fi
 #
@@ -1267,8 +1267,8 @@ fi
 #
 if [ "$3" = "RYUJINXLDN" ]; then
 T=$THEME_COLOR_RYUJINXLDN
-link_ryujinxldn="/userdata/system/switch/ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz"
-version="3.1.3"
+link_ryujinxldn="/userdata/system/switch/ryujinxldn313.tar.gz"
+version="313"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinxldn" ]; then
@@ -1417,7 +1417,7 @@ if [ -f "$link_ryujinxldn" ]; then
 		  echo "368" >> /userdata/system/switch/extra/ryujinxldn/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinxldn313.tar.gz in /userdata/system/switch/"	
 	fi
 fi
 #
@@ -1433,7 +1433,7 @@ T=$THEME_COLOR_RYUJINXAVALONIA
 #      else 
 #      version=$(echo "$link_ryujinxavalonia" | sed 's,^.*/download/,,g' | cut -d "/" -f1)
 #   fi
-link_ryujinxavalonia="/userdata/system/switch/test-ava-ryujinx-1.1.1403-linux_x64.tar.gz"
+link_ryujinxavalonia="/userdata/system/switch/ryujinxava1403.tar.gz"
 version="1403"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -1584,7 +1584,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  echo $version >> /userdata/system/switch/extra/ryujinxavalonia/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   place test-ava-ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   ryujinxava1403.tar.gz in /userdata/system/switch/"	
 	fi
 fi	
 #
