@@ -2,7 +2,7 @@
 ################################################################################
 # v3.3                SWITCH EMULATORS UPDATER FOR BATOCERA                    #
 #                   ----------------------------------------                   #
-#                     > github.com/mikhailzrick/batocera-switch                    #
+#                     > github.com/mikhailzrick/batocera-switch                #
 #                        > https://discord.gg/SWBvBkmn9P                       #     
 ################################################################################
 #  ---------------
