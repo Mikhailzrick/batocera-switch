@@ -971,7 +971,7 @@ if [ -f "$link_yuzu" ]; then
 		   #ver=$(echo "$link_yuzu" | sed 's,^.*mainline-0-,,g' | cut -d "/" -f1)
 		   #rm /userdata/system/switch/extra/yuzu/version.txt 2>/dev/null
 		   #echo "$ver" >> /userdata/system/switch/extra/yuzu/version.txt
-		   echo "1734" >> /userdata/system/switch/extra/yuzu/version.txt
+		   echo $version >> /userdata/system/switch/extra/yuzu/version.txt
 		fi
 	else
 		echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   place yuzu.AppImage in /userdata/system/switch/"	
@@ -1082,9 +1082,9 @@ if [ -f "$link_yuzuEA" ]; then
 		  echo
 		  cd ~/
 # send version to cookie: 
-		  ver=$(echo "$link_yuzuea" | sed 's,^.*/EA-,,g' | cut -d "/" -f1)
+		  #ver=$(echo "$link_yuzuea" | sed 's,^.*/EA-,,g' | cut -d "/" -f1)
 		  rm /userdata/system/switch/extra/yuzuea/version.txt 2>/dev/null
-		  echo "$ver" >> /userdata/system/switch/extra/yuzuea/version.txt
+		  echo $version >> /userdata/system/switch/extra/yuzuea/version.txt
 		fi
 	else
 		echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   place yuzuEA.AppImage in /userdata/system/switch/"	
@@ -1250,10 +1250,10 @@ if [ -f "$link_ryujinx" ]; then
 		  echo
 		  cd ~/
 # send version to cookie: 
-		  ver=$(echo "$link_ryujinx" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
-		  if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then ver="382"; fi
-			rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
-			echo "$ver" >> /userdata/system/switch/extra/ryujinx/version.txt
+#		  ver=$(echo "$link_ryujinx" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
+#		  if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then ver="382"; fi
+#			rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
+		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt
 		fi
 	else
 		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
@@ -1412,8 +1412,8 @@ if [ -f "$link_ryujinxldn" ]; then
 		  echo
 		  cd ~/
 # send version to cookie: 
-		  rm /userdata/system/switch/extra/ryujinxldn/version.txt 2>/dev/null
-		  echo "368" >> /userdata/system/switch/extra/ryujinxldn/version.txt
+#		  rm /userdata/system/switch/extra/ryujinxldn/version.txt 2>/dev/null
+		  echo $version >> /userdata/system/switch/extra/ryujinxldn/version.txt
 		fi
 	else
 		echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz in /userdata/system/switch/"	
@@ -1576,10 +1576,10 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  echo
 		  cd ~/
 # send version to cookie: 
-		  ver=$(echo "$link_ryujinxavalonia" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
-		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then ver="382"; fi
-			rm /userdata/system/switch/extra/ryujinxavalonia/version.txt 2>/dev/null
-			echo "$ver" >> /userdata/system/switch/extra/ryujinxavalonia/version.txt
+#		  ver=$(echo "$link_ryujinxavalonia" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
+#		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then ver="382"; fi
+#			rm /userdata/system/switch/extra/ryujinxavalonia/version.txt 2>/dev/null
+		  echo $version >> /userdata/system/switch/extra/ryujinxavalonia/version.txt
 		fi
 	else
 		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   place test-ava-ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
