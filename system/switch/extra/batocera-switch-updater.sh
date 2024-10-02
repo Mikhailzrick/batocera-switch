@@ -1268,7 +1268,7 @@ fi
 #
 if [ "$3" = "RYUJINXLDN" ]; then
 T=$THEME_COLOR_RYUJINXLDN
-link_ryujinxldn=/userdata/system/switch/ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz
+link_ryujinxldn="/userdata/system/switch/ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz"
 version="3.1.3"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
@@ -1433,7 +1433,7 @@ T=$THEME_COLOR_RYUJINXAVALONIA
 #      else 
 #      version=$(echo "$link_ryujinxavalonia" | sed 's,^.*/download/,,g' | cut -d "/" -f1)
 #   fi
-link_ryujinxavalonia=/userdata/system/switch/test-ava-ryujinx-1.1.1403-linux_x64.tar.gz
+link_ryujinxavalonia="/userdata/system/switch/test-ava-ryujinx-1.1.1403-linux_x64.tar.gz"
 version="1.1.1403"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
