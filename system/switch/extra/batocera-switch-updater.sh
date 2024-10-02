@@ -1586,7 +1586,6 @@ if [ -f "$link_ryujinxavalonia" ]; then
 	else
 		echo -e "${T}██ $C   $F}RYUJINX-AVALONIA   [${W}!!${T}]   place test-ava-ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
 	fi
-fi	
 #
 #
 # ---------------------------------------------------------------------------------- 
