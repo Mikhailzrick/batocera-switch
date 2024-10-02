@@ -1254,7 +1254,6 @@ if [ -f "$link_ryujinx" ]; then
 		  if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then ver="382"; fi
 			rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
 			echo "$ver" >> /userdata/system/switch/extra/ryujinx/version.txt
-		  fi
 		fi
 	else
 		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
