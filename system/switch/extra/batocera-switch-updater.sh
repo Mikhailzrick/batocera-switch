@@ -1155,6 +1155,7 @@ if [ -f "$link_ryujinx" ]; then
 		  rm -rf $temp/$emu 2>/dev/null
 		  mkdir $temp/$emu 2>/dev/null
 		  cd $temp/$emu
+		  mv $link_ryujinx $temp/$emu/ryujinx-1.1.1403-linux_x64.tar.gz 2>/dev/null
 		  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/$emu/xdg-mime" "https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/xdg-mime"
 		  ###curl -sSf "https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/xdg-mime" -o "$extra/$emu/xdg-mime"
 		  chmod a+x "$extra/$emu/xdg-mime"
@@ -2250,7 +2251,7 @@ echo -e "${THEME_COLOR_YUZU}❯❯❯ ${F}UPDATING ADDITIONAL FILES ${T}...${T}"
 # -------------------------------------------------------------------
 # get additional files 
 # ------------------------------------------------------------------- 
-   extraurl="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra"
+   #extraurl="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra"
 # ------------------------------------------------------------------- 
 # prepare xdg integration 
    if [[ ! -d /userdata/system/switch/extra/xdg ]] || [[ "$(du -Hs /userdata/system/switch/extra/xdg | awk '{print $1}')" < "50000" ]]; then 
@@ -2356,7 +2357,7 @@ fi
    chmod a+x /userdata/system/switch/extra/yuzu-controller-patcher.sh 2>/dev/null  
 # -------------------------------------------------------------------
 # prepare patcher 
-url_patcher="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-patcher.sh"
+#url_patcher="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-patcher.sh"
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-patcher.sh" "$url_patcher"
    ###curl -sSf "$url_patcher" -o "/userdata/system/switch/extra/batocera-switch-patcher.sh"
    dos2unix ~/switch/extra/batocera-switch-patcher.sh 2>/dev/null
@@ -2576,7 +2577,7 @@ url_switchlauncher=https://raw.githubusercontent.com/mikhailzrick/batocera-switc
 url_GeneratorImporter=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/GeneratorImporter.py
 url_ryujinxMainlineGenerator=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators/ryujinx/ryujinxMainlineGenerator.py
 url_yuzuMainlineGenerator=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py
-url_sshupdater=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-sshupdater.sh
+#url_sshupdater=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-sshupdater.sh
 url_updater=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh
 url_portsupdater=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/ports/Switch%20Updater.sh
 url_portsupdaterkeys=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/ports/Switch%20Updater.sh.keys   
