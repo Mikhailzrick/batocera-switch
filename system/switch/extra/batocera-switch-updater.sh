@@ -881,20 +881,20 @@ if [ -f "$link_yuzu" ]; then
 	checksum_file=$(md5sum $link_yuzu | awk '{print $1}')
 	checksum_verified="fc405e5cdf0b506a3f3b28b87dacbcae"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}██ $C   ${T}YUZU   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   checksum fail"    	
 		else
 		   rm -rf $temp/yuzu 2>/dev/null
 	       mkdir -p $temp/yuzu 2>/dev/null
 	       cd $temp/yuzu
 	       mv $link_yuzu $temp/yuzu/yuzu.AppImage 2>/dev/null
-		   echo -e "${T}██ $C   ${F}YUZU   ${T}❯❯   ${T}/$version/"	
+		   echo -e "${T}██ ${C}   ${F}YUZU   ${T}❯❯   ${T}/$version/"	
 		   chmod a+x "$temp/yuzu/yuzu.AppImage" 2>/dev/null
 		   $temp/yuzu/yuzu.AppImage --appimage-extract 1>/dev/null 2>/dev/null 
 		   mkdir /userdata/system/switch 2>/dev/null
 		   mkdir /userdata/system/switch/extra 2>/dev/null
 		   mkdir /userdata/system/switch/extra/yuzu 2>/dev/null
 		   cp $temp/yuzu/squashfs-root/usr/lib/libQt5* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
-#rm /userdata/system/switch/extra/yuzu/libQ* 2>/dev/null
+		   #rm /userdata/system/switch/extra/yuzu/libQ* 2>/dev/null
 		   cp $temp/yuzu/squashfs-root/usr/lib/libcrypto* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
 		   cp $temp/yuzu/squashfs-root/usr/lib/libssl* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
 		   cp $temp/yuzu/squashfs-root/usr/lib/libicu* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
@@ -974,7 +974,7 @@ if [ -f "$link_yuzu" ]; then
 		   echo "1734" >> /userdata/system/switch/extra/yuzu/version.txt
 		fi
 	else
-		echo -e "${T}██ $C   ${T}YUZU   [${W}!!${T}]   place yuzu.AppImage in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   place yuzu.AppImage in /userdata/system/switch/"	
 	fi	
 fi 
 ##
@@ -995,9 +995,9 @@ if [ -f "$link_yuzuEA" ]; then
 	checksum_file=$(md5sum $link_yuzuEA | awk '{print $1}')
 	checksum_verified="9f20b0e6bacd2eb9723637d078d463eb"
 	   if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		  echo -e "${T}██ $C   ${T}YUZU-EA   [${W}!!${T}]   checksum fail"    	
+		  echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   checksum fail"    	
 	   else
-		  echo -e "${T}██ $C   ${F}YUZU-EA   ${T}❯❯   ${T}/$version/"
+		  echo -e "${T}██ ${C}   ${F}YUZU-EA   ${T}❯❯   ${T}/$version/"
 		  rm -rf $temp/yuzuea 2>/dev/null
 		  mkdir $temp/yuzuea 2>/dev/null
 		  cd $temp/yuzuea
@@ -1087,7 +1087,7 @@ if [ -f "$link_yuzuEA" ]; then
 		  echo "$ver" >> /userdata/system/switch/extra/yuzuea/version.txt
 		fi
 	else
-		echo -e "${T}██ $C   ${T}YUZU-EA   [${W}!!${T}]   place yuzuEA.AppImage in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   place yuzuEA.AppImage in /userdata/system/switch/"	
 	fi	
 fi
 ##
@@ -1113,9 +1113,9 @@ if [ -f "$link_ryujinx" ]; then
 	checksum_file=$(md5sum $link_ryujinx | awk '{print $1}')
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}██ $C   ${F}RYUJINX   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   checksum fail"    	
 		else
-		  echo -e "${T}██ $C   ${F}RYUJINX   ${T}❯❯   ${T}$version"
+		  echo -e "${T}██ ${C}   ${F}RYUJINX   ${T}❯❯   ${T}$version"
 #if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
 #version=$(echo "$version" | sed 's,1\.1\.,,g')
 #if [[ "$version" = "1215" ]]; then
@@ -1257,7 +1257,7 @@ if [ -f "$link_ryujinx" ]; then
 		  fi
 		fi
 	else
-		echo -e "${T}██ $C   ${F}RYUJINX   [${W}!!${T}]   place ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
 	fi
 fi
 #
@@ -1276,10 +1276,10 @@ if [ -f "$link_ryujinxldn" ]; then
 	checksum_file=$(md5sum $link_ryujinxldn | awk '{print $1}')
 	checksum_verified="1c2b6297d055552dfaac9b1aed0932f1"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}██ $C   ${F}RYUJINX-LDN   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   checksum fail"    	
 		else
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
-		  echo -e "${T}██ $C   ${F}RYUJINX-LDN   ${T}❯❯   ${T}$version"
+		  echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   ${T}❯❯   ${T}$version"
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -1417,7 +1417,7 @@ if [ -f "$link_ryujinxldn" ]; then
 		  echo "368" >> /userdata/system/switch/extra/ryujinxldn/version.txt
 		fi
 	else
-		echo -e "${T}██ $C   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz in /userdata/system/switch/"	
 	fi
 fi
 #
@@ -1441,11 +1441,11 @@ if [ -f "$link_ryujinxavalonia" ]; then
 	checksum_file=$(md5sum $link_ryujinxavalonia | awk '{print $1}')
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}██ $C   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   checksum fail"    	
 		else
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then version="382"; fi
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
-		  echo -e "${T}██ $C   ${F}RYUJINX-AVALONIA   ${T}❯❯   ${T}$version"
+		  echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   ${T}❯❯   ${T}$version"
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
@@ -1581,10 +1581,9 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then ver="382"; fi
 			rm /userdata/system/switch/extra/ryujinxavalonia/version.txt 2>/dev/null
 			echo "$ver" >> /userdata/system/switch/extra/ryujinxavalonia/version.txt
-		  fi
 		fi
 	else
-		echo -e "${T}██ $C   $F}RYUJINX-AVALONIA   [${W}!!${T}]   place test-ava-ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   place test-ava-ryujinx-1.1.1403-linux_x64.tar.gz in /userdata/system/switch/"	
 	fi
 #
 #
