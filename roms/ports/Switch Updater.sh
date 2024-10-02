@@ -3,7 +3,7 @@
 #                      PORTS: SWITCH UPDATER                        #
 #                  -----------------------------                    #
 #                 > https://discord.gg/SWBvBkmn9P                   #
-#              > github.com/mikhailzrick/batocera-switch                #
+#              > github.com/mikhailzrick/batocera-switch            #
 #####################################################################
 updater=/userdata/system/switch/extra/batocera-switch-updater.sh
 rm "$updater" 2>/dev/null 
