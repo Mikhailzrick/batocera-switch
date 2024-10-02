@@ -288,16 +288,16 @@ echo
 echo
 # restore xterm font
 X='\033[0m' # / resetcolor
-echo -e "${X}LOADING ${X}SWITCH UPDATER${X} . . ." 
-echo -e "${X} "
+#echo -e "${X}LOADING ${X}SWITCH UPDATER${X} . . ." 
+#echo -e "${X} "
 rm -rf /userdata/system/switch/extra/installation 2>/dev/null
 rm /tmp/batocera-switch-updater.sh 2>/dev/null 
-mkdir -p /tmp 2>/dev/null
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/batocera-switch-updater.sh" "https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh" 
-sed -i 's,MODE=DISPLAY,MODE=CONSOLE,g' /tmp/batocera-switch-updater.sh 2>/dev/null
-dos2unix /tmp/batocera-switch-updater.sh 2>/dev/null 
-chmod a+x /tmp/batocera-switch-updater.sh 2>/dev/null 
-/tmp/batocera-switch-updater.sh CONSOLE 
+#mkdir -p /tmp 2>/dev/null
+#wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/batocera-switch-updater.sh" "https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh" 
+#sed -i 's,MODE=DISPLAY,MODE=CONSOLE,g' /tmp/batocera-switch-updater.sh 2>/dev/null
+#dos2unix /tmp/batocera-switch-updater.sh 2>/dev/null 
+#chmod a+x /tmp/batocera-switch-updater.sh 2>/dev/null 
+#/tmp/batocera-switch-updater.sh CONSOLE 
 sleep 0.1 
 echo "OK" >> /userdata/system/switch/extra/installation
 sleep 0.1
@@ -324,6 +324,8 @@ echo
 echo 
 echo
 echo -e "   ${X}-----------------------------------------------------${X}"
+echo -e "   ${X}Place install files into /userdata/system/switch/${X}"
+echo -e "   ${X}Run Switch Updater.sh from ports${X}"
 echo -e "   ${X}Place your keys into /userdata/bios/switch/${X}" 
 echo -e "   ${X}Firmware *.nca into /userdata/bios/switch/firmware/${X}" 
 echo
