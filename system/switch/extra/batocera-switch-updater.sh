@@ -969,8 +969,7 @@ if [ -f "$link_yuzu" ]; then
 		   cd ~/ 
 #send version to cookie: 
 		   #ver=$(echo "$link_yuzu" | sed 's,^.*mainline-0-,,g' | cut -d "/" -f1)
-		   #rm /userdata/system/switch/extra/yuzu/version.txt 2>/dev/null
-		   #echo "$ver" >> /userdata/system/switch/extra/yuzu/version.txt
+		   rm /userdata/system/switch/extra/yuzu/version.txt 2>/dev/null
 		   echo $version >> /userdata/system/switch/extra/yuzu/version.txt
 		fi
 	else
@@ -1253,7 +1252,7 @@ if [ -f "$link_ryujinx" ]; then
 # send version to cookie: 
 #		  ver=$(echo "$link_ryujinx" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
 #		  if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then ver="382"; fi
-#			rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
+		  rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
 		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt
 		fi
 	else
@@ -1414,7 +1413,7 @@ if [ -f "$link_ryujinxldn" ]; then
 		  echo
 		  cd ~/
 # send version to cookie: 
-#		  rm /userdata/system/switch/extra/ryujinxldn/version.txt 2>/dev/null
+		  rm /userdata/system/switch/extra/ryujinxldn/version.txt 2>/dev/null
 		  echo "368" >> /userdata/system/switch/extra/ryujinxldn/version.txt
 		fi
 	else
@@ -1581,7 +1580,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 # send version to cookie: 
 #		  ver=$(echo "$link_ryujinxavalonia" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then ver="382"; fi
-#			rm /userdata/system/switch/extra/ryujinxavalonia/version.txt 2>/dev/null
+		  rm /userdata/system/switch/extra/ryujinxavalonia/version.txt 2>/dev/null
 		  echo $version >> /userdata/system/switch/extra/ryujinxavalonia/version.txt
 		fi
 	else
