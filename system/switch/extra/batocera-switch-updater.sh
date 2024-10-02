@@ -1106,7 +1106,7 @@ T=$THEME_COLOR_RYUJINX
 #      version=$(echo "$link_ryujinx" | sed 's,^.*/download/,,g' | cut -d "/" -f1)
 #   fi
 link_ryujinx="/userdata/system/switch/ryujinx-1.1.1403-linux_x64.tar.gz"
-version="1.1.1403"
+version="1403"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinx" ]; then
@@ -1415,7 +1415,7 @@ if [ -f "$link_ryujinxldn" ]; then
 		  cd ~/
 # send version to cookie: 
 #		  rm /userdata/system/switch/extra/ryujinxldn/version.txt 2>/dev/null
-		  echo $version >> /userdata/system/switch/extra/ryujinxldn/version.txt
+		  echo "368" >> /userdata/system/switch/extra/ryujinxldn/version.txt
 		fi
 	else
 		echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz in /userdata/system/switch/"	
@@ -1435,7 +1435,7 @@ T=$THEME_COLOR_RYUJINXAVALONIA
 #      version=$(echo "$link_ryujinxavalonia" | sed 's,^.*/download/,,g' | cut -d "/" -f1)
 #   fi
 link_ryujinxavalonia="/userdata/system/switch/test-ava-ryujinx-1.1.1403-linux_x64.tar.gz"
-version="1.1.1403"
+version="1403"
 # --------------------------------------------------------
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinxavalonia" ]; then
