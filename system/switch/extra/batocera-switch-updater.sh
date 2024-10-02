@@ -1293,11 +1293,11 @@ if [ -f "$link_ryujinxldn" ]; then
 		  if [[ ! -e "/usr/lib/libselinux.so.1" ]]; then
 			wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"
 			###curl -sSf "$link_libselinux" -o "$extra/batocera-switch-libselinux.so.1"
-		  if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then 
-			if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then 
-			  wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"   
-			fi
-		  fi
+		    if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then 
+			  if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then 
+			    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"   
+			  fi
+		    fi
 			chmod a+x "$extra/batocera-switch-libselinux.so.1"
 			cp "$extra/batocera-switch-libselinux.so.1" "/usr/lib/libselinux.so.1" 2>/dev/null
 		  fi
