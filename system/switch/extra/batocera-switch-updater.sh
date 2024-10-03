@@ -1584,7 +1584,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  echo $version >> /userdata/system/switch/extra/ryujinxavalonia/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   ryujinxava1403.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   place ryujinxava1403.tar.gz in /userdata/system/switch/"	
 	fi
 fi	
 #
