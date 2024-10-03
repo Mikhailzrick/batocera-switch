@@ -2812,6 +2812,19 @@ path=/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path" "$file"
    dos2unix "$path" 2>/dev/null
    chmod 777 "$path" 2>/dev/null
+# FIX CONFIGGEN DEFAULT
+CONFIG_FILE="/usr/share/batocera/configgen/configgen-defaults.yml"
+if [[ -f "$CONFIG_FILE" ]]; then
+  # Check if suyu is the default switch emulator and change to yuzu. Needed for V40. May be depreciated in the future.
+  if grep -qzP "switch:\s+emulator:\s+suyu\s+core:\s+suyu" "$CONFIG_FILE"; then
+    sed -i '/switch:/,/hud_support: false/{
+      s/emulator: suyu/emulator: yuzu/
+      s/core:     suyu/core:     yuzu/
+      /options:/d
+      /hud_support: false/d
+    }' "$CONFIG_FILE"
+  fi
+fi
 # --------------------------------------------------------------------
 chmod 777 /userdata/system/switch/extra/*.sh 2>/dev/null
 # --------------------------------------------------------------------
