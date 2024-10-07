@@ -3,43 +3,43 @@
 # v3.3                SWITCH EMULATORS UPDATER FOR BATOCERA                    #
 #                   ----------------------------------------                   #
 #                     > github.com/mikhailzrick/batocera-switch                #
-#                        > https://discord.gg/SWBvBkmn9P                       #     
+#                        > https://discord.gg/SWBvBkmn9P                       #
 ################################################################################
 #  ---------------
-#     SETTINGS 
+#     SETTINGS
 #  ---------------
 #
-EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA" 
+EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
 #        |
 #        default: "YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
 #
-#   EMULATORS="RYUJINX YUZU"  -->  will only update ryujinx & then yuzu   
-#   EMULATORS="YUZUEA"  -->  will only update yuzu early access     
+#   EMULATORS="RYUJINX YUZU"  -->  will only update ryujinx & then yuzu
+#   EMULATORS="YUZUEA"  -->  will only update yuzu early access
 #
 ################################################################################
 #
-MODE=DISPLAY 
-#   | 
-#   default: DISPLAY 
+MODE=DISPLAY
+#   |
+#   default: DISPLAY
 #
-#   MODE=DISPLAY  -->  for ports; uses fullscreen xterm process to show updater  
-#   MODE=CONSOLE  -->  for ssh/console/xterm; no colors, no additional display  
-#                
+#   MODE=DISPLAY  -->  for ports; uses fullscreen xterm process to show updater
+#   MODE=CONSOLE  -->  for ssh/console/xterm; no colors, no additional display
+#
     ANIMATION=NO
-#   plays loading animation when starting the udpater    
+#   plays loading animation when starting the udpater
 #
 ################################################################################
 #
 UPDATES=UNLOCKED
-#      | 
+#      |
 #      default: LOCKED
-#       
-#   UPDATES=LOCKED  -->  limit ryujinx to version 1.1.382 for compatibility 
-#   UPDATES=UNLOCKED  -->  download latest versions of ryujinx emulators 
 #
-#   *) use this option if you want to update ryujinx to latest releases, 
-#   and use manual controller config (you can do it in 
-#   [[ f1 menu ]] --> ryujinx-avalonia   
+#   UPDATES=LOCKED  -->  limit ryujinx to version 1.1.382 for compatibility
+#   UPDATES=UNLOCKED  -->  download latest versions of ryujinx emulators
+#
+#   *) use this option if you want to update ryujinx to latest releases,
+#   and use manual controller config (you can do it in
+#   [[ f1 menu ]] --> ryujinx-avalonia
 #
 #################################################################################
 #
@@ -47,8 +47,8 @@ TEXT_SIZE=AUTO
 #        |
 #        default: AUTO
 #
-#   TEXT_SIZE=10  -->  will use custom font size, = 10  
-# 
+#   TEXT_SIZE=10  -->  will use custom font size, = 10
+#
 ################################################################################
 #
 TEXT_COLOR=WHITE
@@ -105,7 +105,7 @@ export DISPLAY=:0.0
 # --------------------------------------------------------------------
 cp $(which xterm) /tmp/batocera-switch-updater && chmod 777 /tmp/batocera-switch-updater
 # --------------------------------------------------------------------
-if [[ "$1" = "CONSOLE" ]] || [[ "$1" = "console" ]]; then 
+if [[ "$1" = "CONSOLE" ]] || [[ "$1" = "console" ]]; then
 MODE=CONSOLE
 fi
 function check-connection() {
@@ -115,22 +115,22 @@ case "$(curl -s --max-time 2 -I http://github.com | sed 's/^[^ ]*  *\([0-9]\).*/
   [23]) net1="on";;
   5) net1="off";;
   *) net1="off";;
-esac 
+esac
 ping -q -w 1 -c 1 github.com > /dev/null && net2="on" || net2="off"
 wget -q --spider http://github.com && if [ $? -eq 0 ]; then net3="on"; else net3="off"; fi
-if [[ "$net1" = "off" ]] && [[ "$net2" = "off" ]] && [[ "$net3" = "off" ]]; then net="off"; fi 
-if [[ "$net1" = "on" ]] || [[ "$net2" = "on" ]] || [[ "$net3" = "on" ]]; then net="on"; fi 
+if [[ "$net1" = "off" ]] && [[ "$net2" = "off" ]] && [[ "$net3" = "off" ]]; then net="off"; fi
+if [[ "$net1" = "on" ]] || [[ "$net2" = "on" ]] || [[ "$net3" = "on" ]]; then net="on"; fi
 ##
-if [[ "$net" = "off" ]]; then 
+if [[ "$net" = "off" ]]; then
 DISPLAY=:0.0 /tmp/batocera-switch-updater -fs 10 -maximized -fg black -bg black -fa "DejaVuSansMono" -en UTF-8 -e bash -c "echo -e \"\n \033[0;37m NO INTERNET CONNECTION :( \033[0;30m \" & sleep 3" 2>/dev/null && exit 0 & exit 1 & exit 2
-fi 
+fi
 }
 function check_internet() {
     # Check using curl
     if curl -s --max-time 2 -I http://github.com | grep -q "HTTP/[12].[01] [23].."; then
         return 0
-    fi 
-    
+    fi
+
     # Check using ping
     if ping -q -w 1 -c 1 github.com > /dev/null; then
         return 0
@@ -147,21 +147,21 @@ function check_internet() {
 # Check for an internet connection
 if check_internet; then
    net="on"
-else 
-   DISPLAY=:0.0 /tmp/batocera-switch-updater -fs 10 -maximized -fg black -bg black -fa "DejaVuSansMono" -en UTF-8 -e bash -c "echo -e \"\n \033[0;37m NO INTERNET CONNECTION :( \033[0;30m \" & sleep 3" 2>/dev/null && exit 0 && exit 1 && exit 2   
+else
+   DISPLAY=:0.0 /tmp/batocera-switch-updater -fs 10 -maximized -fg black -bg black -fa "DejaVuSansMono" -en UTF-8 -e bash -c "echo -e \"\n \033[0;37m NO INTERNET CONNECTION :( \033[0;30m \" & sleep 3" 2>/dev/null && exit 0 && exit 1 && exit 2
 fi
 # --------------------------------------------------------------------
-# clear old logs: 
+# clear old logs:
 rm -rf /userdata/system/switch/extra/logs 2>/dev/null
 mkdir -p /userdata/system/switch/logs 2>/dev/null
 # --------------------------------------------------------------------
-# clear all old/broken/user desktop shortcuts: 
+# clear all old/broken/user desktop shortcuts:
 rm -rf /userdata/system/switch/*.desktop 2>/dev/null
 # --------------------------------------------------------------------
-# PREPARE SHORTCUTS FOR F1-APPLICATIONS MENU 
+# PREPARE SHORTCUTS FOR F1-APPLICATIONS MENU
 # --------------------------------------------------------------------
-function generate-shortcut-launcher { 
-# SCALING FOR F1 APPS, DEFAULT 128@1 
+function generate-shortcut-launcher {
+# SCALING FOR F1 APPS, DEFAULT 128@1
 DPI=128
 SCALE=1
 Name=$1
@@ -173,30 +173,30 @@ f=$extra/$Name.desktop
 rm -rf "$f" 2>/dev/null
    echo "[Desktop Entry]" >> "$f"
    echo "Version=1.0" >> "$f"
-      if [[ "$Name" = "yuzu" ]]; then 
+      if [[ "$Name" = "yuzu" ]]; then
          echo "Icon=/userdata/system/switch/extra/icon_yuzu.png" >> "$f"
-         echo 'Exec=/userdata/system/switch/yuzu.AppImage' >> "$f" 
+         echo 'Exec=/userdata/system/switch/yuzu.AppImage' >> "$f"
          fi
-      if [[ "$Name" = "yuzuEA" ]]; then 
+      if [[ "$Name" = "yuzuEA" ]]; then
          echo "Icon=/userdata/system/switch/extra/icon_yuzu.png" >> "$f"
-         echo 'Exec=/userdata/system/switch/yuzuEA.AppImage' >> "$f" 
+         echo 'Exec=/userdata/system/switch/yuzuEA.AppImage' >> "$f"
          fi
-      if [[ "$Name" = "Ryujinx" ]]; then 
+      if [[ "$Name" = "Ryujinx" ]]; then
          echo "Icon=/userdata/system/switch/extra/icon_ryujinx.png" >> "$f"
-         echo 'Exec=/userdata/system/switch/Ryujinx.AppImage' >> "$f" 
+         echo 'Exec=/userdata/system/switch/Ryujinx.AppImage' >> "$f"
          fi
-      if [[ "$Name" = "Ryujinx-LDN" ]]; then 
+      if [[ "$Name" = "Ryujinx-LDN" ]]; then
          echo "Icon=/userdata/system/switch/extra/icon_ryujinx.png" >> "$f"
-         echo 'Exec=/userdata/system/switch/Ryujinx-LDN.AppImage' >> "$f" 
+         echo 'Exec=/userdata/system/switch/Ryujinx-LDN.AppImage' >> "$f"
          fi
-      if [[ "$Name" = "Ryujinx-Avalonia" ]]; then 
+      if [[ "$Name" = "Ryujinx-Avalonia" ]]; then
          echo "Icon=/userdata/system/switch/extra/icon_ryujinx.png" >> "$f"
-         echo 'Exec=/userdata/system/switch/Ryujinx-Avalonia.AppImage' >> "$f" 
+         echo 'Exec=/userdata/system/switch/Ryujinx-Avalonia.AppImage' >> "$f"
          fi
-      if [[ "$Name" = "switch-updater" ]]; then 
+      if [[ "$Name" = "switch-updater" ]]; then
          echo "Icon=/userdata/system/switch/extra/icon_updater.png" >> "$f"
-         echo 'Exec=/userdata/system/switch/extra/batocera-switch-desktopupdater.sh' >> "$f" 
-         #also prepare desktop updater 
+         echo 'Exec=/userdata/system/switch/extra/batocera-switch-desktopupdater.sh' >> "$f"
+         #also prepare desktop updater
          ####################################################################
             u=/userdata/system/switch/extra/batocera-switch-desktopupdater.sh
                rm "$u" 2>/dev/null
@@ -219,18 +219,18 @@ rm -rf "$f" 2>/dev/null
    echo "Type=Application" >> "$f"
    echo "Categories=Game;batocera.linux;" >> "$f"
    ####
-   if [[ "$Name" != "switch-updater" ]]; then 
+   if [[ "$Name" != "switch-updater" ]]; then
       echo "Name=$name-config" >> "$f"
    else
       echo "Name=$name" >> "$f"
-   fi 
+   fi
    ####
       dos2unix "$f" 2>/dev/null
       chmod a+x "$f" 2>/dev/null
-} 
+}
 # -----------------------------------------------------------------
 #
-# remove old version dekstop shortcuts from ~/.local/share/applications 
+# remove old version dekstop shortcuts from ~/.local/share/applications
 rm /userdata/system/.local/share/applications/yuzu-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/yuzuEA-config.desktop 2>/dev/null
 rm /userdata/system/.local/share/applications/ryujinx-config.desktop 2>/dev/null
@@ -247,7 +247,7 @@ rm /usr/share/applications/yuzuea-config.desktop 2>/dev/null
 rm /usr/share/applications/ryujinx-config.desktop 2>/dev/null
 rm /usr/share/applications/ryujinxavalonia-config.desktop 2>/dev/null
 rm /usr/share/applications/ryujinxldn-config.desktop 2>/dev/null
-# generate new desktop shortcuts: 
+# generate new desktop shortcuts:
 generate-shortcut-launcher 'yuzu' 'yuzu'
 generate-shortcut-launcher 'yuzuEA' 'yuzuEA'
 generate-shortcut-launcher 'Ryujinx' 'ryujinx'
@@ -262,19 +262,19 @@ if [[ "$EMULATORS" == *"DEFAULT"* ]] || [[ "$EMULATORS" == *"default"* ]] || [[ 
    EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
    EMULATORS=$(echo "$EMULATORS ")
 fi
-if [ "$(echo $EMULATORS | grep "-")" = "" ]; then 
+if [ "$(echo $EMULATORS | grep "-")" = "" ]; then
 EMULATORS="$EMULATORS-"
 fi
 EMULATORS="$(echo $EMULATORS | sed 's/ /-/g')"
    # GET EMULATORS FROM CONFIG FILE -------------------------------------
    cfg=/userdata/system/switch/CONFIG.txt
-   if [[ ! -f $cfg ]]; then 
+   if [[ ! -f $cfg ]]; then
       link_defaultconfig=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "$link_defaultconfig"
       ###curl -sSf "$link_defaultconfig" -o "/userdata/system/switch/CONFIG.txt"
-   fi 
+   fi
    dos2unix $cfg 1>/dev/null 2>/dev/null
-   if [[ -f $cfg ]]; then 
+   if [[ -f $cfg ]]; then
       # check config file version & update ---------------------------
       link_defaultconfig=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
       rm "/tmp/.CONFIG.txt" 2>/dev/null
@@ -284,8 +284,8 @@ EMULATORS="$(echo $EMULATORS | sed 's/ /-/g')"
          if [[ "$currentver" = "" ]]; then currentver=1.0.0; fi
          latestver=$(cat "/tmp/.CONFIG.txt" | grep "(ver " | head -n1 | sed 's,^.*(ver ,,g' | cut -d ")" -f1)
             currentver=$(echo "$currentver" | sed 's,\.,,g')
-            latestver=$(echo "$latestver" | sed 's,\.,,g')            
-               if [ $latestver -gt $currentver ]; then 
+            latestver=$(echo "$latestver" | sed 's,\.,,g')
+               if [ $latestver -gt $currentver ]; then
                   cp /tmp/.CONFIG.txt $cfg 2>/dev/null
                   echo -e "\n~/switch/CONFIG.txt FILE HAS BEEN UPDATED!\n"
                fi
@@ -294,49 +294,49 @@ EMULATORS="$(echo $EMULATORS | sed 's/ /-/g')"
          if [[ "$EMULATORS" == *"DEFAULT"* ]] || [[ "$EMULATORS" == *"default"* ]] || [[ "$EMULATORS" == *"ALL"* ]] || [[ "$EMULATORS" == *"all"* ]]; then
             EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
          fi
-         if [ "$(echo $EMULATORS | grep "-")" = "" ]; then 
+         if [ "$(echo $EMULATORS | grep "-")" = "" ]; then
             EMULATORS="$EMULATORS-"
             EMULATORS=$(echo $EMULATORS | sed 's/ /-/g')
          fi
    #echo "2EMULATORS=$EMULATORS"
-   fi 
+   fi
 #exit 0
    # /GET EMULATORS FROM CONFIG FILE -------------------------------------
 # -------------------------------------------------------------------
 rm /tmp/updater-settings 2>/dev/null
-if [[ "$UPDATES" = "LOCKED" ]] || [[ "$UPDATES" = "locked" ]]; then 
-echo "updates=locked" >> /tmp/updater-settings 
-fi 
-if [[ "$UPDATES" = "UNLOCKED" ]] || [[ "$UPDATES" = "unlocked" ]]; then 
-echo "updates=unlocked" >> /tmp/updater-settings 
-fi 
+if [[ "$UPDATES" = "LOCKED" ]] || [[ "$UPDATES" = "locked" ]]; then
+echo "updates=locked" >> /tmp/updater-settings
+fi
+if [[ "$UPDATES" = "UNLOCKED" ]] || [[ "$UPDATES" = "unlocked" ]]; then
+echo "updates=unlocked" >> /tmp/updater-settings
+fi
 # -------------------------------------------------------------------
 rm /tmp/updater-mode 2>/dev/null
-echo "MODE=$MODE" >> /tmp/updater-mode 
+echo "MODE=$MODE" >> /tmp/updater-mode
 # -------------------------------------------------------------------
 # get animation
-#if [[ "$MODE" = "DISPLAY" ]] || [[ "$MODE" = "display" ]]; then 
+#if [[ "$MODE" = "DISPLAY" ]] || [[ "$MODE" = "display" ]]; then
 #   if [[ ( "$ANIMATION" = "YES" ) || ( "$ANIMATION" = "yes" ) ]]; then
-#   url_loader=https://github.com/uureel/batocera-switch/raw/main/system/switch/extra/loader.mp4
-#   loader=/userdata/system/switch/extra/loader.mp4 
-#      if [[ ! -e "$loader" ]]; then 
+#   url_loader=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/loader.mp4
+#   loader=/userdata/system/switch/extra/loader.mp4
+#      if [[ ! -e "$loader" ]]; then
 #         wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O $loader $url_loader 2>/dev/null
 #         ###curl -sSf "$url_loader" -o "$loader"
-#      fi 
-#      if [[ -e "$loader" ]] && [[ "$(wc -c $loader | awk '{print $1}')" < "6918849" ]]; then 
+#      fi
+#      if [[ -e "$loader" ]] && [[ "$(wc -c $loader | awk '{print $1}')" < "6918849" ]]; then
 #         wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O $loader $url_loader 2>/dev/null
 #         ###curl -sSf "$url_loader" -o "$loader"
 #      fi
 #   fi
 #fi
 # -------------------------------------------------------------------
-# get tar dependencies 
-# \\ 
+# get tar dependencies
+# \\
 link_tar=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
 link_libselinux=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
-if [[ -e "$extra/batocera-switch-tar" ]]; then 
+if [[ -e "$extra/batocera-switch-tar" ]]; then
 chmod a+x "$extra/batocera-switch-tar"
-else 
+else
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-tar" "$link_tar"
 ###curl -sSf "$link_tar" -o "$extra/batocera-switch-tar"
 chmod a+x "$extra/batocera-switch-tar"
@@ -347,22 +347,22 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/bat
 chmod a+x "$extra/batocera-switch-libselinux.so.1"
 cp "$extra/batocera-switch-libselinux.so.1" "/usr/lib/libselinux.so.1" 2>/dev/null
 fi
-if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then 
+if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then
    cp /userdata/system/switch/extra/batocera-switch-libselinux.so.1 cp /userdata/system/switch/extra/libselinux.so.1 2>/dev/null
 fi
 # //
 # -------------------------------------------------------------------
 rm /tmp/updater-textsize 2>/dev/null
-   if [[ "$(echo $TEXT_SIZE | grep "AUTO")" != "" ]] || [[ "$(echo $TEXT_SIZE | grep "auto")" != "" ]]; then 
-      echo "$TEXT_SIZE" >> /tmp/updater-textsize 
+   if [[ "$(echo $TEXT_SIZE | grep "AUTO")" != "" ]] || [[ "$(echo $TEXT_SIZE | grep "auto")" != "" ]]; then
+      echo "$TEXT_SIZE" >> /tmp/updater-textsize
    fi
 # -------------------------------------------------------------------
 temp=/userdata/system/switch/extra/downloads
 mkdir /userdata/system/switch 2>/dev/null
 mkdir /userdata/system/switch/extra 2>/dev/null
 mkdir /userdata/system/switch/extra/downloads 2>/dev/null
-#clear 
-# TEXT & THEME COLORS: 
+#clear
+# TEXT & THEME COLORS:
 ###########################
 X='\033[0m'               # / resetcolor
 RED='\033[1;31m'          # red
@@ -383,7 +383,7 @@ WHITE='\033[0;37m'        # white
 BLACK='\033[0;30m'        # black
 ###########################
 # PARSE COLORS FOR THEMING:
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$TEXT_COLOR" = "RED" ]; then TEXT_COLOR="$RED"; fi
 if [ "$TEXT_COLOR" = "BLUE" ]; then TEXT_COLOR="$BLUE"; fi
 if [ "$TEXT_COLOR" = "GREEN" ]; then TEXT_COLOR="$GREEN"; fi
@@ -398,7 +398,7 @@ if [ "$TEXT_COLOR" = "DARKPURPLE" ]; then TEXT_COLOR="$DARKPURPLE"; fi
 if [ "$TEXT_COLOR" = "DARKCYAN" ]; then TEXT_COLOR="$DARKCYAN"; fi
 if [ "$TEXT_COLOR" = "WHITE" ]; then TEXT_COLOR="$WHITE"; fi
 if [ "$TEXT_COLOR" = "BLACK" ]; then TEXT_COLOR="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$THEME_COLOR" = "RED" ]; then THEME_COLOR="$RED"; fi
 if [ "$THEME_COLOR" = "BLUE" ]; then THEME_COLOR="$BLUE"; fi
 if [ "$THEME_COLOR" = "GREEN" ]; then THEME_COLOR="$GREEN"; fi
@@ -413,7 +413,7 @@ if [ "$THEME_COLOR" = "DARKPURPLE" ]; then THEME_COLOR="$DARKPURPLE"; fi
 if [ "$THEME_COLOR" = "DARKCYAN" ]; then THEME_COLOR="$DARKCYAN"; fi
 if [ "$THEME_COLOR" = "WHITE" ]; then THEME_COLOR="$WHITE"; fi
 if [ "$THEME_COLOR" = "BLACK" ]; then THEME_COLOR="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$THEME_COLOR_OK" = "RED" ]; then THEME_COLOR_OK="$RED"; fi
 if [ "$THEME_COLOR_OK" = "BLUE" ]; then THEME_COLOR_OK="$BLUE"; fi
 if [ "$THEME_COLOR_OK" = "GREEN" ]; then THEME_COLOR_OK="$GREEN"; fi
@@ -428,7 +428,7 @@ if [ "$THEME_COLOR_OK" = "DARKPURPLE" ]; then THEME_COLOR_OK="$DARKPURPLE"; fi
 if [ "$THEME_COLOR_OK" = "DARKCYAN" ]; then THEME_COLOR_OK="$DARKCYAN"; fi
 if [ "$THEME_COLOR_OK" = "WHITE" ]; then THEME_COLOR_OK="$WHITE"; fi
 if [ "$THEME_COLOR_OK" = "BLACK" ]; then THEME_COLOR_OK="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$THEME_COLOR_YUZU" = "RED" ]; then THEME_COLOR_YUZU="$RED"; fi
 if [ "$THEME_COLOR_YUZU" = "BLUE" ]; then THEME_COLOR_YUZU="$BLUE"; fi
 if [ "$THEME_COLOR_YUZU" = "GREEN" ]; then THEME_COLOR_YUZU="$GREEN"; fi
@@ -443,7 +443,7 @@ if [ "$THEME_COLOR_YUZU" = "DARKPURPLE" ]; then THEME_COLOR_YUZU="$DARKPURPLE"; 
 if [ "$THEME_COLOR_YUZU" = "DARKCYAN" ]; then THEME_COLOR_YUZU="$DARKCYAN"; fi
 if [ "$THEME_COLOR_YUZU" = "WHITE" ]; then THEME_COLOR_YUZU="$WHITE"; fi
 if [ "$THEME_COLOR_YUZU" = "BLACK" ]; then THEME_COLOR_YUZU="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$THEME_COLOR_YUZUEA" = "RED" ]; then THEME_COLOR_YUZUEA="$RED"; fi
 if [ "$THEME_COLOR_YUZUEA" = "BLUE" ]; then THEME_COLOR_YUZUEA="$BLUE"; fi
 if [ "$THEME_COLOR_YUZUEA" = "GREEN" ]; then THEME_COLOR_YUZUEA="$GREEN"; fi
@@ -458,7 +458,7 @@ if [ "$THEME_COLOR_YUZUEA" = "DARKPURPLE" ]; then THEME_COLOR_YUZUEA="$DARKPURPL
 if [ "$THEME_COLOR_YUZUEA" = "DARKCYAN" ]; then THEME_COLOR_YUZUEA="$DARKCYAN"; fi
 if [ "$THEME_COLOR_YUZUEA" = "WHITE" ]; then THEME_COLOR_YUZUEA="$WHITE"; fi
 if [ "$THEME_COLOR_YUZUEA" = "BLACK" ]; then THEME_COLOR_YUZUEA="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$THEME_COLOR_RYUJINX" = "RED" ]; then THEME_COLOR_RYUJINX="$RED"; fi
 if [ "$THEME_COLOR_RYUJINX" = "BLUE" ]; then THEME_COLOR_RYUJINX="$BLUE"; fi
 if [ "$THEME_COLOR_RYUJINX" = "GREEN" ]; then THEME_COLOR_RYUJINX="$GREEN"; fi
@@ -473,7 +473,7 @@ if [ "$THEME_COLOR_RYUJINX" = "DARKPURPLE" ]; then THEME_COLOR_RYUJINX="$DARKPUR
 if [ "$THEME_COLOR_RYUJINX" = "DARKCYAN" ]; then THEME_COLOR_RYUJINX="$DARKCYAN"; fi
 if [ "$THEME_COLOR_RYUJINX" = "WHITE" ]; then THEME_COLOR_RYUJINX="$WHITE"; fi
 if [ "$THEME_COLOR_RYUJINX" = "BLACK" ]; then THEME_COLOR_RYUJINX="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$THEME_COLOR_RYUJINXLDN" = "RED" ]; then THEME_COLOR_RYUJINXLDN="$RED"; fi
 if [ "$THEME_COLOR_RYUJINXLDN" = "BLUE" ]; then THEME_COLOR_RYUJINXLDN="$BLUE"; fi
 if [ "$THEME_COLOR_RYUJINXLDN" = "GREEN" ]; then THEME_COLOR_RYUJINXLDN="$GREEN"; fi
@@ -488,7 +488,7 @@ if [ "$THEME_COLOR_RYUJINXLDN" = "DARKPURPLE" ]; then THEME_COLOR_RYUJINXLDN="$D
 if [ "$THEME_COLOR_RYUJINXLDN" = "DARKCYAN" ]; then THEME_COLOR_RYUJINXLDN="$DARKCYAN"; fi
 if [ "$THEME_COLOR_RYUJINXLDN" = "WHITE" ]; then THEME_COLOR_RYUJINXLDN="$WHITE"; fi
 if [ "$THEME_COLOR_RYUJINXLDN" = "BLACK" ]; then THEME_COLOR_RYUJINXLDN="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 if [ "$THEME_COLOR_RYUJINXAVALONIA" = "RED" ]; then THEME_COLOR_RYUJINXAVALONIA="$RED"; fi
 if [ "$THEME_COLOR_RYUJINXAVALONIA" = "BLUE" ]; then THEME_COLOR_RYUJINXAVALONIA="$BLUE"; fi
 if [ "$THEME_COLOR_RYUJINXAVALONIA" = "GREEN" ]; then THEME_COLOR_RYUJINXAVALONIA="$GREEN"; fi
@@ -503,13 +503,13 @@ if [ "$THEME_COLOR_RYUJINXAVALONIA" = "DARKPURPLE" ]; then THEME_COLOR_RYUJINXAV
 if [ "$THEME_COLOR_RYUJINXAVALONIA" = "DARKCYAN" ]; then THEME_COLOR_RYUJINXAVALONIA="$DARKCYAN"; fi
 if [ "$THEME_COLOR_RYUJINXAVALONIA" = "WHITE" ]; then THEME_COLOR_RYUJINXAVALONIA="$WHITE"; fi
 if [ "$THEME_COLOR_RYUJINXAVALONIA" = "BLACK" ]; then THEME_COLOR_RYUJINXAVALONIA="$BLACK"; fi
-# ---------------------------------------------------------------------------------- 
-# REPLACE COLORS FOR CONSOLE MODE: 
-   if [[ -e "/tmp/updater-mode" ]]; then 
+# ----------------------------------------------------------------------------------
+# REPLACE COLORS FOR CONSOLE MODE:
+   if [[ -e "/tmp/updater-mode" ]]; then
       MODE=$(cat /tmp/updater-mode | grep MODE | cut -d "=" -f2)
    fi
-      if [[ "$MODE" = "CONSOLE" ]]; then 
-         TEXT_COLOR=$X 
+      if [[ "$MODE" = "CONSOLE" ]]; then
+         TEXT_COLOR=$X
          THEME_COLOR=$X
          THEME_COLOR_OK=$X
          THEME_COLOR_YUZU=$X
@@ -518,7 +518,7 @@ if [ "$THEME_COLOR_RYUJINXAVALONIA" = "BLACK" ]; then THEME_COLOR_RYUJINXAVALONI
          THEME_COLOR_RYUJINXLDN=$X
          THEME_COLOR_RYUJINXAVALONIA=$X
       fi
-# PREPARE COOKIE FOR FUNCTIONS: 
+# PREPARE COOKIE FOR FUNCTIONS:
 f=/userdata/system/switch/extra/batocera-switch-updatersettings
 rm -rf "$f"
 echo "TEXT_SIZE=$TEXT_SIZE" >> "$f"
@@ -533,16 +533,16 @@ echo "THEME_COLOR_OK=$THEME_COLOR_OK" >> "$f"
    # GET EMULATORS FROM CONFIG FILE -------------------------------------
    cfg=/userdata/system/switch/CONFIG.txt
    dos2unix $cfg 1>/dev/null 2>/dev/null
-   if [[ -e "$cfg" ]]; then 
+   if [[ -e "$cfg" ]]; then
       EMULATORS="$(cat "$cfg" | grep "EMULATORS=" | cut -d "=" -f2 | head -n1 | cut -d \" -f2 | tr -d '\0')"
          if [[ "$EMULATORS" == *"DEFAULT"* ]] || [[ "$EMULATORS" == *"default"* ]] || [[ "$EMULATORS" == *"ALL"* ]] || [[ "$EMULATORS" == *"all"* ]]; then
             EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
-         fi 
-         if [ "$(echo $EMULATORS | grep "-")" = "" ]; then 
+         fi
+         if [ "$(echo $EMULATORS | grep "-")" = "" ]; then
             EMULATORS="$EMULATORS-"
             EMULATORS="$(echo $EMULATORS | sed 's/ /-/g')"
          fi
-   fi 
+   fi
    # /GET EMULATORS FROM CONFIG FILE -------------------------------------
 echo "EMULATORS=$EMULATORS" >> "$f"
 ####################################################################################
@@ -553,18 +553,18 @@ link_yuzuea="$5"
 link_ryujinx="$6"
 link_ryujinxldn="$7"
 link_ryujinxavalonia="$8"
-# ---------------------------------------------------------------------------------- 
-# LOCKING UPDATES FOR RYUJINX AUTOCONTROLLER COMPATIBILITY: 
-#link_ryujinx=https://github.com/uureel/batocera.pro/raw/main/switch/extra/ryujinx-1.1.382-linux_x64.tar.gz
-#link_ryujinxavalonia=https://github.com/uureel/batocera.pro/raw/main/switch/extra/test-ava-ryujinx-1.1.382-linux_x64.tar.gz
+# ----------------------------------------------------------------------------------
+# LOCKING UPDATES FOR RYUJINX AUTOCONTROLLER COMPATIBILITY:
+#link_ryujinx=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/ryujinx-1.1.382-linux_x64.tar.gz
+#link_ryujinxavalonia=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/test-ava-ryujinx-1.1.382-linux_x64.tar.gz
 #updates=$(cat /tmp/updater-settings | grep "updates=locked" | cut -d "=" -f2)
-#   if [[ "$updates" = "locked" ]]; then 
+#   if [[ "$updates" = "locked" ]]; then
 #      locked=1
-#      link_ryujinx=https://github.com/uureel/batocera.pro/raw/main/switch/extra/ryujinx-1.1.382-linux_x64.tar.gz
-#      link_ryujinxavalonia=https://github.com/uureel/batocera.pro/raw/main/switch/extra/test-ava-ryujinx-1.1.382-linux_x64.tar.gz
-#   fi 
-#   # unlock for v37 
-#   if [[ "$(uname -a | awk '{print $3}')" > "6.2" ]]; then 
+#      link_ryujinx=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/ryujinx-1.1.382-linux_x64.tar.gz
+#      link_ryujinxavalonia=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/test-ava-ryujinx-1.1.382-linux_x64.tar.gz
+#   fi
+#   # unlock for v37
+#   if [[ "$(uname -a | awk '{print $3}')" > "6.2" ]]; then
 #      locked=0
 #      release_ryujinx=$(curl -s --retry 5 --retry-delay 1 --retry-connrefused https://github.com/Ryujinx/release-channel-master | grep "/release-channel-master/releases/tag/" | sed 's,^.*/release-channel-master/releases/tag/,,g' | cut -d \" -f1)
 #      release_ryujinx_vanilla="$release_ryujinx"
@@ -572,32 +572,32 @@ link_ryujinxavalonia="$8"
 #      link_ryujinx=https://github.com/Ryujinx/release-channel-master/releases/download/$release_ryujinx_vanilla/ryujinx-$release_ryujinx_vanilla-linux_x64.tar.gz
 #      link_ryujinxavalonia=https://github.com/Ryujinx/release-channel-master/releases/download/$release_ryujinx/test-ava-ryujinx-$release_ryujinx-linux_x64.tar.gz
 #   fi
-#   # unlock for v<=36 // use settings from config file 
-#   if [[ "$(uname -a | awk '{print $3}')" < "6.2" ]] || [[ "$(uname -a | awk '{print $3}')" = "6.2" ]]; then 
+#   # unlock for v<=36 // use settings from config file
+#   if [[ "$(uname -a | awk '{print $3}')" < "6.2" ]] || [[ "$(uname -a | awk '{print $3}')" = "6.2" ]]; then
 #      locked=0
 #      release_ryujinx=$(curl -s --retry 5 --retry-delay 1 --retry-connrefused https://github.com/Ryujinx/release-channel-master | grep "/release-channel-master/releases/tag/" | sed 's,^.*/release-channel-master/releases/tag/,,g' | cut -d \" -f1)
 #      link_ryujinx=https://github.com/Ryujinx/release-channel-master/releases/download/$release_ryujinx/ryujinx-$release_ryujinx-linux_x64.tar.gz
 #      link_ryujinxavalonia=https://github.com/Ryujinx/release-channel-master/releases/download/$release_ryujinx/test-ava-ryujinx-$release_ryujinx-linux_x64.tar.gz
-#   fi 
+#   fi
 # ----------------------------------------------------------------------------------
-# pass info cookie: 
+# pass info cookie:
 cookie=/userdata/system/switch/extra/updates.txt
-   rm $cookie 2>/dev/null 
-   if [[ "$updates" = "locked" ]] || [[ "$locked" = 1 ]]; then 
+   rm $cookie 2>/dev/null
+   if [[ "$updates" = "locked" ]] || [[ "$locked" = 1 ]]; then
       echo "locked" >> $cookie 2>/dev/null
-   fi 
-   if [[ "$updates" = "unlocked" ]] || [[ "$locked" = 0 ]]; then 
+   fi
+   if [[ "$updates" = "unlocked" ]] || [[ "$locked" = 0 ]]; then
       echo "unlocked" >> $cookie 2>/dev/null
    fi
 # ----------------------------------------------------------------------------------
-# PATHS: 
+# PATHS:
 path_yuzu=/userdata/system/switch/yuzu.AppImage
 path_yuzuea=/userdata/system/switch/yuzuEA.AppImage
 path_ryujinx=/userdata/system/switch/Ryujinx.AppImage
 path_ryujinxldn=/userdata/system/switch/Ryujinx-LDN.AppImage
 path_ryujinxavalonia=/userdata/system/switch/Ryujinx-Avalonia.AppImage
-# ---------------------------------------------------------------------------------- 
-# READ SETTINGS FROM COOKIE: 
+# ----------------------------------------------------------------------------------
+# READ SETTINGS FROM COOKIE:
 cookie=/userdata/system/switch/extra/batocera-switch-updatersettings
 TEXT_SIZE=$(cat $cookie | grep "TEXT_SIZE=" | cut -d "=" -f 2)
 TEXT_COLOR=$(cat $cookie | grep "TEXT_COLOR=" | cut -d "=" -f 2)
@@ -614,29 +614,29 @@ EMULATORS="$(cat $cookie | grep "EMULATORS=" | cut -d "=" -f 2)"
 # --------------
 # --------------
 # \\ config file
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 # USE CUSTOM UPDATER SETTINGS FROM CONFIG FILE:
 # /USERDATA/SYSTEM/SWITCH/CONFIG.TXT
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 cfg=/userdata/system/switch/CONFIG.txt
 dos2unix $cfg 1>/dev/null 2>/dev/null
-if [[ ! -e "$cfg" ]]; then 
+if [[ ! -e "$cfg" ]]; then
 link_defaultconfig=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "$link_defaultconfig"
 ###curl -sSf "$link_defaultconfig" -o "/userdata/system/switch/CONFIG.txt"
-fi 
-if [[ -e "$cfg" ]]; then 
-   # get 
+fi
+if [[ -e "$cfg" ]]; then
+   # get
    # \\\
-   ### emulators  
+   ### emulators
    EMULATORS="$(cat "$cfg" | grep "EMULATORS=" | cut -d "=" -f2 | head -n1 | cut -d \" -f2 | tr -d '\0')"
    EMULATORS=$(echo "$EMULATORS ")
       if [[ "$EMULATORS" == *"DEFAULT"* ]] || [[ "$EMULATORS" == *"default"* ]] || [[ "$EMULATORS" == *"ALL"* ]] || [[ "$EMULATORS" == *"all"* ]]; then
          EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
       fi
-      if [ "$(echo $EMULATORS | grep "-")" = "" ]; then 
+      if [ "$(echo $EMULATORS | grep "-")" = "" ]; then
          EMULATORS="$EMULATORS-"
          EMULATORS=$(echo $EMULATORS | sed 's/ /-/g')
       fi
@@ -650,7 +650,7 @@ if [[ -e "$cfg" ]]; then
    THEME_COLOR_RYUJINXLDN=$(cat $cfg | grep "THEME_COLOR_RYUJINXLDN=" | cut -d "=" -f 2 | sed 's, ,,g' | head -n1 | tr -d '\0')
    THEME_COLOR_RYUJINXAVALONIA=$(cat $cfg | grep "THEME_COLOR_RYUJINXAVALONIA=" | cut -d "=" -f 2 | sed 's, ,,g' | head -n1 | tr -d '\0')
    THEME_COLOR_OK=$(cat $cfg | grep "THEME_COLOR_OK=" | cut -d "=" -f 2 | sed 's, ,,g' | head -n1 | tr -d '\0')
-      # TEXT & THEME COLORS: 
+      # TEXT & THEME COLORS:
       ###########################
       X='\033[0m'               # / resetcolor
       RED='\033[1;31m'          # red
@@ -671,7 +671,7 @@ if [[ -e "$cfg" ]]; then
       BLACK='\033[0;30m'        # black
       ###########################
       # PARSE COLORS FOR THEMING:
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$TEXT_COLOR" = "RED" ]; then TEXT_COLOR="$RED"; fi
       if [ "$TEXT_COLOR" = "BLUE" ]; then TEXT_COLOR="$BLUE"; fi
       if [ "$TEXT_COLOR" = "GREEN" ]; then TEXT_COLOR="$GREEN"; fi
@@ -686,7 +686,7 @@ if [[ -e "$cfg" ]]; then
       if [ "$TEXT_COLOR" = "DARKCYAN" ]; then TEXT_COLOR="$DARKCYAN"; fi
       if [ "$TEXT_COLOR" = "WHITE" ]; then TEXT_COLOR="$WHITE"; fi
       if [ "$TEXT_COLOR" = "BLACK" ]; then TEXT_COLOR="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR" = "RED" ]; then THEME_COLOR="$RED"; fi
       if [ "$THEME_COLOR" = "BLUE" ]; then THEME_COLOR="$BLUE"; fi
       if [ "$THEME_COLOR" = "GREEN" ]; then THEME_COLOR="$GREEN"; fi
@@ -701,7 +701,7 @@ if [[ -e "$cfg" ]]; then
       if [ "$THEME_COLOR" = "DARKCYAN" ]; then THEME_COLOR="$DARKCYAN"; fi
       if [ "$THEME_COLOR" = "WHITE" ]; then THEME_COLOR="$WHITE"; fi
       if [ "$THEME_COLOR" = "BLACK" ]; then THEME_COLOR="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_OK" = "RED" ]; then THEME_COLOR_OK="$RED"; fi
       if [ "$THEME_COLOR_OK" = "BLUE" ]; then THEME_COLOR_OK="$BLUE"; fi
       if [ "$THEME_COLOR_OK" = "GREEN" ]; then THEME_COLOR_OK="$GREEN"; fi
@@ -716,7 +716,7 @@ if [[ -e "$cfg" ]]; then
       if [ "$THEME_COLOR_OK" = "DARKCYAN" ]; then THEME_COLOR_OK="$DARKCYAN"; fi
       if [ "$THEME_COLOR_OK" = "WHITE" ]; then THEME_COLOR_OK="$WHITE"; fi
       if [ "$THEME_COLOR_OK" = "BLACK" ]; then THEME_COLOR_OK="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_YUZU" = "RED" ]; then THEME_COLOR_YUZU="$RED"; fi
       if [ "$THEME_COLOR_YUZU" = "BLUE" ]; then THEME_COLOR_YUZU="$BLUE"; fi
       if [ "$THEME_COLOR_YUZU" = "GREEN" ]; then THEME_COLOR_YUZU="$GREEN"; fi
@@ -731,7 +731,7 @@ if [[ -e "$cfg" ]]; then
       if [ "$THEME_COLOR_YUZU" = "DARKCYAN" ]; then THEME_COLOR_YUZU="$DARKCYAN"; fi
       if [ "$THEME_COLOR_YUZU" = "WHITE" ]; then THEME_COLOR_YUZU="$WHITE"; fi
       if [ "$THEME_COLOR_YUZU" = "BLACK" ]; then THEME_COLOR_YUZU="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_YUZUEA" = "RED" ]; then THEME_COLOR_YUZUEA="$RED"; fi
       if [ "$THEME_COLOR_YUZUEA" = "BLUE" ]; then THEME_COLOR_YUZUEA="$BLUE"; fi
       if [ "$THEME_COLOR_YUZUEA" = "GREEN" ]; then THEME_COLOR_YUZUEA="$GREEN"; fi
@@ -746,7 +746,7 @@ if [[ -e "$cfg" ]]; then
       if [ "$THEME_COLOR_YUZUEA" = "DARKCYAN" ]; then THEME_COLOR_YUZUEA="$DARKCYAN"; fi
       if [ "$THEME_COLOR_YUZUEA" = "WHITE" ]; then THEME_COLOR_YUZUEA="$WHITE"; fi
       if [ "$THEME_COLOR_YUZUEA" = "BLACK" ]; then THEME_COLOR_YUZUEA="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_RYUJINX" = "RED" ]; then THEME_COLOR_RYUJINX="$RED"; fi
       if [ "$THEME_COLOR_RYUJINX" = "BLUE" ]; then THEME_COLOR_RYUJINX="$BLUE"; fi
       if [ "$THEME_COLOR_RYUJINX" = "GREEN" ]; then THEME_COLOR_RYUJINX="$GREEN"; fi
@@ -761,7 +761,7 @@ if [[ -e "$cfg" ]]; then
       if [ "$THEME_COLOR_RYUJINX" = "DARKCYAN" ]; then THEME_COLOR_RYUJINX="$DARKCYAN"; fi
       if [ "$THEME_COLOR_RYUJINX" = "WHITE" ]; then THEME_COLOR_RYUJINX="$WHITE"; fi
       if [ "$THEME_COLOR_RYUJINX" = "BLACK" ]; then THEME_COLOR_RYUJINX="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_RYUJINXLDN" = "RED" ]; then THEME_COLOR_RYUJINXLDN="$RED"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "BLUE" ]; then THEME_COLOR_RYUJINXLDN="$BLUE"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "GREEN" ]; then THEME_COLOR_RYUJINXLDN="$GREEN"; fi
@@ -776,7 +776,7 @@ if [[ -e "$cfg" ]]; then
       if [ "$THEME_COLOR_RYUJINXLDN" = "DARKCYAN" ]; then THEME_COLOR_RYUJINXLDN="$DARKCYAN"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "WHITE" ]; then THEME_COLOR_RYUJINXLDN="$WHITE"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "BLACK" ]; then THEME_COLOR_RYUJINXLDN="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "RED" ]; then THEME_COLOR_RYUJINXAVALONIA="$RED"; fi
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "BLUE" ]; then THEME_COLOR_RYUJINXAVALONIA="$BLUE"; fi
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "GREEN" ]; then THEME_COLOR_RYUJINXAVALONIA="$GREEN"; fi
@@ -793,28 +793,28 @@ if [[ -e "$cfg" ]]; then
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "BLACK" ]; then THEME_COLOR_RYUJINXAVALONIA="$BLACK"; fi
    ### yuzu
 #   yuzu_custom_version=$(cat /userdata/system/switch/CONFIG.txt | grep "USE_YUZU_VERSION" | head -n1 | sed 's, ,,g' | cut -d "=" -f2 | sed 's, ,,g' | tr -d '\0')
-#      if [[ "$yuzu_custom_version" != "auto" ]] && [[ "$yuzu_custom_version" != "Auto" ]] && [[ "$yuzu_custom_version" != "AUTO" ]] && [[ "$yuzu_custom_version" != "A" ]] && [[ "$yuzu_custom_version" != "a" ]] && [[ "$yuzu_custom_version" != "" ]]; then 
+#      if [[ "$yuzu_custom_version" != "auto" ]] && [[ "$yuzu_custom_version" != "Auto" ]] && [[ "$yuzu_custom_version" != "AUTO" ]] && [[ "$yuzu_custom_version" != "A" ]] && [[ "$yuzu_custom_version" != "a" ]] && [[ "$yuzu_custom_version" != "" ]]; then
 #           yuzu_custom_version_hash=$(curl -Ls "https://github.com/yuzu-emu/yuzu-mainline/releases/tag/mainline-0-$yuzu_custom_version" | grep "github.com/yuzu-emu/yuzu-mainline/commit/" | head -n1 | sed 's,^.*/commit/,,g' | cut -c 1-9)
-#           yuzu_custom_version_date=$(curl -Ls "https://github.com/yuzu-emu/yuzu-mainline/releases/tag/mainline-0-$yuzu_custom_version" | grep "datetime=" | sed 's,^.*datetime=",,g' | cut -d "T" -f1 | sed 's,-,,g')        
-#           if [[ "$yuzu_custom_version_date" != "" ]] && [[ "$yuzu_custom_version_hash" != "" ]]; then 
+#           yuzu_custom_version_date=$(curl -Ls "https://github.com/yuzu-emu/yuzu-mainline/releases/tag/mainline-0-$yuzu_custom_version" | grep "datetime=" | sed 's,^.*datetime=",,g' | cut -d "T" -f1 | sed 's,-,,g')
+#           if [[ "$yuzu_custom_version_date" != "" ]] && [[ "$yuzu_custom_version_hash" != "" ]]; then
 #              link_yuzu=$(echo "https://github.com/yuzu-emu/yuzu-mainline/releases/download/mainline-0-$yuzu_custom_version/yuzu-mainline-$yuzu_custom_version_date-$yuzu_custom_version_hash.AppImage")
 #         fi
 #      fi
    ### yuzuEA
 #   yuzuEA_custom_version=$(cat /userdata/system/switch/CONFIG.txt | grep "USE_YUZUEA_VERSION" | head -n1 | sed 's, ,,g' | cut -d "=" -f2 | sed 's, ,,g' | tr -d '\0')
-#      if [[ "$yuzuEA_custom_version" != "auto" ]] && [[ "$yuzuEA_custom_version" != "Auto" ]] && [[ "$yuzuEA_custom_version" != "AUTO" ]] && [[ "$yuzuEA_custom_version" != "A" ]] && [[ "$yuzuEA_custom_version" != "a" ]] && [[ "$yuzuEA_custom_version" != "" ]]; then 
+#      if [[ "$yuzuEA_custom_version" != "auto" ]] && [[ "$yuzuEA_custom_version" != "Auto" ]] && [[ "$yuzuEA_custom_version" != "AUTO" ]] && [[ "$yuzuEA_custom_version" != "A" ]] && [[ "$yuzuEA_custom_version" != "a" ]] && [[ "$yuzuEA_custom_version" != "" ]]; then
 #           link_yuzuea=$(echo "https://github.com/pineappleEA/pineapple-src/releases/download/EA-$yuzuEA_custom_version/Linux-Yuzu-EA-$yuzuEA_custom_version.AppImage")
 #      fi
-   ### ryujinx 
+   ### ryujinx
 #   ryujinx_custom_version=$(cat /userdata/system/switch/CONFIG.txt | grep "USE_RYUJINX_VERSION" | head -n1 | sed 's, ,,g' | cut -d "=" -f2 | sed 's, ,,g' | tr -d '\0')
-#      if [[ "$ryujinx_custom_version" != "auto" ]] && [[ "$ryujinx_custom_version" != "Auto" ]] && [[ "$ryujinx_custom_version" != "AUTO" ]] && [[ "$ryujinx_custom_version" != "A" ]] && [[ "$ryujinx_custom_version" != "a" ]] && [[ "$ryujinx_custom_version" != "" ]]; then 
-#         if [[ "$(echo "$ryujinx_custom_version" | grep "1.1")" = "" ]]; then    
+#      if [[ "$ryujinx_custom_version" != "auto" ]] && [[ "$ryujinx_custom_version" != "Auto" ]] && [[ "$ryujinx_custom_version" != "AUTO" ]] && [[ "$ryujinx_custom_version" != "A" ]] && [[ "$ryujinx_custom_version" != "a" ]] && [[ "$ryujinx_custom_version" != "" ]]; then
+#         if [[ "$(echo "$ryujinx_custom_version" | grep "1.1")" = "" ]]; then
 #            ryujinx_custom_version=$(echo "1.1.$ryujinx_custom_version")
 #         fi
-#         if [[ "$(echo "$ryujinx_custom_version" | grep "382")" != "" ]]; then 
-#            link_ryujinx=https://github.com/uureel/batocera.pro/raw/main/switch/extra/ryujinx-1.1.382-linux_x64.tar.gz
-#         else 
-#            if [[ "$(echo "$ryujinx_custom_version" | sed 's,^.*1.1.,,g')" > "1215" ]]; then 
+#         if [[ "$(echo "$ryujinx_custom_version" | grep "382")" != "" ]]; then
+#            link_ryujinx=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/ryujinx-1.1.382-linux_x64.tar.gz
+#         else
+#            if [[ "$(echo "$ryujinx_custom_version" | sed 's,^.*1.1.,,g')" > "1215" ]]; then
 #               ryujinx_custom_version="1.1.1215"
 #               link_ryujinx=$(echo "https://github.com/Ryujinx/release-channel-master/releases/download/$ryujinx_custom_version/ryujinx-$ryujinx_custom_version-linux_x64.tar.gz")
 #            fi
@@ -822,13 +822,13 @@ if [[ -e "$cfg" ]]; then
 #      fi
    ### ryujinxavalonia
 #   ryujinxavalonia_custom_version=$(cat /userdata/system/switch/CONFIG.txt | grep "USE_RYUJINXAVALONIA_VERSION" | head -n1 | sed 's, ,,g' | cut -d "=" -f2 | sed 's, ,,g' | tr -d '\0')
-#      if [[ "$ryujinxavalonia_custom_version" != "auto" ]] && [[ "$ryujinxavalonia_custom_version" != "Auto" ]] && [[ "$ryujinxavalonia_custom_version" != "AUTO" ]] && [[ "$ryujinxavalonia_custom_version" != "A" ]] && [[ "$ryujinxavalonia_custom_version" != "a" ]] && [[ "$ryujinxavalonia_custom_version" != "" ]]; then 
-#         if [[ "$(echo "$ryujinxavalonia_custom_version" | grep "1.1")" = "" ]]; then  
+#      if [[ "$ryujinxavalonia_custom_version" != "auto" ]] && [[ "$ryujinxavalonia_custom_version" != "Auto" ]] && [[ "$ryujinxavalonia_custom_version" != "AUTO" ]] && [[ "$ryujinxavalonia_custom_version" != "A" ]] && [[ "$ryujinxavalonia_custom_version" != "a" ]] && [[ "$ryujinxavalonia_custom_version" != "" ]]; then
+#         if [[ "$(echo "$ryujinxavalonia_custom_version" | grep "1.1")" = "" ]]; then
 #            ryujinxavalonia_custom_version=$(echo "1.1.$ryujinxavalonia_custom_version")
 #         fi
 #            link_ryujinxavalonia=$(echo "https://github.com/Ryujinx/release-channel-master/releases/download/$ryujinxavalonia_custom_version/test-ava-ryujinx-$ryujinx_custom_version-linux_x64.tar.gz")
-#                  if [[ "$(echo "$ryujinxavalonia_custom_version" | grep "382")" != "" ]]; then 
-#                     link_ryujinxavalonia=https://github.com/uureel/batocera.pro/raw/main/switch/extra/test-ava-ryujinx-1.1.382-linux_x64.tar.gz
+#                  if [[ "$(echo "$ryujinxavalonia_custom_version" | grep "382")" != "" ]]; then
+#                     link_ryujinxavalonia=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/test-ava-ryujinx-1.1.382-linux_x64.tar.gz
 #                  fi
 #       fi
    # ///
@@ -838,13 +838,13 @@ fi
 # --------------
 # --------------
 #
-# OVERRIDE COLORS FOR SSH/XTERM: 
+# OVERRIDE COLORS FOR SSH/XTERM:
 X='\033[0m' # / resetcolor
-   if [[ -e "/tmp/updater-mode" ]]; then 
+   if [[ -e "/tmp/updater-mode" ]]; then
       MODE=$(cat /tmp/updater-mode | grep MODE | cut -d "=" -f2)
    fi
-      if [[ "$MODE" = "CONSOLE" ]]; then 
-         TEXT_COLOR=$X 
+      if [[ "$MODE" = "CONSOLE" ]]; then
+         TEXT_COLOR=$X
          THEME_COLOR=$X
          THEME_COLOR_OK=$X
          THEME_COLOR_YUZU=$X
@@ -853,7 +853,7 @@ X='\033[0m' # / resetcolor
          THEME_COLOR_RYUJINXLDN=$X
          THEME_COLOR_RYUJINXAVALONIA=$X
       fi
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
 # RUN UPDATER FOR SELECTED EMULATOR:
 # ----------------------------------------------------------------------------------
 extra=/userdata/system/switch/extra
@@ -861,13 +861,13 @@ temp=/userdata/system/switch/extra/downloads
 mkdir /userdata/system/switch 2>/dev/null
 mkdir /userdata/system/switch/extra 2>/dev/null
 mkdir /userdata/system/switch/extra/downloads 2>/dev/null
-# 
 #
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+#
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 # EMULATORS UPDATERS:·
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 #
 #
 ##
@@ -880,35 +880,35 @@ if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_yuzu" ]; then
 	checksum_file=$(md5sum $link_yuzu | awk '{print $1}')
 	checksum_verified="fc405e5cdf0b506a3f3b28b87dacbcae"
-		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   checksum fail"    	
+		if [[ "$checksum_file" != "$checksum_verified" ]]; then
+		   echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   checksum fail"
 		else
 		   rm -rf $temp/yuzu 2>/dev/null
 	       mkdir -p $temp/yuzu 2>/dev/null
 	       cd $temp/yuzu
 	       mv $link_yuzu $temp/yuzu/yuzu.AppImage 2>/dev/null
-		   echo -e "${T}██ ${C}   ${F}YUZU   ${T}❯❯   ${T}/$version/"	
+		   echo -e "${T}██ ${C}   ${F}YUZU   ${T}❯❯   ${T}/$version/"
 		   chmod a+x "$temp/yuzu/yuzu.AppImage" 2>/dev/null
-		   $temp/yuzu/yuzu.AppImage --appimage-extract 1>/dev/null 2>/dev/null 
+		   $temp/yuzu/yuzu.AppImage --appimage-extract 1>/dev/null 2>/dev/null
 		   mkdir /userdata/system/switch 2>/dev/null
 		   mkdir /userdata/system/switch/extra 2>/dev/null
 		   mkdir /userdata/system/switch/extra/yuzu 2>/dev/null
-		   cp $temp/yuzu/squashfs-root/usr/lib/libQt5* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
+		   cp $temp/yuzu/squashfs-root/usr/lib/libQt5* /userdata/system/switch/extra/yuzu/ 2>/dev/null
 		   #rm /userdata/system/switch/extra/yuzu/libQ* 2>/dev/null
-		   cp $temp/yuzu/squashfs-root/usr/lib/libcrypto* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
-		   cp $temp/yuzu/squashfs-root/usr/lib/libssl* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
-		   cp $temp/yuzu/squashfs-root/usr/lib/libicu* /userdata/system/switch/extra/yuzu/ 2>/dev/null 
+		   cp $temp/yuzu/squashfs-root/usr/lib/libcrypto* /userdata/system/switch/extra/yuzu/ 2>/dev/null
+		   cp $temp/yuzu/squashfs-root/usr/lib/libssl* /userdata/system/switch/extra/yuzu/ 2>/dev/null
+		   cp $temp/yuzu/squashfs-root/usr/lib/libicu* /userdata/system/switch/extra/yuzu/ 2>/dev/null
 		   cp $temp/yuzu/squashfs-root/usr/bin/yuzu /userdata/system/switch/extra/yuzu/yuzu 2>/dev/null
 		   cp $temp/yuzu/squashfs-root/usr/bin/yuzu-room /userdata/system/switch/extra/yuzu/yuzu-room 2>/dev/null
 		   cd $temp
-# fix broken libstdc++.so.6 for v37 
-		   if [[ "$(uname -a | awk '{print $3}')" > "6.2" ]]; then 
+# fix broken libstdc++.so.6 for v37
+		   if [[ "$(uname -a | awk '{print $3}')" > "6.2" ]]; then
 			  link_libstdc=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-libstdc++.so.6
 			  wget -q --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/yuzu/libstdc++.so.6" "$link_libstdc"
-		   else 
+		   else
 			  rm /userdata/system/switch/extra/yuzu/libstdc++.so.6 2>/dev/null
 		   fi
-# add yuzu's bundled 'optional' libs 
+# add yuzu's bundled 'optional' libs
 		   cp $temp/yuzu/squashfs-root/usr/optional/libstdc++/libstdc++.so.6 /userdata/system/switch/extra/yuzu/libstdc++.so.6
 		   cp $temp/yuzu/squashfs-root/usr/optional/libgcc_s/libgcc_s.so.1 /userdata/system/switch/extra/yuzu/libgcc_s.so.1
 		   cp $temp/yuzu/squashfs-root/usr/optional/exec.so /userdata/system/switch/extra/yuzu/exec.so
@@ -923,9 +923,9 @@ if [ -f "$link_yuzu" ]; then
 		   echo 'export XDG_CURRENT_DESKTOP=XFCE' >> "$f"
 		   echo 'export DESKTOP_SESSION=XFCE' >> "$f"
 
-		   echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f" 
-		   echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f" 
-		   echo '#cp /userdata/system/switch/extra/yuzu/lib* /lib64/ 2>/dev/null' >> "$f" 
+		   echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f"
+		   echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f"
+		   echo '#cp /userdata/system/switch/extra/yuzu/lib* /lib64/ 2>/dev/null' >> "$f"
 		   echo 'if [ ! -L /userdata/system/configs/Ryujinx/bis/user/save ]; then mkdir /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null; rsync -au /userdata/saves/Ryujinx/ /userdata/system/configs/Ryujinx/bis/user/save/ 2>/dev/null; fi' >> "$f"
 		   echo 'if [ ! -L /userdata/system/configs/yuzu/nand/user/save ]; then mkdir /userdata/system/configs/yuzu/nand/user/save 2>/dev/null; rsync -au /userdata/saves/yuzu/ /userdata/system/configs/yuzu/nand/user/save/ 2>/dev/null; fi' >> "$f"
 		   echo 'mkdir -p /userdata/system/configs/yuzu/keys 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/yuzu/keys/ 2>/dev/null ' >> "$f"
@@ -944,11 +944,11 @@ if [ -f "$link_yuzu" ]; then
 
 		   echo 'rom="$(echo "$@" | sed '\''s,-f -g ,,g'\'')" ' >> "$f"
 		   echo 'if [[ "$rom" = "" ]]; then ' >> "$f"
-		   echo '  DRI_PRIME=1 AMD_VULKAN_ICD=RADV DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1 LC_ALL=C NO_AT_BRIDGE=1 QT_FONT_DPI=96 QT_SCALE_FACTOR=1 GDK_SCALE=1 LD_LIBRARY_PATH="/userdata/system/switch/extra/yuzu:${LD_LIBRARY_PATH}" QT_PLUGIN_PATH=/usr/lib/qt/plugins:/userdata/system/switch/extra/lib/qt5plugins:/usr/plugins:${QT_PLUGIN_PATH} QT_QPA_PLATFORM_PLUGIN_PATH=${QT_PLUGIN_PATH} XDG_CONFIG_HOME=/userdata/system/configs XDG_CACHE_HOME=/userdata/system/.cache QT_QPA_PLATFORM=xcb /userdata/system/switch/extra/yuzu/yuzu -f -g > >(tee "$log1") 2> >(tee "$log2" >&2) ' >> "$f" 
+		   echo '  DRI_PRIME=1 AMD_VULKAN_ICD=RADV DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1 LC_ALL=C NO_AT_BRIDGE=1 QT_FONT_DPI=96 QT_SCALE_FACTOR=1 GDK_SCALE=1 LD_LIBRARY_PATH="/userdata/system/switch/extra/yuzu:${LD_LIBRARY_PATH}" QT_PLUGIN_PATH=/usr/lib/qt/plugins:/userdata/system/switch/extra/lib/qt5plugins:/usr/plugins:${QT_PLUGIN_PATH} QT_QPA_PLATFORM_PLUGIN_PATH=${QT_PLUGIN_PATH} XDG_CONFIG_HOME=/userdata/system/configs XDG_CACHE_HOME=/userdata/system/.cache QT_QPA_PLATFORM=xcb /userdata/system/switch/extra/yuzu/yuzu -f -g > >(tee "$log1") 2> >(tee "$log2" >&2) ' >> "$f"
 		   echo 'else ' >> "$f"
-		   echo '  rm /tmp/switchromname 2>/dev/null ' >> "$f" 
-		   echo '    echo "$rom" >> /tmp/switchromname 2>/dev/null ' >> "$f" 
-		   echo '      /userdata/system/switch/extra/batocera-switch-nsz-converter.sh ' >> "$f" 
+		   echo '  rm /tmp/switchromname 2>/dev/null ' >> "$f"
+		   echo '    echo "$rom" >> /tmp/switchromname 2>/dev/null ' >> "$f"
+		   echo '      /userdata/system/switch/extra/batocera-switch-nsz-converter.sh ' >> "$f"
 		   echo '    rom="$(cat /tmp/switchromname)" ' >> "$f"
 		   echo '  fs=$(blkid | grep "$(df -h /userdata | awk '\''END {print $1}'\'')" | sed '\''s,^.*TYPE=,,g'\'' | sed '\''s,",,g'\'' | tr '\''a-z'\'' '\''A-Z'\'') ' >> "$f"
 		   echo '  if [[ "$fs" == *"EXT"* ]] || [[ "$fs" == *"BTR"* ]]; then ' >> "$f"
@@ -966,21 +966,21 @@ if [ -f "$link_yuzu" ]; then
 		   size_yuzu=$(($(wc -c $temp/yuzu/yuzu.AppImage | awk '{print $1}')/1048576)) 2>/dev/null
 		   #echo -e "${T}» ~/switch/yuzu.AppImage · ${T}$size_yuzu( )MB   ${T}" | sed 's/( )//g'
 		   echo
-		   cd ~/ 
-#send version to cookie: 
+		   cd ~/
+#send version to cookie:
 		   #ver=$(echo "$link_yuzu" | sed 's,^.*mainline-0-,,g' | cut -d "/" -f1)
 		   rm /userdata/system/switch/extra/yuzu/version.txt 2>/dev/null
 		   echo $version >> /userdata/system/switch/extra/yuzu/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   place yuzu1734.AppImage in /userdata/system/switch/"	
-	fi	
-fi 
+		echo -e "${T}██ ${C}   ${F}YUZU   [${W}!!${T}]   place yuzu1734.AppImage in /userdata/system/switch/"
+	fi
+fi
 ##
 #
 #
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 #
 #
 ##
@@ -990,11 +990,11 @@ T=$THEME_COLOR_YUZUEA
 link_yuzuEA="/userdata/system/switch/yuzuea4176.AppImage"
 version="4176"
 if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
-if [ -f "$link_yuzuEA" ]; then	
+if [ -f "$link_yuzuEA" ]; then
 	checksum_file=$(md5sum $link_yuzuEA | awk '{print $1}')
 	checksum_verified="9f20b0e6bacd2eb9723637d078d463eb"
-	   if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		  echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   checksum fail"    	
+	   if [[ "$checksum_file" != "$checksum_verified" ]]; then
+		  echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   checksum fail"
 	   else
 		  echo -e "${T}██ ${C}   ${F}YUZU-EA   ${T}❯❯   ${T}/$version/"
 		  rm -rf $temp/yuzuea 2>/dev/null
@@ -1002,26 +1002,26 @@ if [ -f "$link_yuzuEA" ]; then
 		  cd $temp/yuzuea
 		  mv $link_yuzuEA $temp/yuzuea/yuzuEA.AppImage 2>/dev/null
 		  chmod a+x "$temp/yuzuea/yuzuEA.AppImage" 2>/dev/null
-		  $temp/yuzuea/yuzuEA.AppImage --appimage-extract 1>/dev/null 2>/dev/null 
+		  $temp/yuzuea/yuzuEA.AppImage --appimage-extract 1>/dev/null 2>/dev/null
 		  mkdir /userdata/system/switch 2>/dev/null
 		  mkdir /userdata/system/switch/extra 2>/dev/null
 		  mkdir /userdata/system/switch/extra/yuzuea 2>/dev/null
 		  cp $temp/yuzuea/squashfs-root/usr/lib/libQt5* /userdata/system/switch/extra/yuzuea/ 2>/dev/null
-		  #rm /userdata/system/switch/extra/yuzuea/libQ* 2>/dev/null 
-		  cp $temp/yuzuea/squashfs-root/usr/lib/libcrypto* /userdata/system/switch/extra/yuzuea/ 2>/dev/null 
-		  cp $temp/yuzuea/squashfs-root/usr/lib/libssl* /userdata/system/switch/extra/yuzuea/ 2>/dev/null 
-		  cp $temp/yuzuea/squashfs-root/usr/lib/libicu* /userdata/system/switch/extra/yuzuea/ 2>/dev/null 
+		  #rm /userdata/system/switch/extra/yuzuea/libQ* 2>/dev/null
+		  cp $temp/yuzuea/squashfs-root/usr/lib/libcrypto* /userdata/system/switch/extra/yuzuea/ 2>/dev/null
+		  cp $temp/yuzuea/squashfs-root/usr/lib/libssl* /userdata/system/switch/extra/yuzuea/ 2>/dev/null
+		  cp $temp/yuzuea/squashfs-root/usr/lib/libicu* /userdata/system/switch/extra/yuzuea/ 2>/dev/null
 		  cp $temp/yuzuea/squashfs-root/usr/bin/yuzu /userdata/system/switch/extra/yuzuea/yuzu 2>/dev/null
 		  cp $temp/yuzuea/squashfs-root/usr/bin/yuzu-room /userdata/system/switch/extra/yuzuea/yuzu-room 2>/dev/null
 		  cd $temp
-# fix broken libstdc++.so.6 for v37 
-		  if [[ "$(uname -a | awk '{print $3}')" > "6.2" ]]; then 
+# fix broken libstdc++.so.6 for v37
+		  if [[ "$(uname -a | awk '{print $3}')" > "6.2" ]]; then
 			 link_libstdc=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-libstdc++.so.6
 			 wget -q --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/yuzuea/libstdc++.so.6" "$link_libstdc"
-		  else 
+		  else
 			 rm /userdata/system/switch/extra/yuzuea/libstdc++.so.6 2>/dev/null
 		  fi
-# add yuzu's bundled 'optional' libs 
+# add yuzu's bundled 'optional' libs
 		  cp $temp/yuzuea/squashfs-root/usr/optional/libstdc++/libstdc++.so.6 /userdata/system/switch/extra/yuzuea/libstdc++.so.6
 		  cp $temp/yuzuea/squashfs-root/usr/optional/libgcc_s/libgcc_s.so.1 /userdata/system/switch/extra/yuzuea/libgcc_s.so.1
 		  cp $temp/yuzuea/squashfs-root/usr/optional/exec.so /userdata/system/switch/extra/yuzuea/exec.so
@@ -1036,9 +1036,9 @@ if [ -f "$link_yuzuEA" ]; then
 		  echo 'export XDG_CURRENT_DESKTOP=XFCE' >> "$f"
 		  echo 'export DESKTOP_SESSION=XFCE' >> "$f"
 
-		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f" 
-		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f" 
-		  echo '#cp /userdata/system/switch/extra/yuzuea/lib* /lib64/ 2>/dev/null' >> "$f" 
+		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f"
+		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f"
+		  echo '#cp /userdata/system/switch/extra/yuzuea/lib* /lib64/ 2>/dev/null' >> "$f"
 		  echo 'if [ ! -L /userdata/system/configs/Ryujinx/bis/user/save ]; then mkdir /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null; rsync -au /userdata/saves/Ryujinx/ /userdata/system/configs/Ryujinx/bis/user/save/ 2>/dev/null; fi' >> "$f"
 		  echo 'if [ ! -L /userdata/system/configs/yuzu/nand/user/save ]; then mkdir /userdata/system/configs/yuzu/nand/user/save 2>/dev/null; rsync -au /userdata/saves/yuzu/ /userdata/system/configs/yuzu/nand/user/save/ 2>/dev/null; fi' >> "$f"
 		  echo 'mkdir -p /userdata/system/configs/yuzu/keys 2>/dev/null; cp -rL /userdata/bios/switch/*.keys /userdata/system/configs/yuzu/keys/ 2>/dev/null ' >> "$f"
@@ -1057,11 +1057,11 @@ if [ -f "$link_yuzuEA" ]; then
 
 		  echo 'rom="$(echo "$@" | sed '\''s,-f -g ,,g'\'')" ' >> "$f"
 		  echo 'if [[ "$rom" = "" ]]; then ' >> "$f"
-		  echo '  DRI_PRIME=1 AMD_VULKAN_ICD=RADV DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1 LC_ALL=C NO_AT_BRIDGE=1 QT_FONT_DPI=96 QT_SCALE_FACTOR=1 GDK_SCALE=1 LD_LIBRARY_PATH="/userdata/system/switch/extra/yuzuea:${LD_LIBRARY_PATH}" QT_PLUGIN_PATH=/usr/lib/qt/plugins:/userdata/system/switch/extra/lib/qt5plugins:/usr/plugins:${QT_PLUGIN_PATH} QT_QPA_PLATFORM_PLUGIN_PATH=${QT_PLUGIN_PATH} XDG_CONFIG_HOME=/userdata/system/configs XDG_CACHE_HOME=/userdata/system/.cache QT_QPA_PLATFORM=xcb /userdata/system/switch/extra/yuzuea/yuzu -f -g > >(tee "$log1") 2> >(tee "$log2" >&2) ' >> "$f" 
+		  echo '  DRI_PRIME=1 AMD_VULKAN_ICD=RADV DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1 LC_ALL=C NO_AT_BRIDGE=1 QT_FONT_DPI=96 QT_SCALE_FACTOR=1 GDK_SCALE=1 LD_LIBRARY_PATH="/userdata/system/switch/extra/yuzuea:${LD_LIBRARY_PATH}" QT_PLUGIN_PATH=/usr/lib/qt/plugins:/userdata/system/switch/extra/lib/qt5plugins:/usr/plugins:${QT_PLUGIN_PATH} QT_QPA_PLATFORM_PLUGIN_PATH=${QT_PLUGIN_PATH} XDG_CONFIG_HOME=/userdata/system/configs XDG_CACHE_HOME=/userdata/system/.cache QT_QPA_PLATFORM=xcb /userdata/system/switch/extra/yuzuea/yuzu -f -g > >(tee "$log1") 2> >(tee "$log2" >&2) ' >> "$f"
 		  echo 'else ' >> "$f"
-		  echo '  rm /tmp/switchromname 2>/dev/null ' >> "$f" 
-		  echo '    echo "$rom" >> /tmp/switchromname 2>/dev/null ' >> "$f" 
-		  echo '      /userdata/system/switch/extra/batocera-switch-nsz-converter.sh ' >> "$f" 
+		  echo '  rm /tmp/switchromname 2>/dev/null ' >> "$f"
+		  echo '    echo "$rom" >> /tmp/switchromname 2>/dev/null ' >> "$f"
+		  echo '      /userdata/system/switch/extra/batocera-switch-nsz-converter.sh ' >> "$f"
 		  echo '    rom="$(cat /tmp/switchromname)" ' >> "$f"
 		  echo '  fs=$(blkid | grep "$(df -h /userdata | awk '\''END {print $1}'\'')" | sed '\''s,^.*TYPE=,,g'\'' | sed '\''s,",,g'\'' | tr '\''a-z'\'' '\''A-Z'\'') ' >> "$f"
 		  echo '  if [[ "$fs" == *"EXT"* ]] || [[ "$fs" == *"BTR"* ]]; then ' >> "$f"
@@ -1080,28 +1080,28 @@ if [ -f "$link_yuzuEA" ]; then
 		  #echo -e "${T}» ~/switch/yuzuEA.AppImage · ${T}$size_yuzuea( )MB   ${T}" | sed 's/( )//g'
 		  echo
 		  cd ~/
-# send version to cookie: 
+# send version to cookie:
 		  #ver=$(echo "$link_yuzuea" | sed 's,^.*/EA-,,g' | cut -d "/" -f1)
 		  rm /userdata/system/switch/extra/yuzuea/version.txt 2>/dev/null
 		  echo $version >> /userdata/system/switch/extra/yuzuea/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   place yuzuea4176.AppImage in /userdata/system/switch/"	
-	fi	
+		echo -e "${T}██ ${C}   ${F}YUZU-EA   [${W}!!${T}]   place yuzuea4176.AppImage in /userdata/system/switch/"
+	fi
 fi
 ##
 #
 #
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 #
 #
 ##
 if [ "$3" = "RYUJINX" ]; then
 T=$THEME_COLOR_RYUJINX
-#   if [[ "$locked" = "1" ]]; then 
+#   if [[ "$locked" = "1" ]]; then
 #      version="1.1.382"
-#      else 
+#      else
 #      version=$(echo "$link_ryujinx" | sed 's,^.*/download/,,g' | cut -d "/" -f1)
 #   fi
 link_ryujinx="/userdata/system/switch/ryujinx1403.tar.gz"
@@ -1111,24 +1111,24 @@ if [ "$N" = "1" ]; then C=""; else C="$E/$N"; fi
 if [ -f "$link_ryujinx" ]; then
 	checksum_file=$(md5sum $link_ryujinx | awk '{print $1}')
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
-		if [[ "$checksum_file" != "$checksum_verified" ]]; then 
-		   echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   checksum fail"    	
+		if [[ "$checksum_file" != "$checksum_verified" ]]; then
+		   echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   checksum fail"
 		else
 		  echo -e "${T}██ ${C}   ${F}RYUJINX   ${T}❯❯   ${T}$version"
 #if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then version="382"; fi
 #version=$(echo "$version" | sed 's,1\.1\.,,g')
 #if [[ "$version" = "1215" ]]; then
 #   echo -e "${T}██ $C   ${F}RYUJINX   ${T}❯❯   ${T}$version   /last vanilla version/"
-#else 
+#else
 #   echo -e "${T}██ $C   ${F}RYUJINX   ${T}❯❯   ${T}$version"
 #fi
 # --------------------------------------------------------
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
 		  link_libselinux=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
-		  if [[ -e "$extra/batocera-switch-tar" ]]; then 
+		  if [[ -e "$extra/batocera-switch-tar" ]]; then
 			chmod a+x "$extra/batocera-switch-tar"
-		  else 
+		  else
 			wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-tar" "$link_tar"
 			###curl -sSf "$link_tar" -o "$extra/batocera-switch-tar"
 			chmod a+x "$extra/batocera-switch-tar"
@@ -1136,15 +1136,15 @@ if [ -f "$link_ryujinx" ]; then
 		  if [[ ! -e "/usr/lib/libselinux.so.1" ]]; then
 			wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"
 			###curl -sSf "$link_libselinux" -o "$extra/batocera-switch-libselinux.so.1"
-			if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then 
-			  if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then 
-				wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"   
+			if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then
+			  if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then
+				wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"
 			  fi
 			fi
 		    chmod a+x "$extra/batocera-switch-libselinux.so.1"
 		    cp "$extra/batocera-switch-libselinux.so.1" "/usr/lib/libselinux.so.1" 2>/dev/null
 		  fi
-		  if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then 
+		  if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then
 			cp /userdata/system/switch/extra/batocera-switch-libselinux.so.1 cp /userdata/system/switch/extra/libselinux.so.1 2>/dev/null
 		  fi
 # //
@@ -1161,7 +1161,7 @@ if [ -f "$link_ryujinx" ]; then
 		  #curl --progress-bar --remote-name --location $link_ryujinx
 		  LD_LIBRARY_PATH="/userdata/system/switch/extra:/usr/lib64:/usr/lib:/lib:${LD_LIBRARY_PATH}" $extra/batocera-switch-tar -xf $temp/$emu/*.tar.gz
 		  cp $temp/$emu/publish/lib* $extra/$emu/
-		  mkdir $extra/$emu/mime 2>/dev/null; 
+		  mkdir $extra/$emu/mime 2>/dev/null;
 		  cp -rL $temp/$emu/publish/mime/* $extra/$emu/mime/ 2>/dev/null;
 		  cp -rL $temp/$emu/publish/*.config $extra/$emu/ 2>/dev/null;
 		  cd $extra/$emu
@@ -1175,11 +1175,11 @@ if [ -f "$link_ryujinx" ]; then
 		  dos2unix "$startup" 2>/dev/null
 		  chmod a+x "$startup" 2>/dev/null
 		  $extra/$emu/startup 2>/dev/null
-# / 
+# /
 		  path_ryujinx=$extra/$emu/Ryujinx.AppImage
 		  cp $temp/$emu/publish/Ryujinx $path_ryujinx 2>/dev/null
 		  chmod a+x "$path_ryujinx" 2>/dev/null
-# make launcher 
+# make launcher
 		  f=/userdata/system/switch/Ryujinx.AppImage
 		  rm "$f" 2>/dev/null
 		  echo '#!/bin/bash' >> "$f"
@@ -1192,9 +1192,9 @@ if [ -f "$link_ryujinx" ]; then
 		  echo 'export XDG_CURRENT_DESKTOP=XFCE' >> "$f"
 		  echo 'export DESKTOP_SESSION=XFCE' >> "$f"
 
-		  echo '/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh' >> "$f" 
-		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f" 
-		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f" 
+		  echo '/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh' >> "$f"
+		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f"
+		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f"
 		  echo '/userdata/system/switch/extra/batocera-switch-translator.sh &' >> "$f"
 
 		  echo 'chmod a+x /userdata/system/switch/extra/lib/* 2>/dev/null' >> "$f"
@@ -1249,20 +1249,20 @@ if [ -f "$link_ryujinx" ]; then
 		  #echo -e "${T}» ~/switch/Ryujinx.AppImage · ${T}$size_ryujinx( )MB   ${T}" | sed 's/( )//g'
 		  echo
 		  cd ~/
-# send version to cookie: 
+# send version to cookie:
 #		  ver=$(echo "$link_ryujinx" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
 #		  if [[ "$(echo "$link_ryujinx" | grep "382")" != "" ]]; then ver="382"; fi
 		  rm /userdata/system/switch/extra/ryujinx/version.txt 2>/dev/null
 		  echo $version >> /userdata/system/switch/extra/ryujinx/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx1403.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX   [${W}!!${T}]   place ryujinx1403.tar.gz in /userdata/system/switch/"
 	fi
 fi
 #
 #
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 #
 #
 if [ "$3" = "RYUJINXLDN" ]; then
@@ -1275,7 +1275,7 @@ if [ -f "$link_ryujinxldn" ]; then
 	checksum_file=$(md5sum $link_ryujinxldn | awk '{print $1}')
 	checksum_verified="1c2b6297d055552dfaac9b1aed0932f1"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   checksum fail"
 		else
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
 		  echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   ${T}❯❯   ${T}$version"
@@ -1283,9 +1283,9 @@ if [ -f "$link_ryujinxldn" ]; then
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
 		  link_libselinux=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
-		  if [[ -e "$extra/batocera-switch-tar" ]]; then 
+		  if [[ -e "$extra/batocera-switch-tar" ]]; then
 			chmod a+x "$extra/batocera-switch-tar"
-		  else 
+		  else
 			wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-tar" "$link_tar"
 			###curl -sSf "$link_tar" -o "$extra/batocera-switch-tar"
 			chmod a+x "$extra/batocera-switch-tar"
@@ -1293,21 +1293,21 @@ if [ -f "$link_ryujinxldn" ]; then
 		  if [[ ! -e "/usr/lib/libselinux.so.1" ]]; then
 			wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"
 			###curl -sSf "$link_libselinux" -o "$extra/batocera-switch-libselinux.so.1"
-		    if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then 
-			  if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then 
-			    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"   
+		    if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then
+			  if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then
+			    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"
 			  fi
 		    fi
 			chmod a+x "$extra/batocera-switch-libselinux.so.1"
 			cp "$extra/batocera-switch-libselinux.so.1" "/usr/lib/libselinux.so.1" 2>/dev/null
 		  fi
-		  if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then 
+		  if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then
 			cp /userdata/system/switch/extra/batocera-switch-libselinux.so.1 cp /userdata/system/switch/extra/libselinux.so.1 2>/dev/null
 		  fi
 # //
 # /userdata/system/switch/extra/ryujinxavalonia/ will keep all ryujinxavalonia related dependencies
 		  emu=ryujinxldn
-		  mkdir $extra/$emu 2>/dev/null  
+		  mkdir $extra/$emu 2>/dev/null
 		  rm -rf $temp/$emu 2>/dev/null
 		  mkdir $temp/$emu 2>/dev/null
 		  cd $temp/$emu
@@ -1318,7 +1318,7 @@ if [ -f "$link_ryujinxldn" ]; then
 		  #curl --progress-bar --remote-name --location $link_ryujinxldn
 		  LD_LIBRARY_PATH="/userdata/system/switch/extra:/usr/lib64:/usr/lib:/lib:${LD_LIBRARY_PATH}" $extra/batocera-switch-tar -xf $temp/$emu/*.tar.gz 2>/dev/null
 		  cp $temp/$emu/publish/lib* $extra/$emu/ 2>/dev/null
-		  mkdir $extra/$emu/mime 2>/dev/null; 
+		  mkdir $extra/$emu/mime 2>/dev/null;
 		  cp -rL $temp/$emu/publish/mime/* $extra/$emu/mime/ 2>/dev/null;
 		  cp -rL $temp/$emu/publish/*.config $extra/$emu/ 2>/dev/null;
 		  rm -rf $extra/$emu/startup 2>/dev/null
@@ -1336,13 +1336,13 @@ if [ -f "$link_ryujinxldn" ]; then
 # /
 # --------------------------------------------------------
 		  path_ryujinx=$extra/$emu/Ryujinx-LDN.AppImage
-		  if [[ -f "$temp/$emu/publish/Ryujinx" ]]; then 
+		  if [[ -f "$temp/$emu/publish/Ryujinx" ]]; then
 			cp $temp/$emu/publish/Ryujinx $path_ryujinx 2>/dev/null
-		  elif [[ -f "$temp/$emu/publish/Ryujinx.Ava" ]]; then 
+		  elif [[ -f "$temp/$emu/publish/Ryujinx.Ava" ]]; then
 			cp $temp/$emu/publish/Ryujinx $path_ryujinx 2>/dev/null
 		  fi
 		  chmod a+x "$path_ryujinx" 2>/dev/null
-# make launcher 
+# make launcher
 		  f=/userdata/system/switch/Ryujinx-LDN.AppImage
 		  rm "$f" 2>/dev/null
 		  echo '#!/bin/bash' >> "$f"
@@ -1355,9 +1355,9 @@ if [ -f "$link_ryujinxldn" ]; then
 		  echo 'export XDG_CURRENT_DESKTOP=XFCE' >> "$f"
 		  echo 'export DESKTOP_SESSION=XFCE' >> "$f"
 
-		  echo '/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh' >> "$f" 
-		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f" 
-		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f" 
+		  echo '/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh' >> "$f"
+		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f"
+		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f"
 		  echo '/userdata/system/switch/extra/batocera-switch-translator.sh &' >> "$f"
 
 		  echo 'chmod a+x /userdata/system/switch/extra/lib/* 2>/dev/null' >> "$f"
@@ -1412,25 +1412,25 @@ if [ -f "$link_ryujinxldn" ]; then
 		  #echo -e "${T}» ~/switch/Ryujinx-LDN.AppImage · ${T}$size_ryujinx( )MB   ${T}" | sed 's/( )//g'
 		  echo
 		  cd ~/
-# send version to cookie: 
+# send version to cookie:
 		  rm /userdata/system/switch/extra/ryujinxldn/version.txt 2>/dev/null
 		  echo "368" >> /userdata/system/switch/extra/ryujinxldn/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinxldn313.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX-LDN   [${W}!!${T}]   place ryujinxldn313.tar.gz in /userdata/system/switch/"
 	fi
 fi
 #
 #
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 #
 #
 if [ "$3" = "RYUJINXAVALONIA" ]; then
 T=$THEME_COLOR_RYUJINXAVALONIA
-#   if [[ "$locked" = "1" ]]; then 
+#   if [[ "$locked" = "1" ]]; then
 #      version="1.1.382"
-#      else 
+#      else
 #      version=$(echo "$link_ryujinxavalonia" | sed 's,^.*/download/,,g' | cut -d "/" -f1)
 #   fi
 link_ryujinxavalonia="/userdata/system/switch/ryujinxava1403.tar.gz"
@@ -1441,7 +1441,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 	checksum_file=$(md5sum $link_ryujinxavalonia | awk '{print $1}')
 	checksum_verified="442b76511ad0f727f290d8c1e380d2d2"
 		if [[ "$checksum_file" != "$checksum_verified" ]]; then
-		   echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   checksum fail"    	
+		   echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   checksum fail"
 		else
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then version="382"; fi
 #		  version=$(echo "$version" | sed 's,1\.1\.,,g')
@@ -1450,9 +1450,9 @@ if [ -f "$link_ryujinxavalonia" ]; then
 # \\ get dependencies for handling ryujinxavalonia
 		  link_tar=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-tar
 		  link_libselinux=https://github.com/mikhailzrick/batocera-switch/raw/main/system/switch/extra/batocera-switch-libselinux.so.1
-		  if [[ -e "$extra/batocera-switch-tar" ]]; then 
+		  if [[ -e "$extra/batocera-switch-tar" ]]; then
 			chmod a+x "$extra/batocera-switch-tar"
-		  else 
+		  else
 			wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-tar" "$link_tar"
 			###curl -sSf "$link_tar" -o "$extra/batocera-switch-tar"
 			chmod a+x "$extra/batocera-switch-tar"
@@ -1460,21 +1460,21 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  if [[ ! -e "/usr/lib/libselinux.so.1" ]]; then
 			wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"
 			###curl -sSf "$link_libselinux" -o "$extra/batocera-switch-libselinux.so.1"
-			if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then 
-			  if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then 
-				wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"   
+			if [[ -f "$extra/batocera-switch-libselinux.so.1" ]]; then
+			  if [[ "$(wc -c "$extra/batocera-switch-libselinux.so.1" | awk '{print $1}')" < "100" ]]; then
+				wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$extra/batocera-switch-libselinux.so.1" "$link_libselinux"
 			  fi
 			fi
 			chmod a+x "$extra/batocera-switch-libselinux.so.1"
 			cp "$extra/batocera-switch-libselinux.so.1" "/usr/lib/libselinux.so.1" 2>/dev/null
 		  fi
-		  if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then 
+		  if [[ -e "/userdata/system/switch/extra/batocera-switch-libselinux.so.1" ]]; then
 			cp /userdata/system/switch/extra/batocera-switch-libselinux.so.1 cp /userdata/system/switch/extra/libselinux.so.1 2>/dev/null
 		  fi
 # //
 # /userdata/system/switch/extra/ryujinxavalonia/ will keep all ryujinxavalonia related dependencies
 		  emu=ryujinxavalonia
-		  mkdir $extra/$emu 2>/dev/null  
+		  mkdir $extra/$emu 2>/dev/null
 		  rm -rf $temp/$emu 2>/dev/null
 		  mkdir $temp/$emu 2>/dev/null
 		  cd $temp/$emu
@@ -1485,7 +1485,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  #curl --progress-bar --remote-name --location $link_ryujinxavalonia
 		  LD_LIBRARY_PATH="/userdata/system/switch/extra:/usr/lib64:/usr/lib:/lib:${LD_LIBRARY_PATH}" $extra/batocera-switch-tar -xf $temp/$emu/*.tar.gz 2>/dev/null
 		  cp $temp/$emu/publish/lib* $extra/$emu/ 2>/dev/null
-		  mkdir $extra/$emu/mime 2>/dev/null; 
+		  mkdir $extra/$emu/mime 2>/dev/null;
 		  cp -rL $temp/$emu/publish/mime/* $extra/$emu/mime/ 2>/dev/null;
 		  cp -rL $temp/$emu/publish/*.config $extra/$emu/ 2>/dev/null;
 		  rm -rf $extra/$emu/startup 2>/dev/null
@@ -1505,7 +1505,7 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  path_ryujinx=$extra/$emu/Ryujinx-Avalonia.AppImage
 		  cp $temp/$emu/publish/Ryujinx.Ava $path_ryujinx 2>/dev/null
 		  chmod a+x "$path_ryujinx" 2>/dev/null
-# make launcher 
+# make launcher
 		  f=/userdata/system/switch/Ryujinx-Avalonia.AppImage
 		  rm "$f" 2>/dev/null
 		  echo '#!/bin/bash' >> "$f"
@@ -1518,9 +1518,9 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  echo 'export XDG_CURRENT_DESKTOP=XFCE' >> "$f"
 		  echo 'export DESKTOP_SESSION=XFCE' >> "$f"
 
-		  echo '/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh' >> "$f" 
-		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f" 
-		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f" 
+		  echo '/userdata/system/switch/extra/batocera-switch-ryujinx-fixes.sh' >> "$f"
+		  echo '/userdata/system/switch/extra/batocera-switch-sync-firmware.sh' >> "$f"
+		  echo '/userdata/system/switch/extra/batocera-switch-mousemove.sh &' >> "$f"
 		  echo '/userdata/system/switch/extra/batocera-switch-translator.sh &' >> "$f"
 
 		  echo 'chmod a+x /userdata/system/switch/extra/lib/* 2>/dev/null' >> "$f"
@@ -1577,20 +1577,20 @@ if [ -f "$link_ryujinxavalonia" ]; then
 		  #echo -e "${T}» ~/switch/Ryujinx-Avalonia.AppImage · ${T}$size_ryujinx( )MB   ${T}" | sed 's/( )//g'
 		  echo
 		  cd ~/
-# send version to cookie: 
+# send version to cookie:
 #		  ver=$(echo "$link_ryujinxavalonia" | sed 's,^.*download/,,g' | cut -d "/" -f1 | sed 's,1\.1\.,,g')
 #		  if [[ "$(echo "$link_ryujinxavalonia" | grep "382")" != "" ]]; then ver="382"; fi
 		  rm /userdata/system/switch/extra/ryujinxavalonia/version.txt 2>/dev/null
 		  echo $version >> /userdata/system/switch/extra/ryujinxavalonia/version.txt
 		fi
 	else
-		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   place ryujinxava1403.tar.gz in /userdata/system/switch/"	
+		echo -e "${T}██ ${C}   ${F}RYUJINX-AVALONIA   [${W}!!${T}]   place ryujinxava1403.tar.gz in /userdata/system/switch/"
 	fi
-fi	
+fi
 #
 #
-# ---------------------------------------------------------------------------------- 
-# ---------------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
 #
 #
 }
@@ -1600,7 +1600,7 @@ export -f update_emulator
 #
 function batocera_update_switch {
 ######################################################################
-if [[ -e "/tmp/updater-mode" ]]; then 
+if [[ -e "/tmp/updater-mode" ]]; then
    MODE=$(cat /tmp/updater-mode | grep MODE | cut -d "=" -f2)
 fi
 cd ~/
@@ -1633,29 +1633,29 @@ rm -rf $links 2>/dev/null
 #date_yuzu=$(curl -s https://github.com/yuzu-emu/yuzu-mainline/releases/tag/$release_yuzu | grep "datetime=" | sed 's/^.*datetime/datetime/g' | cut -d \" -f 2 | cut -c 1-10 | sed 's/-//g')
 #subrelease_yuzu=$(curl -s https://github.com/yuzu-emu/yuzu-mainline/releases/tag/$release_yuzu | grep data-hovercard-url | grep commit-link | head -n 1 | cut -d "=" -f 4 | cut -d "/" -f 7 | cut -c 1-9)
 #link_yuzu=https://github.com/yuzu-emu/yuzu-mainline/releases/download/$release_yuzu/yuzu-mainline-$date_yuzu-$subrelease_yuzu.AppImage
-#if [[ "$(uname -a | awk '{print $3}')" < "6" ]]; then 
+#if [[ "$(uname -a | awk '{print $3}')" < "6" ]]; then
    #link_yuzu=https://github.com/yuzu-emu/yuzu-mainline/releases/download/mainline-0-1321/yuzu-mainline-20230126-ed6df52a5.AppImage
-#else 
+#else
    #link_yuzu="$(curl -s --retry 5 --retry-delay 1 --retry-connrefused https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | grep browser_download_url | grep .AppImage | cut -d '"' -f 4 | head -n1)"
 #fi
 # -------------------------------------------------------------------
-# YUZUEA: 
-#if [[ "$(uname -a | awk '{print $3}')" < "6" ]]; then 
+# YUZUEA:
+#if [[ "$(uname -a | awk '{print $3}')" < "6" ]]; then
    #link_yuzuea=https://github.com/pineappleEA/pineapple-src/releases/download/EA-3333/Linux-Yuzu-EA-3333.AppImage
-#else 
+#else
    #release_yuzuea=$(curl -s --retry 5 --retry-delay 1 --retry-connrefused https://github.com/pineappleEA/pineapple-src | grep /releases/ | cut -d "=" -f 5 | cut -d / -f 6 | cut -d '"' -f 1)
    #link_yuzuea=https://github.com/pineappleEA/pineapple-src/releases/download/$release_yuzuea/Linux-Yuzu-$release_yuzuea.AppImage
    #link_yuzuea=$(curl -s --retry 5 --retry-delay 1 --retry-connrefused https://api.github.com/repos/pineappleEA/pineapple-src/releases/latest | jq -r ".assets[] | select(.name | endswith(\".AppImage\")) | .browser_download_url")
-#fi 
+#fi
 # -------------------------------------------------------------------
 # RYUJINX:
 #release_ryujinx=$(curl -s --retry 5 --retry-delay 1 --retry-connrefused https://github.com/Ryujinx/release-channel-master | grep "/release-channel-master/releases/tag/" | sed 's,^.*/release-channel-master/releases/tag/,,g' | cut -d \" -f1)
 #link_ryujinx=https://github.com/Ryujinx/release-channel-master/releases/download/$release_ryujinx/ryujinx-$release_ryujinx-linux_x64.tar.gz
 # -------------------------------------------------------------------
 # RYUJINXLDN:
-#link_ryujinxldn=https://github.com/uureel/batocera.pro/raw/main/switch/extra/ava-ryujinx-1.1.0-ldn3.0.1-linux_x64.tar.gz
-#link_ryujinxldn=https://github.com/uureel/batocera.pro/raw/main/switch/extra/ryujinx-1.1.0-ldn3.0.1-linux_x64.tar.gz
-#link_ryujinxldn=https://github.com/uureel/batocera.pro/raw/main/switch/extra/ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz
+#link_ryujinxldn=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/ava-ryujinx-1.1.0-ldn3.0.1-linux_x64.tar.gz
+#link_ryujinxldn=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/ryujinx-1.1.0-ldn3.0.1-linux_x64.tar.gz
+#link_ryujinxldn=https://github.com/mikhailzrick/batocera.pro/raw/main/switch/extra/ryujinx-1.1.0-ldn3.1.3-linux_x64.tar.gz
 ## -------------------------------------------------------------------
 # RYUJINXAVALONIA:
 #link_ryujinxavalonia=https://github.com/Ryujinx/release-channel-master/releases/download/$release_ryujinx/test-ava-ryujinx-$release_ryujinx-linux_x64.tar.gz
@@ -1682,17 +1682,17 @@ echo "link_ryujinxavalonia@$link_ryujinxavalonia" >> $links
 # GET EMULATORS FROM CONFIG FILE -------------------------------------
 cfg=/userdata/system/switch/CONFIG.txt
 dos2unix $cfg 1>/dev/null 2>/dev/null
-if [[ -e "$cfg" ]]; then 
+if [[ -e "$cfg" ]]; then
    EMULATORS=$(cat "$cfg" | grep "EMULATORS=" | cut -d "=" -f2 | head -n1 | cut -d \" -f2 | tr -d '\0')
    EMULATORS=$(echo "$EMULATORS ")
       if [[ "$EMULATORS" == *"DEFAULT"* ]] || [[ "$EMULATORS" == *"default"* ]] || [[ "$EMULATORS" == *"ALL"* ]] || [[ "$EMULATORS" == *"all"* ]]; then
          EMULATORS="YUZU YUZUEA RYUJINX RYUJINXLDN RYUJINXAVALONIA"
       fi
-      if [ "$(echo $EMULATORS | grep "-")" = "" ]; then 
+      if [ "$(echo $EMULATORS | grep "-")" = "" ]; then
          EMULATORS="$EMULATORS-"
          EMULATORS=$(echo $EMULATORS | sed 's/ /-/g')
       fi
-fi 
+fi
 # /GET EMULATORS FROM CONFIG FILE -------------------------------------
 F=$TEXT_COLOR
 T=$THEME_COLOR
@@ -1721,8 +1721,8 @@ W=$WHITE
 B=$BLACK
 F=$WHITE
 # -------------------------
-#  override colors: 
-if [[ "$MODE" = "CONSOLE" ]]; then 
+#  override colors:
+if [[ "$MODE" = "CONSOLE" ]]; then
    RED=$X
    R=$X
    F=$X
@@ -2064,15 +2064,15 @@ update_emulator 1 1 $(echo "$EMULATORS" | cut -d "-" -f 1) "$link_yuzu" "$link_y
 echo -e "${TEXT_COLOR}     ${TEXT_COLOR}   ${TEXT_COLOR} SWITCH EMULATOR UPDATED ${GREEN}OK ${THEME_COLOR} │${X}"
 echo -e "${THEME_COLOR}─────────────────────────────────────┘${X}"
 fi
-# 
-#sleep 1.1 
-# 
+#
+#sleep 1.1
+#
 }
 export -f batocera_update_switch
 #
 ######################################################################
-# 
-function post-install() { 
+#
+function post-install() {
 #
 # -------------------------------------------------------------------
 # get settings from config file
@@ -2087,7 +2087,7 @@ function post-install() {
       THEME_COLOR_RYUJINXLDN=$(cat $cfg | grep "THEME_COLOR_RYUJINXLDN=" | cut -d "=" -f 2 | sed 's, ,,g' | head -n1 | tr -d '\0')
       THEME_COLOR_RYUJINXAVALONIA=$(cat $cfg | grep "THEME_COLOR_RYUJINXAVALONIA=" | cut -d "=" -f 2 | sed 's, ,,g' | head -n1 | tr -d '\0')
       THEME_COLOR_OK=$(cat $cfg | grep "THEME_COLOR_OK=" | cut -d "=" -f 2 | sed 's, ,,g' | head -n1 | tr -d '\0')
-      # TEXT & THEME COLORS: 
+      # TEXT & THEME COLORS:
       ###########################
       X='\033[0m'               # / resetcolor
       RED='\033[1;31m'          # red
@@ -2108,7 +2108,7 @@ function post-install() {
       BLACK='\033[0;30m'        # black
       ###########################
       # PARSE COLORS FOR THEMING:
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$TEXT_COLOR" = "RED" ]; then TEXT_COLOR="$RED"; fi
       if [ "$TEXT_COLOR" = "BLUE" ]; then TEXT_COLOR="$BLUE"; fi
       if [ "$TEXT_COLOR" = "GREEN" ]; then TEXT_COLOR="$GREEN"; fi
@@ -2123,7 +2123,7 @@ function post-install() {
       if [ "$TEXT_COLOR" = "DARKCYAN" ]; then TEXT_COLOR="$DARKCYAN"; fi
       if [ "$TEXT_COLOR" = "WHITE" ]; then TEXT_COLOR="$WHITE"; fi
       if [ "$TEXT_COLOR" = "BLACK" ]; then TEXT_COLOR="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR" = "RED" ]; then THEME_COLOR="$RED"; fi
       if [ "$THEME_COLOR" = "BLUE" ]; then THEME_COLOR="$BLUE"; fi
       if [ "$THEME_COLOR" = "GREEN" ]; then THEME_COLOR="$GREEN"; fi
@@ -2138,7 +2138,7 @@ function post-install() {
       if [ "$THEME_COLOR" = "DARKCYAN" ]; then THEME_COLOR="$DARKCYAN"; fi
       if [ "$THEME_COLOR" = "WHITE" ]; then THEME_COLOR="$WHITE"; fi
       if [ "$THEME_COLOR" = "BLACK" ]; then THEME_COLOR="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_OK" = "RED" ]; then THEME_COLOR_OK="$RED"; fi
       if [ "$THEME_COLOR_OK" = "BLUE" ]; then THEME_COLOR_OK="$BLUE"; fi
       if [ "$THEME_COLOR_OK" = "GREEN" ]; then THEME_COLOR_OK="$GREEN"; fi
@@ -2153,7 +2153,7 @@ function post-install() {
       if [ "$THEME_COLOR_OK" = "DARKCYAN" ]; then THEME_COLOR_OK="$DARKCYAN"; fi
       if [ "$THEME_COLOR_OK" = "WHITE" ]; then THEME_COLOR_OK="$WHITE"; fi
       if [ "$THEME_COLOR_OK" = "BLACK" ]; then THEME_COLOR_OK="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_YUZU" = "RED" ]; then THEME_COLOR_YUZU="$RED"; fi
       if [ "$THEME_COLOR_YUZU" = "BLUE" ]; then THEME_COLOR_YUZU="$BLUE"; fi
       if [ "$THEME_COLOR_YUZU" = "GREEN" ]; then THEME_COLOR_YUZU="$GREEN"; fi
@@ -2168,7 +2168,7 @@ function post-install() {
       if [ "$THEME_COLOR_YUZU" = "DARKCYAN" ]; then THEME_COLOR_YUZU="$DARKCYAN"; fi
       if [ "$THEME_COLOR_YUZU" = "WHITE" ]; then THEME_COLOR_YUZU="$WHITE"; fi
       if [ "$THEME_COLOR_YUZU" = "BLACK" ]; then THEME_COLOR_YUZU="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_YUZUEA" = "RED" ]; then THEME_COLOR_YUZUEA="$RED"; fi
       if [ "$THEME_COLOR_YUZUEA" = "BLUE" ]; then THEME_COLOR_YUZUEA="$BLUE"; fi
       if [ "$THEME_COLOR_YUZUEA" = "GREEN" ]; then THEME_COLOR_YUZUEA="$GREEN"; fi
@@ -2183,7 +2183,7 @@ function post-install() {
       if [ "$THEME_COLOR_YUZUEA" = "DARKCYAN" ]; then THEME_COLOR_YUZUEA="$DARKCYAN"; fi
       if [ "$THEME_COLOR_YUZUEA" = "WHITE" ]; then THEME_COLOR_YUZUEA="$WHITE"; fi
       if [ "$THEME_COLOR_YUZUEA" = "BLACK" ]; then THEME_COLOR_YUZUEA="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_RYUJINX" = "RED" ]; then THEME_COLOR_RYUJINX="$RED"; fi
       if [ "$THEME_COLOR_RYUJINX" = "BLUE" ]; then THEME_COLOR_RYUJINX="$BLUE"; fi
       if [ "$THEME_COLOR_RYUJINX" = "GREEN" ]; then THEME_COLOR_RYUJINX="$GREEN"; fi
@@ -2198,7 +2198,7 @@ function post-install() {
       if [ "$THEME_COLOR_RYUJINX" = "DARKCYAN" ]; then THEME_COLOR_RYUJINX="$DARKCYAN"; fi
       if [ "$THEME_COLOR_RYUJINX" = "WHITE" ]; then THEME_COLOR_RYUJINX="$WHITE"; fi
       if [ "$THEME_COLOR_RYUJINX" = "BLACK" ]; then THEME_COLOR_RYUJINX="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_RYUJINXLDN" = "RED" ]; then THEME_COLOR_RYUJINXLDN="$RED"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "BLUE" ]; then THEME_COLOR_RYUJINXLDN="$BLUE"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "GREEN" ]; then THEME_COLOR_RYUJINXLDN="$GREEN"; fi
@@ -2213,7 +2213,7 @@ function post-install() {
       if [ "$THEME_COLOR_RYUJINXLDN" = "DARKCYAN" ]; then THEME_COLOR_RYUJINXLDN="$DARKCYAN"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "WHITE" ]; then THEME_COLOR_RYUJINXLDN="$WHITE"; fi
       if [ "$THEME_COLOR_RYUJINXLDN" = "BLACK" ]; then THEME_COLOR_RYUJINXLDN="$BLACK"; fi
-      # ---------------------------------------------------------------------------------- 
+      # ----------------------------------------------------------------------------------
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "RED" ]; then THEME_COLOR_RYUJINXAVALONIA="$RED"; fi
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "BLUE" ]; then THEME_COLOR_RYUJINXAVALONIA="$BLUE"; fi
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "GREEN" ]; then THEME_COLOR_RYUJINXAVALONIA="$GREEN"; fi
@@ -2229,11 +2229,11 @@ function post-install() {
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "WHITE" ]; then THEME_COLOR_RYUJINXAVALONIA="$WHITE"; fi
       if [ "$THEME_COLOR_RYUJINXAVALONIA" = "BLACK" ]; then THEME_COLOR_RYUJINXAVALONIA="$BLACK"; fi
 #
-      if [[ -e "/tmp/updater-mode" ]]; then 
+      if [[ -e "/tmp/updater-mode" ]]; then
          MODE=$(cat /tmp/updater-mode | grep MODE | cut -d "=" -f2)
       fi
-         if [[ "$MODE" = "CONSOLE" ]]; then 
-            TEXT_COLOR=$X 
+         if [[ "$MODE" = "CONSOLE" ]]; then
+            TEXT_COLOR=$X
             THEME_COLOR=$X
             THEME_COLOR_OK=$X
             THEME_COLOR_YUZU=$X
@@ -2242,122 +2242,122 @@ function post-install() {
             THEME_COLOR_RYUJINXLDN=$X
             THEME_COLOR_RYUJINXAVALONIA=$X
          fi
-# ------------------------------------------------------------------- 
-# show info 
+# -------------------------------------------------------------------
+# show info
 chmod 777 /userdata/system/switch/*.AppImage 2>/dev/null
 sleep 1
 echo
 echo -e "${THEME_COLOR_YUZU}❯❯❯ ${F}UPDATING ADDITIONAL FILES ${T}...${T}"
 
 # -------------------------------------------------------------------
-# get additional files 
-# ------------------------------------------------------------------- 
+# get additional files
+# -------------------------------------------------------------------
    extraurl="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra"
-# ------------------------------------------------------------------- 
-# prepare xdg integration 
-   if [[ ! -d /userdata/system/switch/extra/xdg ]] || [[ "$(du -Hs /userdata/system/switch/extra/xdg | awk '{print $1}')" < "50000" ]]; then 
+# -------------------------------------------------------------------
+# prepare xdg integration
+   if [[ ! -d /userdata/system/switch/extra/xdg ]] || [[ "$(du -Hs /userdata/system/switch/extra/xdg | awk '{print $1}')" < "50000" ]]; then
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/xdg.tar.gz" "$extraurl/xdg.tar.gz"
       ###curl -sSf "$extraurl/xdg.tar.gz" -o "/userdata/system/switch/extra/xdg.tar.gz"
-      cd /userdata/system/switch/extra/ 
+      cd /userdata/system/switch/extra/
       rm -rf /userdata/system/switch/extra/xdg 2>/dev/null
          tar -xf /userdata/system/switch/extra/xdg.tar.gz 2>/dev/null
-   else 
-      if [[ "$(md5sum /userdata/system/switch/extra/xdg.tar.gz | awk '{print $1}')" != "4ec8265c999a0c324f5938cb32824d34" ]]; then 
-         rm /userdata/system/switch/extra/xdg.tar.gz 2>/dev/null 
+   else
+      if [[ "$(md5sum /userdata/system/switch/extra/xdg.tar.gz | awk '{print $1}')" != "4ec8265c999a0c324f5938cb32824d34" ]]; then
+         rm /userdata/system/switch/extra/xdg.tar.gz 2>/dev/null
          wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/xdg.tar.gz" "$extraurl/xdg.tar.gz"
          ###curl -sSf "$extraurl/xdg.tar.gz" -o "/userdata/system/switch/extra/xdg.tar.gz"
-         cd /userdata/system/switch/extra/ 
+         cd /userdata/system/switch/extra/
          rm -rf /userdata/system/switch/extra/xdg 2>/dev/null
             tar -xf /userdata/system/switch/extra/xdg.tar.gz 2>/dev/null
-      fi 
+      fi
    fi
    #
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-xdg.sh" "$extraurl/batocera-switch-xdg.sh"
       ###curl -sSf "$extraurl/batocera-switch-xdg.sh" -o "/userdata/system/switch/extra/batocera-switch-xdg.sh"
-      dos2unix /userdata/system/switch/extra/batocera-switch-xdg.sh 2>/dev/null 
-      chmod a+x /userdata/system/switch/extra/batocera-switch-xdg.sh 2>/dev/null 
-   cd /userdata/system/ 
-# ------------------------------------------------------------------- 
+      dos2unix /userdata/system/switch/extra/batocera-switch-xdg.sh 2>/dev/null
+      chmod a+x /userdata/system/switch/extra/batocera-switch-xdg.sh 2>/dev/null
+   cd /userdata/system/
+# -------------------------------------------------------------------
 # get mapping.csv file (obsolete)
 #   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/configgen/mapping.csv" "https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/mapping.csv"
-#   dos2unix /userdata/system/switch/configgen/mapping.csv 2>/dev/null 
-   rm /userdata/system/switch/configgen/mapping.csv 2>/dev/null 
-# ------------------------------------------------------------------- 
+#   dos2unix /userdata/system/switch/configgen/mapping.csv 2>/dev/null
+   rm /userdata/system/switch/configgen/mapping.csv 2>/dev/null
+# -------------------------------------------------------------------
 # get batocera-switch-mousemove.sh
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-mousemove.sh" "$extraurl/batocera-switch-mousemove.sh"
    ###curl -sSf "$extraurl/batocera-switch-mousemove.sh" -o "/userdata/system/switch/extra/batocera-switch-mousemove.sh"
-   dos2unix /userdata/system/switch/extra/batocera-switch-mousemove.sh 2>/dev/null 
-   chmod a+x /userdata/system/switch/extra/batocera-switch-mousemove.sh 2>/dev/null 
+   dos2unix /userdata/system/switch/extra/batocera-switch-mousemove.sh 2>/dev/null
+   chmod a+x /userdata/system/switch/extra/batocera-switch-mousemove.sh 2>/dev/null
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-libxdo.so.3" "$extraurl/batocera-switch-libxdo.so.3"
    ###curl -sSf "$extraurl/batocera-switch-libxdo.so.3" -o "/userdata/system/switch/extra/batocera-switch-libxdo.so.3"
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-xdotool" "$extraurl/batocera-switch-xdotool"
    ###curl -sSf "$extraurl/batocera-switch-xdotool" -o "/userdata/system/switch/extra/batocera-switch-xdotool"
-   chmod a+x /userdata/system/switch/extra/batocera-switch-lib* 2>/dev/null 
-   chmod a+x /userdata/system/switch/extra/batocera-switch-xdo* 2>/dev/null 
-# ------------------------------------------------------------------- 
+   chmod a+x /userdata/system/switch/extra/batocera-switch-lib* 2>/dev/null
+   chmod a+x /userdata/system/switch/extra/batocera-switch-xdo* 2>/dev/null
+# -------------------------------------------------------------------
 # get batocera-switch-sync-firmware.sh
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-sync-firmware.sh" "$extraurl/batocera-switch-sync-firmware.sh"
    ###curl -sSf "$extraurl/batocera-switch-sync-firmware.sh" -o "/userdata/system/switch/extra/batocera-switch-sync-firmware.sh"
-   dos2unix /userdata/system/switch/extra/batocera-switch-sync-firmware.sh 2>/dev/null 
-   chmod a+x /userdata/system/switch/extra/batocera-switch-sync-firmware.sh 2>/dev/null 
-# ------------------------------------------------------------------- 
+   dos2unix /userdata/system/switch/extra/batocera-switch-sync-firmware.sh 2>/dev/null
+   chmod a+x /userdata/system/switch/extra/batocera-switch-sync-firmware.sh 2>/dev/null
+# -------------------------------------------------------------------
 # get batocera-switch-stat
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-stat" "$extraurl/batocera-switch-stat"
    ###curl -sSf "$extraurl/batocera-switch-stat" -o "/userdata/system/switch/extra/batocera-switch-stat"
-   chmod a+x /userdata/system/switch/extra/batocera-switch-stat 2>/dev/null 
-# ------------------------------------------------------------------- 
-# prepare nsz converter 
-   if [[ ! -f "/userdata/system/switch/extra/nsz.zip" ]] || [[ "$(wc -c "/userdata/system/switch/extra/nsz.zip" | awk '{print $1}')" < "1000000" ]]; then 
+   chmod a+x /userdata/system/switch/extra/batocera-switch-stat 2>/dev/null
+# -------------------------------------------------------------------
+# prepare nsz converter
+   if [[ ! -f "/userdata/system/switch/extra/nsz.zip" ]] || [[ "$(wc -c "/userdata/system/switch/extra/nsz.zip" | awk '{print $1}')" < "1000000" ]]; then
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/nsz.zip" "$extraurl/nsz.zip"
    ###curl -sSf "$extraurl/nsz.zip" -o "/userdata/system/switch/extra/nsz.zip"
-fi 
+fi
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-rev" "$extraurl/batocera-switch-rev"
       ###curl -sSf "$extraurl/batocera-switch-rev" -o "/userdata/system/switch/extra/batocera-switch-rev"
-      chmod a+x /userdata/system/switch/extra/batocera-switch-rev 2>/dev/null 
+      chmod a+x /userdata/system/switch/extra/batocera-switch-rev 2>/dev/null
          wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-nsz-converter.sh" "$extraurl/batocera-switch-nsz-converter.sh"
          ###curl -sSf "$extraurl/batocera-switch-nsz-converter.sh" -o "/userdata/system/switch/extra/batocera-switch-nsz-converter.sh"
-         dos2unix /userdata/system/switch/extra/batocera-switch-nsz-converter.sh 2>/dev/null 
-         chmod a+x /userdata/system/switch/extra/batocera-switch-nsz-converter.sh 2>/dev/null 
-   cd /userdata/system/switch/extra/ 
+         dos2unix /userdata/system/switch/extra/batocera-switch-nsz-converter.sh 2>/dev/null
+         chmod a+x /userdata/system/switch/extra/batocera-switch-nsz-converter.sh 2>/dev/null
+   cd /userdata/system/switch/extra/
    rm -rf /userdata/system/switch/extra/nsz 2>/dev/null
    unzip -o -qq /userdata/system/switch/extra/nsz.zip 2>/dev/null
-   cd /userdata/system/ 
+   cd /userdata/system/
 # -------------------------------------------------------------------
-# prepare gdk/svg libs for ryujinx / needed for gui controller config 
-   if [[ ! -f "/userdata/system/switch/extra/lib.tar.gz" ]]; then 
+# prepare gdk/svg libs for ryujinx / needed for gui controller config
+   if [[ ! -f "/userdata/system/switch/extra/lib.tar.gz" ]]; then
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/lib.tar.gz" "$extraurl/lib.tar.gz"
       ###curl -sSf "$extraurl/lib.tar.gz" -o "/userdata/system/switch/extra/lib.tar.gz"
-         cd /userdata/system/switch/extra/ 
+         cd /userdata/system/switch/extra/
          rm -rf /userdata/system/switch/extra/lib 2>/dev/null
-         tar -xf /userdata/system/switch/extra/lib.tar.gz 
-   else 
+         tar -xf /userdata/system/switch/extra/lib.tar.gz
+   else
       if [[ "$(md5sum "/userdata/system/switch/extra/lib.tar.gz" | awk '{print $1}')" != "83952eb2897a61337ca10ff0e19c672f" ]]; then
       rm /userdata/system/switch/extra/lib.tar.gz 2>/dev/null
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/lib.tar.gz" "$extraurl/lib.tar.gz"
       ###curl -sSf "$extraurl/lib.tar.gz" -o "/userdata/system/switch/extra/lib.tar.gz"
-         cd /userdata/system/switch/extra/ 
+         cd /userdata/system/switch/extra/
          rm -rf /userdata/system/switch/extra/lib 2>/dev/null
-         tar -xf /userdata/system/switch/extra/lib.tar.gz 
+         tar -xf /userdata/system/switch/extra/lib.tar.gz
       fi
    fi
 #   cp -rL /userdata/system/switch/extra/lib/* /userdata/system/switch/extra/ryujinx/ 2>/dev/null
 #   cp -rL /userdata/system/switch/extra/lib/* /userdata/system/switch/extra/ryujinxldn/ 2>/dev/null
 #   cp -rL /userdata/system/switch/extra/lib/* /userdata/system/switch/extra/ryujinxavalonia/ 2>/dev/null
-   cd /userdata/system/ 
+   cd /userdata/system/
 # -------------------------------------------------------------------
-# get ryujinx-controller-patcher.sh 
+# get ryujinx-controller-patcher.sh
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/ryujinx-controller-patcher.sh" "$extraurl/ryujinx-controller-patcher.sh"
    ###curl -sSf "$extraurl/ryujinx-controller-patcher.sh" -o "/userdata/system/switch/extra/ryujinx-controller-patcher.sh"
-   dos2unix /userdata/system/switch/extra/ryujinx-controller-patcher.sh 2>/dev/null 
-   chmod a+x /userdata/system/switch/extra/ryujinx-controller-patcher.sh 2>/dev/null  
+   dos2unix /userdata/system/switch/extra/ryujinx-controller-patcher.sh 2>/dev/null
+   chmod a+x /userdata/system/switch/extra/ryujinx-controller-patcher.sh 2>/dev/null
 # -------------------------------------------------------------------
-# get yuzu-controller-patcher.sh 
+# get yuzu-controller-patcher.sh
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/yuzu-controller-patcher.sh" "$extraurl/yuzu-controller-patcher.sh"
    ###curl -sSf "$extraurl/yuzu-controller-patcher.sh" -o "/userdata/system/switch/extra/yuzu-controller-patcher.sh"
-   dos2unix /userdata/system/switch/extra/yuzu-controller-patcher.sh 2>/dev/null 
-   chmod a+x /userdata/system/switch/extra/yuzu-controller-patcher.sh 2>/dev/null  
+   dos2unix /userdata/system/switch/extra/yuzu-controller-patcher.sh 2>/dev/null
+   chmod a+x /userdata/system/switch/extra/yuzu-controller-patcher.sh 2>/dev/null
 # -------------------------------------------------------------------
-# prepare patcher 
+# prepare patcher
 #url_patcher="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-patcher.sh"
 #   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-patcher.sh" "$url_patcher"
    ###curl -sSf "$url_patcher" -o "/userdata/system/switch/extra/batocera-switch-patcher.sh"
@@ -2369,17 +2369,17 @@ fi
 # -------------------------------------------------------------------
 #
 f=/userdata/system/switch/extra/batocera-switch-startup
-rm "$f" 2>/dev/null 
-# 
+rm "$f" 2>/dev/null
+#
 echo '#!/bin/bash' >> "$f"
 echo '#' >> "$f"
 #\ check language
 echo '#\ check language ' >> "$f"
 echo '/userdata/system/switch/extra/batocera-switch-translator.sh 2>/dev/null &' >> "$f"
-#\ prepare system 
+#\ prepare system
 echo '#\ prepare system ' >> "$f"
 echo 'cp /userdata/system/switch/extra/batocera-switch-rev /usr/bin/rev 2>/dev/null ' >> "$f"
-#echo 'rm /userdata/system/switch/logs/* 2>/dev/null ' >> "$f" 
+#echo 'rm /userdata/system/switch/logs/* 2>/dev/null ' >> "$f"
 echo 'mkdir -p /userdata/system/switch/logs 2>/dev/null ' >> "$f"
 echo 'sysctl -w vm.max_map_count=2147483642 1>/dev/null' >> "$f"
 echo 'extra=/userdata/system/switch/extra' >> "$f"
@@ -2391,7 +2391,7 @@ echo 'if [[ -e "/lib/libthai.so.0.3" ]] || [[ -e "/usr/lib/libthai.so.0.3" ]]; t
 echo 'if [[ -e "/lib/libselinux.so.1" ]] || [[ -e "/usr/lib/libselinux.so.1" ]]; then echo 1>/dev/null; else cp /userdata/system/switch/extra/batocera-switch-libselinux.so.1 /usr/lib/libselinux.so.1 2>/dev/null; fi' >> "$f"
 echo 'if [[ -e "/lib/libtinfo.so.6" ]] || [[ -e "/usr/lib/libtinfo.so.6" ]]; then echo 1>/dev/null; else cp /userdata/system/switch/extra/batocera-switch-libtinfo.so.6 /usr/lib/libtinfo.so.6 2>/dev/null; fi' >> "$f"
 echo '#' >> "$f"
-#\ link ryujinx config folders 
+#\ link ryujinx config folders
 echo '#\ link ryujinx config folders ' >> "$f"
 echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
 echo 'mkdir /userdata/system/configs/Ryujinx 2>/dev/null' >> "$f"
@@ -2403,7 +2403,7 @@ echo 'ln -s /userdata/system/configs/Ryujinx /userdata/system/.config/Ryujinx 2>
 echo 'rm /userdata/system/configs/Ryujinx/Ryujinx 2>/dev/null' >> "$f"
 echo '#' >> "$f"
 #
-#\ link ryujinx saves folders 
+#\ link ryujinx saves folders
 echo '#\ link ryujinx saves folders ' >> "$f"
 echo 'mkdir /userdata/saves 2>/dev/null' >> "$f"
 echo 'mkdir /userdata/saves/Ryujinx 2>/dev/null' >> "$f"
@@ -2420,7 +2420,7 @@ echo 'rm /userdata/saves/Ryujinx/Ryujinx 2>/dev/null' >> "$f"
 echo 'if [ ! -L /userdata/system/configs/Ryujinx/bis/user/save ]; then mkdir /userdata/system/configs/Ryujinx/bis/user/save 2>/dev/null; rsync -au /userdata/saves/Ryujinx/ /userdata/system/configs/Ryujinx/bis/user/save/ 2>/dev/null; fi' >> "$f"
 echo '#' >> "$f"
 #
-#\ link yuzu config folders 
+#\ link yuzu config folders
 echo '#\ link yuzu config folders ' >> "$f"
 echo 'mkdir /userdata/system/configs 2>/dev/null' >> "$f"
 echo 'mkdir /userdata/system/configs/yuzu 2>/dev/null' >> "$f"
@@ -2452,7 +2452,7 @@ echo 'rm /userdata/saves/yuzu/yuzu 2>/dev/null' >> "$f"
 echo 'if [ ! -L /userdata/system/configs/yuzu/nand/user/save ]; then mkdir /userdata/system/configs/yuzu/nand/user/save 2>/dev/null; rsync -au /userdata/saves/yuzu/ /userdata/system/configs/yuzu/nand/user/save/ 2>/dev/null; fi' >> "$f"
 echo '#' >> "$f"
 #
-#\ link yuzu and ryujinx keys folders to bios/switch 
+#\ link yuzu and ryujinx keys folders to bios/switch
 echo '#\ link yuzu and ryujinx keys folders to bios/switch ' >> "$f"
 echo 'cp -rL /userdata/system/configs/yuzu/keys/* /userdata/bios/switch/ 2>/dev/null' >> "$f"
 echo 'cp -rL /userdata/system/configs/Ryujinx/system/* /userdata/bios/switch/ 2>/dev/null' >> "$f"
@@ -2485,16 +2485,16 @@ echo '  fs=$(blkid | grep "$(df -h /userdata | awk '\''END {print $1}'\'')" | se
 echo '    if [[ "$fs" == *"EXT"* ]] || [[ "$fs" == *"BTR"* ]]; then ' >> "$f"
 echo '      /userdata/system/switch/extra/batocera-switch-xdg.sh ' >> "$f"
 echo '    fi' >> "$f"
-echo '#' >> "$f" 
+echo '#' >> "$f"
 #
 dos2unix "$f" 2>/dev/null
 chmod a+x "$f" 2>/dev/null
 # -------------------------------------------------------------------
-# & run now: 
-      /userdata/system/switch/extra/batocera-switch-startup 2>/dev/null & 
-      echo 1>/dev/null 2>/dev/null 
+# & run now:
+      /userdata/system/switch/extra/batocera-switch-startup 2>/dev/null &
+      echo 1>/dev/null 2>/dev/null
 # -------------------------------------------------------------------
-# ADD TO BATOCERA AUTOSTART > /USERDATA/SYSTEM/CUSTOM.SH 
+# ADD TO BATOCERA AUTOSTART > /USERDATA/SYSTEM/CUSTOM.SH
 # -------------------------------------------------------------------
 csh=/userdata/system/custom.sh; dos2unix $csh 2>/dev/null
 startup="/userdata/system/switch/extra/batocera-switch-startup"
@@ -2505,34 +2505,34 @@ if [[ -f $csh ]];
       remove="$startup"
       rm $tmp1 2>/dev/null; rm $tmp2 2>/dev/null
       nl=$(cat "$csh" | wc -l); nl1=$(($nl + 1))
-         l=1; 
+         l=1;
          for l in $(seq 1 $nl1); do
             ln=$(cat "$csh" | sed ""$l"q;d" );
-               if [[ "$(echo "$ln" | grep "$remove")" != "" ]]; then :; 
-                else 
+               if [[ "$(echo "$ln" | grep "$remove")" != "" ]]; then :;
+                else
                   if [[ "$l" = "1" ]]; then
                         if [[ "$(echo "$ln" | grep "#" | grep "/bin/" | grep "bash" )" != "" ]]; then :; else echo "$ln" >> "$tmp1"; fi
-                     else 
+                     else
                         echo "$ln" >> $tmp1;
                   fi
-               fi            
+               fi
             ((l++))
          done
-          # 
+          #
           echo -e '#!/bin/bash' >> $tmp2
-          echo -e "\n$startup \n" >> $tmp2          
+          echo -e "\n$startup \n" >> $tmp2
           cat "$tmp1" | sed -e '/./b' -e :n -e 'N;s/\n$//;tn' >> "$tmp2"
-          cp $tmp2 $csh 2>/dev/null; dos2unix $csh 2>/dev/null; chmod a+x $csh 2>/dev/null  
-   else  #(!f csh)   
+          cp $tmp2 $csh 2>/dev/null; dos2unix $csh 2>/dev/null; chmod a+x $csh 2>/dev/null
+   else  #(!f csh)
        echo -e '#!/bin/bash' >> $csh
-       echo -e "\n$startup\n" >> $csh  
-       dos2unix $csh 2>/dev/null; chmod a+x $csh 2>/dev/null  
-fi 
+       echo -e "\n$startup\n" >> $csh
+       dos2unix $csh 2>/dev/null; chmod a+x $csh 2>/dev/null
+fi
 dos2unix ~/custom.sh 2>/dev/null
 chmod a+x ~/custom.sh 2>/dev/null
 # --------------------------------------------------------------------
 # CLEAR THE OLD V34- CUSTOM.SH LINE IF FOUND AND THE SYSTEM IS NOW VERSION V35+:
-# THIS SHOULD HELP WITH UPGRADED VERSIONS AND 'OTHER INSTALLS' 
+# THIS SHOULD HELP WITH UPGRADED VERSIONS AND 'OTHER INSTALLS'
    if [[ "$(uname -a | grep "x86_64")" != "" ]] && [[ "$(uname -a | awk '{print $3}')" > "5.18.00" ]]; then
       remove="cat /userdata/system/configs/emulationstation/add_feat_os.cfg /userdata/system/configs/emulationstation/add_feat_switch.cfg"
       csh=/userdata/system/custom.sh
@@ -2540,7 +2540,7 @@ chmod a+x ~/custom.sh 2>/dev/null
          tmp=/userdata/system/customsh.tmp
          rm $tmp 2>/dev/null
          nl=$(cat "$csh" | wc -l)
-         l=1; while [[ "$l" -le "$nl" ]]; 
+         l=1; while [[ "$l" -le "$nl" ]];
          do
             ln=$(cat "$csh" | sed ""$l"q;d")
                if [[ "$(echo "$ln" | grep "$remove")" != "" ]]; then :; else echo "$ln" >> "$tmp"; fi
@@ -2554,18 +2554,18 @@ chmod a+x ~/custom.sh 2>/dev/null
       mkdir /userdata/system/switch 2>/dev/null
       mkdir /userdata/system/switch/extra 2>/dev/null
       mkdir /userdata/system/switch/extra/backup 2>/dev/null
-      # REMOVE OLD ~/CONFIGS/EMULATIONSTATION/files if found & system is now upgraded: 
+      # REMOVE OLD ~/CONFIGS/EMULATIONSTATION/files if found & system is now upgraded:
       rm "$es/add_feat_switch.cfg" 2>/dev/null
    fi
-# -------------------------------------------------------------------- 
-# REMOVE OLD UPDATERS 
-rm /userdata/roms/ports/updateyuzu.sh 2>/dev/null 
+# --------------------------------------------------------------------
+# REMOVE OLD UPDATERS
+rm /userdata/roms/ports/updateyuzu.sh 2>/dev/null
 rm /userdata/roms/ports/updateyuzuea.sh 2>/dev/null
-rm /userdata/roms/ports/updateyuzuEA.sh 2>/dev/null 
+rm /userdata/roms/ports/updateyuzuEA.sh 2>/dev/null
 rm /userdata/roms/ports/updateryujinx.sh 2>/dev/null
 rm /userdata/roms/ports/updateryujinxavalonia.sh 2>/dev/null
 # --------------------------------------------------------------------
-# AUTOMATICALLY PULL THE LATEST EMULATORS FEATURES UPDATES / ALSO UPDATE THESE FILES: 
+# AUTOMATICALLY PULL THE LATEST EMULATORS FEATURES UPDATES / ALSO UPDATE THESE FILES:
 mkdir -p /userdata/system/switch/extra 2>/dev/null
 mkdir -p /userdata/system/switch/configgen/generators/yuzu 2>/dev/null
 mkdir -p /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
@@ -2581,7 +2581,7 @@ url_yuzuMainlineGenerator=https://raw.githubusercontent.com/mikhailzrick/batocer
 #url_sshupdater=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-sshupdater.sh
 url_updater=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh
 url_portsupdater=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/ports/Switch%20Updater.sh
-url_portsupdaterkeys=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/ports/Switch%20Updater.sh.keys   
+url_portsupdaterkeys=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/ports/Switch%20Updater.sh.keys
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/configs/evmapy/switch.keys" "$url_switchkeys"
    ###curl -sSf "$url_switchkeys" -o "/userdata/system/configs/evmapy/switch.keys"
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/configs/emulationstation/es_features_switch.cfg" "$url_es_features_switch"
@@ -2597,11 +2597,11 @@ url_portsupdaterkeys=https://raw.githubusercontent.com/mikhailzrick/batocera-swi
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py" "$url_yuzuMainlineGenerator"
    ###curl -sSf "$url_yuzuMainlineGenerator" -o "/userdata/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py"
       dos2unix "/userdata/system/configs/evmapy/switch.keys" 2>/dev/null
-      dos2unix "/userdata/system/configs/emulationstation/es_features_switch.cfg" 2>/dev/null 
+      dos2unix "/userdata/system/configs/emulationstation/es_features_switch.cfg" 2>/dev/null
       dos2unix "/userdata/system/configs/emulationstation/es_systems_switch.cfg" 2>/dev/null
       dos2unix "/userdata/system/switch/configgen/switchlauncher.py" 2>/dev/null
       dos2unix "/userdata/system/switch/configgen/GeneratorImporter.py" 2>/dev/null
-      dos2unix "/userdata/system/switch/configgen/generators/ryujinx/ryujinxMainlineGenerator.py" 2>/dev/null 
+      dos2unix "/userdata/system/switch/configgen/generators/ryujinx/ryujinxMainlineGenerator.py" 2>/dev/null
       dos2unix "/userdata/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py" 2>/dev/null
       dos2unix "/userdata/system/switch/configgen/generators/yuzu/yuzuMainlineGenerator.py" 2>/dev/null
    # update batocera-switch-sshupdater.sh
@@ -2623,14 +2623,14 @@ url_portsupdaterkeys=https://raw.githubusercontent.com/mikhailzrick/batocera-swi
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/roms/ports/Switch Updater.sh.keys" "$url_portsupdaterkeys"
    ###curl -sSf "$url_portsupdaterkeys" -o "/userdata/roms/ports/Switch Updater.sh.keys"
    dos2unix "/userdata/system/roms/ports/Switch Updater.sh.keys" 2>/dev/null
-   # get batocera-switch-patcher.sh 
+   # get batocera-switch-patcher.sh
 #   wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/extra/batocera-switch-patcher.sh" "$url_patcher"
    ###curl -sSf "$url_patcher" -o "/userdata/system/switch/extra/batocera-switch-patcher.sh"
    dos2unix "/userdata/system/switch/extra/batocera-switch-patcher.sh" 2>/dev/null
    chmod a+x "/userdata/system/switch/extra/batocera-switch-patcher.sh" 2>/dev/null
 # --------------------------------------------------------------------
-# pull the whole configgen to sync all autocontroller changes: 
-# -------------------------------------------------------------------- 
+# pull the whole configgen to sync all autocontroller changes:
+# --------------------------------------------------------------------
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN
 path=/userdata/system/switch/configgen
 url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen
@@ -2642,7 +2642,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/swit
 ###curl -sSf "$url/switchlauncher.py" -o "$path/switchlauncher.py"
 ####wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher_old.py" "$url/switchlauncher_old.py"
 #####curl -sSf "$url/switchlauncher_old.py" -o "$path/switchlauncher_old.py"
-# -------------------------------------------------------------------- 
+# --------------------------------------------------------------------
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS
 path=/userdata/system/switch/configgen/generators
 url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators
@@ -2651,7 +2651,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__in
 ##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Generator.py" "$url/Generator.py"
 ##curl -sSf "$url/Generator.py" -o "$path/Generator.py"
-# -------------------------------------------------------------------- 
+# --------------------------------------------------------------------
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
 path=/userdata/system/switch/configgen/generators/yuzu
 url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators/yuzu
@@ -2660,7 +2660,7 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__in
 ##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuMainlineGenerator.py" "$url/yuzuMainlineGenerator.py"
 ##curl -sSf "$url/yuzuMainlineGenerator.py" -o "$path/yuzuMainlineGenerator.py"
-# -------------------------------------------------------------------- 
+# --------------------------------------------------------------------
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/RYUJINX
 path=/userdata/system/switch/configgen/generators/ryujinx
 url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators/ryujinx
@@ -2669,24 +2669,24 @@ wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__in
 ##curl -sSf "$url/__init__.py" -o "$path/__init__.py"
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinxMainlineGenerator.py" "$url/ryujinxMainlineGenerator.py"
 ##curl -sSf "$url/ryujinxMainlineGenerator.py" -o "$path/ryujinxMainlineGenerator.py"
-# -------------------------------------------------------------------- 
+# --------------------------------------------------------------------
 # FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/SDL2
 path=/userdata/system/switch/configgen/sdl2
 mkdir -p $path 2>/dev/null
 cd $path
-if [[ ! -f "/userdata/system/switch/configgen/sdl2/sdl2.zip" ]]; then 
+if [[ ! -f "/userdata/system/switch/configgen/sdl2/sdl2.zip" ]]; then
 rm -rf /userdata/system/switch/configgen/sdl2/sdl2.zip 2>/dev/null
 wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/configgen/sdl2/sdl2.zip" "$extraurl/sdl2.zip"
 ##curl -sSf "$extraurl/sdl2.zip" -o "/userdata/system/switch/configgen/sdl2/sdl2.zip"
 unzip -oq /userdata/system/switch/configgen/sdl2/sdl2.zip
-else 
-   if [[ "$(wc -c "/userdata/system/switch/configgen/sdl2/sdl2.zip" | awk '{print $1}')" < "100000" ]]; then 
+else
+   if [[ "$(wc -c "/userdata/system/switch/configgen/sdl2/sdl2.zip" | awk '{print $1}')" < "100000" ]]; then
    rm -rf /userdata/system/switch/configgen/sdl2/sdl2.zip 2>/dev/null
    wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/configgen/sdl2/sdl2.zip" "$extraurl/sdl2.zip"
    ##curl -sSf "$extraurl/sdl2.zip" -o "/userdata/system/switch/configgen/sdl2/sdl2.zip"
    unzip -oq /userdata/system/switch/configgen/sdl2/sdl2.zip
    fi
-fi 
+fi
 # additional pass for folks who have issues connecting to github
    function get() {
       file="$1"
@@ -2697,8 +2697,8 @@ fi
                cd $path
                wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/$file" "$url/$file"
                ###curl -sSf "$url/$file" -o "$path/$file"
-            else 
-               if [[ "$(wc -c "$path/$file" | awk '{print $1}')" < "5" ]]; then 
+            else
+               if [[ "$(wc -c "$path/$file" | awk '{print $1}')" < "5" ]]; then
                cd $path
                wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/$file" "$url/$file"
                fi
@@ -2755,25 +2755,25 @@ fi
       get vulkan.py
    chmod 777 $path/* 2>/dev/null
 cd ~/
-# -------------------------------------------------------------------- 
-# GET RYUJINX 942 libSDL2.so for updated controllers processing 
+# --------------------------------------------------------------------
+# GET RYUJINX 942 libSDL2.so for updated controllers processing
 rm /userdata/system/switch/extra/batocera-switch-libSDL2.so 2>/dev/null
 mkdir -p /userdata/system/switch/extra/sdl 2>/dev/null
 sdl=/userdata/system/switch/extra/sdl/libSDL2.so
 sdlurl=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-libSDL2.so
-   if [[ ! -e "$sdl" ]]; then 
+   if [[ ! -e "$sdl" ]]; then
       wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$sdl" "$sdlurl"
       ###curl -sSf "$sdlurl" -o "$sdl"
-   else 
-      if [[ "$(md5sum $sdl | awk '{print $1}')" != "dc4a162f60622b04813fbf1756419c89" ]] || [[ "$(wc -c $sdl | awk '{print $1}')" != "2493584" ]]; then 
+   else
+      if [[ "$(md5sum $sdl | awk '{print $1}')" != "dc4a162f60622b04813fbf1756419c89" ]] || [[ "$(wc -c $sdl | awk '{print $1}')" != "2493584" ]]; then
          wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$sdl" "$sdlurl"
          ###curl -sSf "$sdlurl" -o "$sdl"
-      fi 
-   fi 
-      chmod a+x "$sdl" 2>/dev/null 
+      fi
+   fi
+      chmod a+x "$sdl" 2>/dev/null
 # --------------------------------------------------------------------
 # REMOVE NEW VER YUZU QUIT PROMPT
-if [[ -e /userdata/system/configs/yuzu/qt-config.ini ]]; then 
+if [[ -e /userdata/system/configs/yuzu/qt-config.ini ]]; then
    sed -i 's,confirmStop=0,confirmStop=2,g' /userdata/system/configs/yuzu/qt-config.ini 2>/dev/null
    sed -i 's,confirmStop\\default=true,confirmStop\\default=false,g' /userdata/system/configs/yuzu/qt-config.ini 2>/dev/null
 fi
@@ -2787,7 +2787,7 @@ icon1=icon_updater.png ; icon2=icon_loading.png ; dest=/userdata/system/switch/e
       ##curl -sSf "$urldir/$icon1" -o "/userdata/system/switch/extra/icon_updater.png"
       wget -q --tries=10 -O "$dest/$icon2" "$urldir/$icon2"
       ##curl -sSf "$urldir/$icon2" -o "/userdata/system/switch/extra/icon_loading.png"
-# -------------------------------------------------------------------- 
+# --------------------------------------------------------------------
 # GET TRANSLATIONS
 path=/userdata/system/switch/extra/translations
 url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/translations
@@ -2841,8 +2841,8 @@ export -f post-install
 #
 ######################################################################
 #\
-if [[ "$MODE" != "CONSOLE" ]]; then 
-# include display output: 
+if [[ "$MODE" != "CONSOLE" ]]; then
+# include display output:
    tput=/userdata/system/switch/extra/batocera-switch-tput
    libtinfo=/userdata/system/switch/extra/batocera-switch-libtinfo.so.6
    mkdir /userdata/system/switch 2>/dev/null; mkdir /userdata/system/switch/extra 2>/dev/null
@@ -2857,12 +2857,12 @@ if [[ "$MODE" != "CONSOLE" ]]; then
          ##curl -sSf "https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-libtinfo.so.6" -o "/userdata/system/switch/extra/batocera-switch-libtinfo.so.6"
       fi
    chmod a+x "$tput" 2>/dev/null
-   if [[ -e "/lib/libtinfo.so.6" ]] || [[ -e "/usr/lib/libtinfo.so.6" ]]; then 
+   if [[ -e "/lib/libtinfo.so.6" ]] || [[ -e "/usr/lib/libtinfo.so.6" ]]; then
    :
    else
    cp "$libtinfo" "/usr/lib/libtinfo.so.6" 2>/dev/null
    fi
-# 
+#
       function get-fontsize {
          cfg=/userdata/system/switch/extra/display.cfg
             rm /tmp/cols 2>/dev/null
@@ -2878,15 +2878,15 @@ if [[ "$MODE" != "CONSOLE" ]]; then
 ##################################
 get-fontsize 2>/dev/null
 #
-# ensure fontsize: 
+# ensure fontsize:
 cfg=/userdata/system/switch/extra/display.cfg
 cols=$(cat "$cfg" | tail -n 1 | cut -d "=" -f2 2>/dev/null) 2>/dev/null
 colres=$(cat "$cfg" | tail -n 1 | cut -d "=" -f1 2>/dev/null) 2>/dev/null
 res=$(xrandr | grep " connected " | awk '{print $3}' | cut -d x -f1)
-fallback=9 
+fallback=9
 #
 #####
-   if [[ -e "$cfg" ]] && [[ "$cols" != "80" ]]; then 
+   if [[ -e "$cfg" ]] && [[ "$cols" != "80" ]]; then
       if [[ "$colres" = "$res" ]]; then
          TEXT_SIZE=$(bc <<<"scale=0;$cols/11" 2>/dev/null) 2>/dev/null
       fi
@@ -2894,60 +2894,60 @@ fallback=9
       if [[ "$colres" != "$res" ]]; then
          rm "$cfg" 2>/dev/null
             try=1
-            until [[ "$cols" != "80" ]] 
+            until [[ "$cols" != "80" ]]
             do
             get-fontsize 2>/dev/null
             cols=$(cat "$cfg" | tail -n 1 | cut -d "=" -f2 2>/dev/null) 2>/dev/null
             try=$(($try+1)); if [[ "$try" -ge "10" ]]; then TEXT_SIZE=$fallback; cols=1; fi
-            done 
+            done
             if [[ "$cols" != "1" ]]; then TEXT_SIZE=$(bc <<<"scale=0;$cols/11" 2>/dev/null) 2>/dev/null; fi
       fi
-   # 
+   #
    else
-   # 
+   #
       get-fontsize 2>/dev/null
       cols=$(cat "$cfg" | tail -n 1 | cut -d "=" -f2 2>/dev/null) 2>/dev/null
          try=1
-         until [[ "$cols" != "80" ]] 
+         until [[ "$cols" != "80" ]]
          do
             get-fontsize 2>/dev/null
             cols=$(cat "$cfg" | tail -n 1 | cut -d "=" -f2 2>/dev/null) 2>/dev/null
             try=$(($try+1)); if [[ "$try" -ge "10" ]]; then TEXT_SIZE=$fallback; cols=1; fi
-         done 
+         done
          if [[ "$cols" != "1" ]]; then TEXT_SIZE=$(bc <<<"scale=0;$cols/11" 2>/dev/null) 2>/dev/null; fi
          if [ "$TEXT_SIZE" = "" ]; then TEXT_SIZE=$fallback; fi
    fi    #
    ##### #
-         if [[ ( -e "/tmp/updater-textsize" && "$(cat "/tmp/updater-textsize" | grep "AUTO")" != "") || ( -e "/tmp/updater-textsize" && "$(cat "/tmp/updater-textsize" | grep "auto")" != "" ) ]]; then 
+         if [[ ( -e "/tmp/updater-textsize" && "$(cat "/tmp/updater-textsize" | grep "AUTO")" != "") || ( -e "/tmp/updater-textsize" && "$(cat "/tmp/updater-textsize" | grep "auto")" != "" ) ]]; then
             TEXT_SIZE=$TEXT_SIZE
-         else 
+         else
             TEXT_SIZE=$(cat "/tmp/updater-textsize")
          fi
          TEXT_SIZE=$(bc <<< "$TEXT_SIZE/1")
          # ###################################################################
-         # 
-         ## RUN THE UPDATER: ------------------------------------------------- 
-            if [[ "$MODE" = "DISPLAY" ]]; then 
-               if [[ "$ANIMATION" = "YES" ]]; then 
+         #
+         ## RUN THE UPDATER: -------------------------------------------------
+            if [[ "$MODE" = "DISPLAY" ]]; then
+               if [[ "$ANIMATION" = "YES" ]]; then
                   DISPLAY=:0.0 unclutter-remote -h && DISPLAY=:0.0 /tmp/batocera-switch-updater -maximized -fs "$TEXT_SIZE" -fg black -bg black -fa "DejaVuSansMono" -en UTF-8 -e bash -c "DISPLAY=:0.0 cvlc -f --no-audio --no-video-title-show --no-mouse-events --no-keyboard-events --no-repeat /userdata/system/switch/extra/loader.mp4 2>/dev/null & sleep 3.69 && killall -9 vlc && DISPLAY=:0.0 batocera_update_switch && DISPLAY=:0.0 post-install"
-               else 
+               else
                   DISPLAY=:0.0 unclutter-remote -h && DISPLAY=:0.0 /tmp/batocera-switch-updater -maximized -fs "$TEXT_SIZE" -fg black -bg black -fa "DejaVuSansMono" -en UTF-8 -e bash -c "DISPLAY=:0.0 batocera_update_switch && post-install"
-               fi 
-            fi 
-fi 
-#/ 
+               fi
+            fi
+fi
+#/
 #################################################################################################################################
-            if [[ "$MODE" = "CONSOLE" ]]; then 
+            if [[ "$MODE" = "CONSOLE" ]]; then
                   DISPLAY=:0.0 batocera_update_switch console && DISPLAY=:0.0 post-install
-            fi 
+            fi
 #################################################################################################################################
 wait
-   # --- \ restore user config file for the updater if running clean install/update from the switch installer 
-   if [[ -e /tmp/.userconfigfile ]]; then 
+   # --- \ restore user config file for the updater if running clean install/update from the switch installer
+   if [[ -e /tmp/.userconfigfile ]]; then
       cp /tmp/.userconfigfile /userdata/system/switch/CONFIG.txt 2>/dev/null
       rm /tmp/.userconfigfile 2>/dev/null
-   fi 
-   # --- / 
+   fi
+   # --- /
 sysctl -w net.ipv6.conf.default.disable_ipv6=0 1>/dev/null 2>/dev/null
 sysctl -w net.ipv6.conf.all.disable_ipv6=0 1>/dev/null 2>/dev/null
 sleep 2 && killall -9 batocera-switch-updater 2>/dev/null && curl http://127.0.0.1:1234/reloadgames && exit 0; exit 1

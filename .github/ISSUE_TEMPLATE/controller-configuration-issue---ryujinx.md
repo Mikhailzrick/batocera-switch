@@ -3,7 +3,7 @@ name: Controller Configuration Issue - Ryujinx
 about: Create a report to help us improve
 title: ''
 labels: bug
-assignees: ordovice
+assignees: ''
 
 ---
 
