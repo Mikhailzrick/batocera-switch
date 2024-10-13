@@ -1,0 +1,17 @@
+@nsobid-FB08F1D20FD1204FE7070672777F869B
+
+# MONSTER HUNTER GENERATIONS ULTIMATE [0100770008DD8000] v1.4.0 - Connecting Error Fix
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disables the ability to Connect to the internet
+
+@enabled
+00864B24 00F020E3
+@stop
+
+@theboy181
+
+https://twitter.com/theboy181
+https://www.patreon.com/user?u=3127108

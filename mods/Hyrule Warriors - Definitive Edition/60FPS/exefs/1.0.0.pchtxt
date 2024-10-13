@@ -1,0 +1,17 @@
+@nsobid-0C869F41B8B9175E29B2329F594E0A4F
+
+# Hyrule Warriors: Definitive Edition v1.0.0 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60fps with timing for cutscenes, and movies
+
+@enabled
+005F8EEC 21008052
+00172EE8 09E0A752
+00252E20 20008052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

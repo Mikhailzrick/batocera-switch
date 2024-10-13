@@ -1,0 +1,21 @@
+@nsobid-937E57FF64D21ECD8BDA3FE04D6612B8
+
+# Mario Kart 8 Deluxe [0100152000022000] v2.0.0 - Force FXAA
+
+@flag offset_shift 0x100
+
+// Force FXAA in Game Modes
+
+@enabled
+005C2D5C 00F020E3
+@stop
+
+@theboy181 - https://linktr.ee/theboy181
+
+
+Contributors (Thank You!)
+Cathy#6751, Biggsy#7677, brunolv#1631, dutyfree#6162, Niwu#4082, SP4RT4N3R#6735, Wemerson#6308, 𓃠Yaro𓃠 本音#9974
+
+
+
+

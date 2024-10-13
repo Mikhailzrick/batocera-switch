@@ -1,0 +1,14 @@
+@nsobid-FE1B230800D4933C617C691273CA5978
+
+# Mario Kart 8 Deluxe [0100152000022000] v1.7.1 - Disable Dynamic Resoltuion
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Removes resolution scaling
+
+@enabled
+0068BC58 9D0200EA
+@stop
+
+@theboy181 - https://linktr.ee/theboy181

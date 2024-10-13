@@ -1,0 +1,30 @@
+@nsobid-67C9CA1428222752F951021464A7B3597EB98FEC
+
+# Metroid Prime Remastered [010012101468C000] v1.0.0 - 2K-1080p
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 2K Docked, 1080p Handheld
+
+@enabled
+00001248 00408152
+00001250 00B48052
+00001258 00F08052
+00001260 00878052
+00001268 00F08052
+00001270 00878052
+00BDB81C 00C88052
+00BDB844 80708052
+00E5324C 00C88052
+00E53254 80708052
+00E5325C 00C88052
+00E53264 80708052
+00E54C40 00C88052
+00E54C50 80708052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Donator: @SardineCat @electric. @A7 @AliciaBurrito @CartoonistDude @Deadlyhaashbrown @Deleted @Derva @LambLambda @Nautilus @Revanlkari @spencerrox @SILENT

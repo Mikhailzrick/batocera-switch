@@ -1,0 +1,18 @@
+@nsobid-646761F643AFEBB379EDD5E6A5151AF2CEF93DC1
+
+# Metroid Dread [010093801237C000] v2.1.0 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60fps
+
+@enabled
+0015943C 10000014
+0119A320 C0035FD6
+00159280 21008052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+Thank you! @DookieLord @Paradoki @Victoria

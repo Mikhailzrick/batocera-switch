@@ -1,0 +1,10 @@
+@nsobid-D3C62FCA532DB43263FC4D864DDD1E2C
+# Splatoon 2 v5.1.0 (US) - 60fps Plaza & OE Credits - made by theboy181
+
+@flag offset_shift 0x100
+
+// 60fps Plaza and OE Credits
+@enabled
+000B2A74 0C000014
+0010B9C4 C0035FD6
+@stop

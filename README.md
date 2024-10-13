@@ -21,7 +21,7 @@ Turn off/on motion based on SDL support for the feature (currently just 'on')
 
 ## EASY INSTALL
 From a terminal window, run the following:<br>
-```curl -L switch.batocera.pro | bash```
+```curl -L https://tinyurl.com/batocera-switch-install | bash```
 
 After installing, place your prod.keys and title.keys in /share/bios/switch/
 If you wish to use Ryujinx you will also need to supply the firmware zip file

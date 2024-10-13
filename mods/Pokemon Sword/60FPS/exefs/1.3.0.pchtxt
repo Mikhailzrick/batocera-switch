@@ -1,0 +1,18 @@
+@nsobid-479BD2B581F4BC6A3019BE9EEF9C3821ACC9A65C
+// nsobid found in main @ offset 0x40
+
+// Pokemon Sword 60 FPS - 1.3.0
+
+@flag print_values
+@flag offset_shift 0x100
+
+@enabled
+018A2798 21008052
+@stop
+
+018A2798 61008052 15 FPS Hack (too slow)
+018A2798 21008052 60 FPS Hack (too fast)
+
+@Morph
+
+// Special thanks to theboy181 for the Pokemon Sword mods

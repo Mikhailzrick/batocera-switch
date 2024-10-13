@@ -1,0 +1,19 @@
+@nsobid-67C9CA1428222752F951021464A7B3597EB98FEC
+
+# Metroid Prime Remastered [010012101468C000] v1.0.0 - Increased FOV
+
+@flag print_values
+@flag offset_shift 0x100
+
+// FOV increased from 55 to 75. This has a good increase to the FOV while maintaining the look of the game.
+
+@enabled
+00C8C8B8 C852A852
+00C8C8BC 0001271E
+00C8C8AC C852A852
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Donator: @SardineCat @electric. @A7 @AliciaBurrito @CartoonistDude @Deadlyhaashbrown @Deleted @Derva @LambLambda @Nautilus @Revanlkari @spencerrox @SILENT

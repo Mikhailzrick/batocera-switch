@@ -1,0 +1,17 @@
+@nsobid-182C245D014CFE16B264EE0CEBBC24E100000000
+
+# Mario Tennis Aces [0100BDE00862A000] v1.0.0 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Lock to 60fps on the map screen 
+
+@enabled
+000BEC64 68000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+

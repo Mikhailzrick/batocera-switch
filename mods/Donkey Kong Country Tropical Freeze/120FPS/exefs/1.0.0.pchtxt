@@ -1,0 +1,23 @@
+@nsobid-0E7A480A50A0D3DDD935510E153D4D0C
+
+# Donkey Kong Country: Tropical Freeze [0100C1F0051B6000] v1.0.0 - 120fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 120fps
+
+
+@enabled
+001B5774 0881A752
+0068FD0C 0881A752
+015602FC 8988083C
+01560300 898808BC
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+
+
+

@@ -1,0 +1,33 @@
+@nsobid-6B2495AD8A742A5C44C95438DDC2A2F6DE6F9C37
+
+// nsobid found in main @ offset 0x40
+
+# Super Smash Brothers v3.1.0 - 30fps 
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 30fps hack
+
+@theboy181
+
+Special thanks to @the incredible player, @gonzas, @JoyConBoyForever_Octolimar, and the The development team of yuzu for help in testing this mod!
+
+
+
+@enabled
+02EC5918 08090091
+02F1513C 56008052
+016DC16C 0010201E
+02E3B1B8 0010201E
+02E3B220 02102F1E
+02E3B224 4258221E
+@stop
+
+
+Ported by @Boi-leth
+
+
+
+
+

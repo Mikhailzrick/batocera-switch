@@ -1,0 +1,19 @@
+@nsobid-B47CC79B88B7091EA514B2B725C50AE01C6F00DF
+
+# Bayonetta 3 [01004A4010FEA000] v1.1.0 - Remove Film Grain
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disables Film Grain
+
+@enabled
+00678730 1F2003D5
+00678A30 1F2003D5
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Thanks to: 
+cvarandas,KlonoaBlade,Ophiannett Rainteau, and Revanlkari

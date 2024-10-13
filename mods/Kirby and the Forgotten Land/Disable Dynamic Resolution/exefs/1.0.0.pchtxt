@@ -1,0 +1,20 @@
+@nsobid-D9BA7DB72FFAFECD07F5F5535DEC05734E59BCE1
+
+# Kirby and the Forgotten Land [01004D300C5AE000] v1.0.0 - Disable Dynamic Resolution - v2
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Stops changes to the internal resolution (1600x900)
+
+@enabled
+00744BB0 39000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Special Thanks to @Morph and team yuzu!
+
+Contributors (Thank You!)
+SP4RT4N3R#6735, 𓃠Yaro𓃠 本音#9974, winterelfeas#7101, sibalicious#0742, Niwu#6666, KeithM97#2609, DrDoom23#6063, BSoD Gaming#7755, atro#0532, AliciaBurrito#6969, Victoria™#4479, Pixzl#8976, CartoonistDude#1663, Pixzl#8976, Scythe#6100, Biggsy#7677

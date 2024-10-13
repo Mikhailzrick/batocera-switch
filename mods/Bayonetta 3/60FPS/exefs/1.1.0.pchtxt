@@ -1,0 +1,20 @@
+@nsobid-F1FF2D71EBD91A09719A9102D8C691EE686F62E9
+
+# Bayonetta 3 [01004A4010FEA000] v1.1.0 - 60fps v4
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Makes all modes 60fps. mounts, cutscenes, loading....
+
+
+@enabled
+00CF96DC 15000014
+0066DAE0 1F2003D5
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Thanks to: 
+cvarandas,KlonoaBlade,Ophiannett Rainteau, and Revanlkari

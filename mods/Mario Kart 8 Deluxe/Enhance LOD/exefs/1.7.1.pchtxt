@@ -1,0 +1,24 @@
+@nsobid-FE1B230800D4933C617C691273CA5978
+
+# Mario Kart 8 Deluxe 1.7.1 - Improved LOD
+
+@flag offset_shift 0x100
+
+// Objects, and Karts have increased LOD 
+
+@enabled
+00775B84 0020A0E3
+005DE6D4 001AB0EE
+@stop
+
+@theboy181
+
+
+
+
+
+
+
+
+
+

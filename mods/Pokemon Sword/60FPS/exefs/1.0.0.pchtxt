@@ -1,0 +1,18 @@
+@nsobid-8DAFEDBB5BE81C2C0160161159A791E67E3D6162
+// nsobid found in main @ offset 0x40
+
+# Pokemon Sword
+
+@flag print_values
+@flag offset_shift 0x100
+
+// FPS Hack
+
+@enabled
+0178E098 21008052
+@stop
+
+0178E098 61008052 15fps Hack (too slow)
+0178E098 21008052 60fps Hack (too fast)
+
+//theboy181

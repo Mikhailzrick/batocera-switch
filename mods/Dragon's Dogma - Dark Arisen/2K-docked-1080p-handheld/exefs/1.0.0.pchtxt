@@ -1,0 +1,18 @@
+@nsobid-DEB6B520BB1E0352EAAE90AAC407FE08
+
+# Dragon's Dogma: Dark Arisen [010032C00AC58000] v1.0.0 - 2K
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 2K Docked, 1080p Handheld
+
+@enabled
+011C3B98 084081D2
+011C3B9C 08B4C0F2
+011C3BC4 08F080D2
+011C3BC8 0887C0F2
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

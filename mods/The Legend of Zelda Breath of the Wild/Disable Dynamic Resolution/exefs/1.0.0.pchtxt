@@ -1,0 +1,17 @@
+@nsobid-2094F152836683A3632C6153FD84AB8000000000
+        
+// nsobid found in main @ offset 0x40
+
+# The Legend of Zelda: Breath of the Wild v1.0.0 - Disable Resolution Scaling
+
+@flag print_values
+@flag offset_shift 0x100
+
+// disables the resolution scaling
+
+@enabled
+00B75008 1F2003D5
+@stop
+
+
+@theboy181

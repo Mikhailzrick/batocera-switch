@@ -1,0 +1,19 @@
+@nsobid-0A3F0D21E67DAD80BB39BEEAEDBB0BAB00000000
+        
+// nsobid found in main @ offset 0x40
+
+# Pokemon Let's Go Eevee v1.0.0 - ASM
+
+@flag print_values
+@flag offset_shift 0x100
+
+// FPS Hack
+
+@enabled
+005E79E8 15008052
+@stop
+
+005E79E8 75008052 15fps Hack (too slow)
+005E79E8 15008052 60fps Hack (too fast)
+
+@theboy181

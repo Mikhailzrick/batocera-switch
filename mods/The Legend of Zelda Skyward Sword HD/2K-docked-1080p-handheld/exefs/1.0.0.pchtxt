@@ -1,0 +1,19 @@
+@nsobid-D824D4B1BBD45D03668380D6D041BA4CA00A64FF
+
+# The Legend of Zelda: Skyward Sword HD [01002DA013484000] v1.0.0 - 2K/1080p wip2
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 2K Docked, 1080p Handheld
+
+@enabled
+016CAC94 000a0000a0050000
+013A916C 000a0000a0050000
+013A915C 8007000038040000
+00EC803C 08408152
+00EC8068 08B48052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

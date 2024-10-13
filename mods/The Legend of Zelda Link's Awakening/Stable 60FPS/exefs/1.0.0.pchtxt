@@ -1,0 +1,18 @@
+@nsobid-AE16F71E002AF8CB059A9A74C4D90F34BA984892
+// nsobid found in main @ offset 0x40
+
+# Zelda: Link's Awakening v1.0.0 - Stable 60fps - v2
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Dupes game from dynamically changing to 30fps 
+
+@enabled
+01019608 1F2003D5
+01019628 1F2003D5
+@stop
+
+@theboy181
+
+

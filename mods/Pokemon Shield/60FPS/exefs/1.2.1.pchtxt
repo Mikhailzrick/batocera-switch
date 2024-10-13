@@ -1,0 +1,18 @@
+@nsobid-896900182175428BAF4768398283C1D90994BD64
+// nsobid found in main @ offset 0x40
+
+// Pokemon Shield 60 FPS - 1.2.1
+
+@flag print_values
+@flag offset_shift 0x100
+
+@enabled
+01875248 21008052
+@stop
+
+01875248 61008052 15 FPS Hack (too slow)
+01875248 21008052 60 FPS Hack (too fast)
+
+@Morph
+
+// Special thanks to theboy181 for the Pokemon Sword mods

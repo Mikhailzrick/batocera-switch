@@ -1,0 +1,19 @@
+@nsobid-B47CC79B88B7091EA514B2B725C50AE01C6F00DF
+
+# Bayonetta 3 [01004A4010FEA000] v1.2.0 - Improved LODv2
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Improves Objects, and Level LOD
+
+
+@enabled
+00BD5B2C 08008052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Thanks to: 
+cvarandas,KlonoaBlade,Ophiannett Rainteau, and Revanlkari

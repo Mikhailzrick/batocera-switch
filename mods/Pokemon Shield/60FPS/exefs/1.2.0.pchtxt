@@ -1,0 +1,20 @@
+@nsobid-E38A27BC777025485FF281D8E659DF727C1BCB08
+// nsobid found in main @ offset 0x40
+
+# Pokemon Shield
+
+@flag print_values
+@flag offset_shift 0x100
+
+// FPS Hack
+
+@enabled
+01873D08 21008052
+@stop
+
+01873D08 61008052 15fps Hack (too slow)
+01873D08 21008052 60fps Hack (too fast)
+
+@ClaudevonRiegan
+
+//special thanks to theboy181

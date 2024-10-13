@@ -1,0 +1,22 @@
+@nsobid-4B159F0F7A360669738390EE8657B4F0
+
+# Astral Chain [01007300020FA000] v1.0.1 - Static 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Static 60fps
+
+
+
+@enabled
+009E8D84 21008052
+0091DBDC 08E0A752
+0091DBE0 68D200B9
+0091DBE4 34000014
+@stop
+
+@theboy181
+
+https://twitter.com/theboy181
+https://www.patreon.com/user?u=3127108

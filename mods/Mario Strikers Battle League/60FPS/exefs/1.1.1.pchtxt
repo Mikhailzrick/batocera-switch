@@ -1,0 +1,17 @@
+@nsobid-B5C0614D93E34A611E4C5A06A9E940E646CB1BCC
+
+# Mario Strikers: Battle League [010019401051C000] v1.1.1 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// forced 60fps at all times (improves overall look and feel of the menus, and action replay) - Able to Uncap Now
+
+@enabled
+00486B24 1F2003D5
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Conrtributers: OldManKain#3749, SP4RT4N3R#6735, turtleneckthomas#7992

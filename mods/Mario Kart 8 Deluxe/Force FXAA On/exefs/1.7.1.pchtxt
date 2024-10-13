@@ -1,0 +1,20 @@
+@nsobid-FE1B230800D4933C617C691273CA5978
+
+# Mario Kart 8 Deluxe 1.7.1 - Force FXAA
+
+@flag offset_shift 0x100
+
+// Force FXAA in Game Modes
+
+@enabled
+005A3B2C 00F020E3
+@stop
+
+@theboy181
+
+
+
+
+
+
+

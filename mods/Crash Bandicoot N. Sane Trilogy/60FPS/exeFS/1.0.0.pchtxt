@@ -1,0 +1,16 @@
+@nsobid-29E1A37D84227147A50A18D055FBB03200000000
+        
+// nsobid found in main @ offset 0x40
+
+# Crash Bandicoot N. Dane Trilogy v1.0.0 - 60FPS
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60FPS 
+
+@enabled
+009EE748 21008052
+@stop
+
+Credit: @theboy181

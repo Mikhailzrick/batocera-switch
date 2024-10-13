@@ -1,0 +1,11 @@
+@nsobid-AE16F71E002AF8CB059A9A74C4D90F34BA984892
+
+# Zelda: Link's Awakening [01006BB00C6F0000] 1.0.0
+
+@flag print_values
+@flag offset_shift 0x100
+
+// DOF off
+@enabled
+016CBD76 "theboy181"
+@stop

@@ -1,0 +1,15 @@
+@nsobid-79E5950FFA85ACF63E28C9AEC051EAC27D6F7F8D
+
+# Luigi's Mansion 3 [0100DCA0064A6000] v1.4.0 - 120FPS
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 120fps
+
+@enabled
+00B7ADD0 01008052
+013C94DC 5555f540
+@stop
+
+@theboy181 - https://linktr.ee/theboy181 

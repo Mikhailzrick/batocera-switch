@@ -1,0 +1,17 @@
+@nsobid-67C9CA1428222752F951021464A7B3597EB98FEC
+
+# Metroid Prime Remastered [010012101468C000] v1.0.0 - Disable AA
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disable Anti-Aliasing
+
+@enabled
+00B30C40 C0035FD6
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Donator: @SardineCat @electric. @A7 @AliciaBurrito @CartoonistDude @Deadlyhaashbrown @Deleted @Derva @LambLambda @Nautilus @Revanlkari @spencerrox @SILENT

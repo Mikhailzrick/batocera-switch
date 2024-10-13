@@ -1,0 +1,29 @@
+@nsobid-8E9978D50BDD20B4C8395A106C27FFDE
+        
+// nsobid found in main @ offset 0x40
+
+# The legend of Zelda: Breath of the Wild v1.6.0 - 60FPS
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60 FPS
+
+@enabled
+01614954 08008052
+01614D84 08F08752
+01614DB0 20008052
+01614DA4 21000012
+@stop
+
+@theboy181
+
+@special thanks to @MasaGratoR, and @m4xw for revealing the functions this saved time!
+
+
+
+
+
+
+
+

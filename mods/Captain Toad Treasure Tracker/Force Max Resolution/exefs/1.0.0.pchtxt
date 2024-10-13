@@ -1,0 +1,19 @@
+@nsobid-F87603933ACAA161726E465373DD020C
+        
+// nsobid found in main @ offset 0x40
+
+# Captian Toad: Treasure Tracker v1.0.0 - Force Max Resolution
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Forces Max resolution
+
+@enabled
+0020FB1C 1EFF2FE1
+@stop
+
+@theboy181
+
+
+

@@ -1,0 +1,22 @@
+@nsobid-BDA8F5E6A0F87F36EB8338FF41FC9E80
+
+# Mario Kart 8 Deluxe [0100152000022000] v2.1.0 - DOF - Fix Scaler
+
+@flag offset_shift 0x100
+
+// Doubles the DOF resolution
+
+@enabled
+00AB0770 003AB7EE
+@stop
+
+@theboy181 - https://linktr.ee/theboy181
+
+Contributors (Thank You!)
+Cathy#6751, Biggsy#7677, brunolv#1631, dutyfree#6162, Niwu#4082, SP4RT4N3R#6735, Wemerson#6308, 𓃠Yaro𓃠 本音#9974
+
+
+
+
+
+

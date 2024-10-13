@@ -1,0 +1,17 @@
+@nsobid-ADE27C9817227FDDA2464107B616AF41
+
+# Firegirl: Hack ‘n Splash Rescue DX [0100DAF016D48000] v1.0.1 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60fps (Uncapped)
+
+
+@enabled
+02F21558 07000014
+02C02CD4 88078052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

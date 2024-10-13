@@ -1,0 +1,23 @@
+@nsobid-0E7A480A50A0D3DDD935510E153D4D0C
+
+# Donkey Kong Country: Tropical Freeze [0100C1F0051B6000] v1.0.0 - 4K/2K
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 4K docked, 2K handheld
+@enabled
+0001F62C 00E08152
+0001F634 000E8152
+0001F63C 00408152
+0001F644 00B48052
+0001F64C 00408152
+0001F654 00B48052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+
+
+

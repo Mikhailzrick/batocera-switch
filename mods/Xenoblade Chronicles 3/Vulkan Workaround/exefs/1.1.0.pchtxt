@@ -1,0 +1,18 @@
+@nsobid-16F4915DF864674DFD6BE2EB7298E3FC25ABBBA4
+
+# Xenoblade Chronicles 3 [010074F013262000] v1.1.0 - Yellow HDR Workaround
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Yellow HDR Workaround for Vulkan, fixes issues with cutscenes, and other areas.
+
+@enabled
+00D04388 1A40A852
+00D05308 0B40A852
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Thank you yuzu for such a great experience! 

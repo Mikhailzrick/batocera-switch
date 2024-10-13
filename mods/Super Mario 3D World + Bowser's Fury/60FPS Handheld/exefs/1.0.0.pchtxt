@@ -1,0 +1,20 @@
+@nsobid-9F7EFC2FB9653E5CDE03030478F23EDA7D18EF44
+
+# Super Mario 3D World + Bowser's Fury [010028600EBDA000] v1.0.0 - 60fps Handheld Mode v9
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Enable 60fps in handheld mode 480p
+
+@enabled
+00964FC4 04000014
+003EAEA4 16008052
+007FC35C 09F08052
+007FC504 09878052
+@stop
+
+@theboy_181
+
+https://twitter.com/theboy181
+https://www.patreon.com/user?u=3127108

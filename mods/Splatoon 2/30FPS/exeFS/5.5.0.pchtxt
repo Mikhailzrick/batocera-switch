@@ -1,0 +1,18 @@
+@nsobid-1729DD426870976B4EE94A34BBCFF766
+        
+// nsobid found in main @ offset 0x40
+
+# Splatoon 2 v5.5.0 - 30FPS
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Makes ingame 30fps 
+
+@enabled
+000B2AE0 1F2003D5
+@stop
+
+Credit: @theboy181
+Special thanks to @shadow
+updated to v5.4 by AndNowIsTheTime and to v5.5.0 by Galax2000

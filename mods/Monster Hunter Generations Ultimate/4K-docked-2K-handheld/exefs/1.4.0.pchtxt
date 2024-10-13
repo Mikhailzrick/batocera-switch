@@ -1,0 +1,21 @@
+@nsobid-FB08F1D20FD1204FE7070672777F869B
+
+# MONSTER HUNTER GENERATIONS ULTIMATE [0100770008DD8000] v1.4.0 - 4K-2K
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 4K Docked, 2K Handheld
+
+
+@enabled
+00BBCD34 0F0CA0E3
+00BBCD38 877EA0E3
+00BBCD48 0A7CA0E3
+00BBCD54 5A7EA0E3
+@stop
+
+@theboy181
+
+https://twitter.com/theboy181
+https://www.patreon.com/user?u=3127108

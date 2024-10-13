@@ -1,0 +1,19 @@
+@nsobid-3CA12DFAAF9C82DA064D1698DF79CDA100000000
+        
+// nsobid found in main @ offset 0x40
+
+# SMO - ASM 
+
+
+@flag print_values
+@flag offset_shift 0x100
+
+// ASM TESTING   -- 1F2003D5 NOP -- C0035FD6
+
+
+@enabled
+009FB560 C0035FD6
+@stop
+
+@ The mod formally known as JEFF
+@ Made by theboy181 and kenshi

@@ -1,0 +1,18 @@
+@nsobid-9F7EFC2FB9653E5CDE03030478F23EDA7D18EF44
+
+# Super Mario 3D World + Bowser's Fury [010028600EBDA000] v1.0.0 - Disable FXAA v2
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disables FXAA from both games (Snapshot Mode/SM3DW)
+
+@enabled
+00950CE8 09008052
+00950CC0 09008052
+@stop
+
+@theboy_181
+
+https://twitter.com/theboy181
+https://www.patreon.com/user?u=3127108

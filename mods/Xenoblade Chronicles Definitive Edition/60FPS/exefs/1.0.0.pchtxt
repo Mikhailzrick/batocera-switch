@@ -1,0 +1,14 @@
+@nsobid-2E071B4562D6656BA316306D9401698DA5E68DE7
+        
+# Xenoblade Chronicles Definitive Edition  v1.0.0 - 60FPS
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Alter vsync to hit 60FPS
+
+@enabled
+006842B4 00008052
+@stop
+
+@theboy181

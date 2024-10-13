@@ -1,0 +1,19 @@
+@nsobid-1C375692DE4F4B879ABE88742DC0CA6000000000
+        
+// nsobid found in main @ offset 0x40
+
+# Pokemon Let's Go Pikachu v1.0.0 - ASM
+
+@flag print_values
+@flag offset_shift 0x100
+
+// FPS Hack
+
+@enabled
+005E7988 15008052
+@stop
+
+005E7988 75008052 15fps Hack (too slow)
+005E7988 15008052 60fps Hack (too fast)
+
+@theboy181

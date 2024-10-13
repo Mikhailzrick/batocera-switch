@@ -1,0 +1,16 @@
+@nsobid-DEB6B520BB1E0352EAAE90AAC407FE08
+
+# Dragon's Dogma: Dark Arisen [010032C00AC58000] v1.0.0 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60fps
+
+@enabled
+0014AD0C 094EA852
+0014AD18 24000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

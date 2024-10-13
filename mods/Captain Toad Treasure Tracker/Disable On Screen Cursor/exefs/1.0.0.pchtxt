@@ -1,0 +1,17 @@
+@nsobid-F87603933ACAA161726E465373DD020C
+        
+// nsobid found in main @ offset 0x40
+
+# Captian Toad: Treasure Tracker v1.0.0 - Disable Cursor
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disables the cursor from being drawn to the screen
+
+@enabled
+000FF6FC 00F020E3
+000FF71C 00F020E3
+@stop
+
+@theboy181

@@ -1,0 +1,9 @@
+@nsobid-F18FF3CFCBAD0884D72ABBEB6C540D6B
+# Splatoon 2 v1.0.0 (US) - 60fps Plaza - made by theboy181
+
+@flag offset_shift 0x100
+
+// 60fps Plaza
+@enabled
+00051C2C 0C000014
+@stop
