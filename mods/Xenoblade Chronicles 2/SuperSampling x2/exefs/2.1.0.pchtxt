@@ -1,0 +1,16 @@
+@nsobid-F77F1559371C0EC6D50E78774AC59D95
+
+# Xenoblade Chronicles 2 [0100E95004038000] v2.1.0 - SuperSampling x2
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Increases the internal resolution x2
+
+@enabled
+007A0C88 A8100090
+007A0C8C 003540BD
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

@@ -1,0 +1,19 @@
+@nsobid-46205B7BD869E2E49523CF0B10F0948973C700D4
+
+# MONSTER HUNTER RISE [0100B04011742000] v3.0.0 - 1080p
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 1080p Docked, 720p Handheld
+
+@enabled
+0057918C 09F0A7D2
+00579190 0900C0F2
+00579194 09F0E7F2
+@stop
+
+Credit: @theboy181
+https://linktr.ee/theboy181
+
+Special Thanks to @MHVuze for the commission work on this hack!

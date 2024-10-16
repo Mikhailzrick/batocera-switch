@@ -1,0 +1,26 @@
+@nsobid-B76CD24AF02ACEA2860B0C03A3FB7451FF2EB566
+
+# Xenoblade Chronicles 3 [010074F013262000] v1.3.0 - Emu Scaler Enabler
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Some magic for the community! Removed AA, and Jitter! No need for disable scaler, better DOF included, and cutscenes render at scaled resoulution.
+// Now supports Ryujinx!
+
+@enabled
+00E713EC 1F000014
+00DC45BC C0035FD6
+00E63464 1F2003D5
+00E63468 00008052
+00E623A8 17000014
+00DA67F4 20008052
+00E7BC50 E903271E
+00E7BDE4 02103C1E
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+@OldManKain Updated
+
+Huge thanks to all the people who contributed to the mods (overwhelming!) 

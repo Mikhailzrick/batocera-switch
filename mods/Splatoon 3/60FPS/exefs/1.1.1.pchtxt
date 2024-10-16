@@ -1,0 +1,29 @@
+@nsobid-BC3BCD8828535F8B316C4A89F82A76BC362F5BE9
+
+# Splatoon 3 [0100C2500FC20000] v1.1.1 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60fps in all modes
+
+@enabled
+00F8A378 29011F32
+012F8864 29011F32
+0132B1B8 29011F32
+01D8E014 29011F32
+02E84EE4 29011F32
+0304C668 29011F32
+0304C93C 29011F32
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Thank you testers! 
+
+AliciaBurrito AliciaBurrito#6969
+Octolimar Octolimar#6969
+Sakuba sauvage Sakuba sauvage#5167
+SoulReaper SoulReaper#1967
+Yaros, Aš Yaro, A*#9974

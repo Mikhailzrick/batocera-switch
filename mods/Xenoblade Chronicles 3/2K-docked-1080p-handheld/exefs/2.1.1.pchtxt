@@ -1,0 +1,20 @@
+@nsobid-0AE74B263D8AC3CF4C8D89EC9B31C06CCEF65EF8
+
+# Xenoblade Chronicles 3 [010074F013262000] v2.1.1 - 2K'ish
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 1404p
+
+@enabled
+014DFD6C C00900007C050000
+00E983E4 20008052
+012531C4 28008052
+012531D0 01008052
+01295210 C0035FD6
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+@OldManKain Updated

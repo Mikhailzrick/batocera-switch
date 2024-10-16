@@ -1,0 +1,17 @@
+@nsobid-8E18600222CE90C22FCBA194453983B3E9AE19ED
+
+# Xenoblade Chronicles 3 [010074F013262000] v2.0.0 - Improve Level of Detail
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Enemies and certain Objects are forced to their Max Level Of Detail
+
+@enabled
+00F1E25C 1F2003D5
+00F1E26C 1F2003D5
+00F1E27C 77000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

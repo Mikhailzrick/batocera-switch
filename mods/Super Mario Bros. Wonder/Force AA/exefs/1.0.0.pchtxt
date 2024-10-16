@@ -1,0 +1,29 @@
+@nsobid-CD6E42AEE7934F4D8393CD43893AE25EDC83D338
+
+# Super Mario Bros. Wonder [010015100B514000] v1.0.0 - Force AA
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Froces AA in the world map
+
+@enabled
+00162034 28008052
+0015B854 29008052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+SkyHighBrownie
+SardineCat
+zurce
+ichirus
+RevanIkari
+Superstevemii 
+m1thos2 
+Sage Blade
+Relic
+RevanIkari
+#ichirus
+ 

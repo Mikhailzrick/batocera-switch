@@ -1,0 +1,21 @@
+@nsobid-0AE74B263D8AC3CF4C8D89EC9B31C06CCEF65EF8
+
+# Xenoblade Chronicles 3 [010074F013262000] v2.1.1 - Improve Shadows
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Increases the shadow resolution 
+
+@enabled
+00B953AC 30DE0C94
+00ECCC6C 21082A1E
+00ECCC70 1410221E
+00ECCC74 2108341E
+00ECCC78 C0035FD6
+00F74BB8 E103271E
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+@OldManKain Updated

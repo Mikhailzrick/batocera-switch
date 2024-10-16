@@ -1,0 +1,27 @@
+@nsobid-B8B5FF35383ACF57AEBE9050F5199A7E1988681A
+		
+# MONSTER HUNTER RISE [0100B04011742000] v3.5.0 - 2K No Switching
+@flag print_values
+@flag offset_shift 0x100
+
+// 2K [2K Game Resolution]
+
+@enabled
+03E1BCD0 08A4A8D2
+03E1BCD4 8896E8F2
+04C06B90 08408152
+04C06B98 09408152
+04C06BA4 08B48052
+04C06BA8 09B48052
+057DC3D0 14B48052
+057DC3D8 01408152
+005AB4BC 09F0A7D2
+04CC4A0C C0035FD6
+05DD5030 C0035FD6
+@stop
+
+Ported/Updated: Zelminar
+Credit: @theboy181
+https://linktr.ee/theboy181
+
+Special Thanks to @MHVuze for the commission work on this hack!

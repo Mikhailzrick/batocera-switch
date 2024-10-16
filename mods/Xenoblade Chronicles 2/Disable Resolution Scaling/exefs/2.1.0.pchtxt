@@ -1,0 +1,15 @@
+@nsobid-F77F1559371C0EC6D50E78774AC59D95
+
+# Xenoblade Chronicles 2 [0100E95004038000] v2.1.0 - Disable Resolution Scaling
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disables the performance branch for the frame buffer
+
+@enabled
+0071B9B0 35000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

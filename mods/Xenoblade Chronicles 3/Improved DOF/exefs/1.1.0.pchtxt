@@ -1,0 +1,16 @@
+@nsobid-16F4915DF864674DFD6BE2EB7298E3FC25ABBBA4
+
+# Xenoblade Chronicles 3 [010074F013262000] v1.1.0 - Improve DOF
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Improves Depth of Field for resolution mods (2K+)
+
+@enabled
+00CAAE5C E903271E
+00CAAFF0 02103C1E
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

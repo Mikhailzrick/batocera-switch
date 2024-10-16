@@ -1,0 +1,20 @@
+@nsobid-C4DF04F647BDC727926348BD9A9918C89B2A8E6F
+
+
+# Persona 5 Strikers [0100801011C3E000] v1.0.0 - 1080p-720p
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 1080p Dicked, 720p Handheld
+
+@enabled
+00502274 0AF0A752
+00502308 0AF0A772
+00502304 0A008052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Commissioned by: cucholix#9281

@@ -1,0 +1,15 @@
+@nsobid-8E18600222CE90C22FCBA194453983B3E9AE19ED
+
+# Xenoblade Chronicles 3 [010074F013262000] v2.0.0 - Disable DOF
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disables Depth of Field
+
+@enabled
+00F62B08 15000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

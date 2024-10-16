@@ -1,0 +1,16 @@
+@nsobid-B76CD24AF02ACEA2860B0C03A3FB7451FF2EB566
+
+# Xenoblade Chronicles 3 [010074F013262000] v1.3.0 - Disable Chromatic Aberration
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Removes effect from cutscenes
+
+@enabled
+00B71264 1F2003D5
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+@OldManKain Updated

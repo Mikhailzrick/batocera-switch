@@ -1,0 +1,17 @@
+@nsobid-DC27156B7AB58D316ADF871ACD610929EDEF08FA
+        
+// nsobid found in main @ offset 0x40
+
+# NINJA GAIDEN Σ2 [0100696014F4A000] v1.0.1 - 60fps (during cut-scenes)
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Sets interval 1 during cinematics
+
+@enabled
+00BDF128 07000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

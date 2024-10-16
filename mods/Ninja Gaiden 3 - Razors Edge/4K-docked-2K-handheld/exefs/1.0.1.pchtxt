@@ -1,0 +1,18 @@
+@nsobid-F20FDC280AF01CBE4397FFEC8C491BEC6C8876E6
+
+# NINJA GAIDEN 3: Razor's Edge [01002AF014F4C000] v1.0.1 - 4K
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 4K
+
+@enabled
+00DECEC4 08E081D2
+00DECEC8 080EC1F2
+00663B50 08E081D2
+00663B54 080EC1F2
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

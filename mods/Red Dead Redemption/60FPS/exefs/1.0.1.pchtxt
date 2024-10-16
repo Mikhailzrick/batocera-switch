@@ -1,0 +1,14 @@
+@nsobid-90D38D285A365D9E834001B144E1D20F6E0E285A
+
+# Red Dead Redemption [01007820196A6000] v1.0.1 - 60fps
+@flag print_values
+@flag offset_shift 0x100
+
+// Sets interval 1
+
+@enabled
+002706C4 21008052
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

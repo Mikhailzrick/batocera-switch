@@ -1,0 +1,28 @@
+@nsobid-B8B5FF35383ACF57AEBE9050F5199A7E1988681A
+		
+# MONSTER HUNTER RISE [0100B04011742000] v3.5.0 - 4K No Switching
+@flag print_values
+@flag offset_shift 0x100
+@flag dram_size 6gb
+
+// 4K [4K Game Resolution]
+
+@enabled
+03E1BCD0 08AEA8D2
+03E1BCD4 E8A0E8F2
+04C06B90 08E08152
+04C06B98 09E08152
+04C06BA4 080E8152
+04C06BA8 090E8152
+057DC3D0 140E8152
+057DC3D8 01E08152
+005AB4BC 09F0A7D2
+04CC4A0C C0035FD6
+05DD5030 C0035FD6
+@stop
+
+Ported/Updated: Zelminar
+Credit: @theboy181
+https://linktr.ee/theboy181
+
+Special Thanks to @MHVuze for the commission work on this hack!

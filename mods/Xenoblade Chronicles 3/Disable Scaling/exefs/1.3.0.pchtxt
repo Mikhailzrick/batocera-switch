@@ -1,0 +1,15 @@
+@nsobid-B76CD24AF02ACEA2860B0C03A3FB7451FF2EB566
+
+# Xenoblade Chronicles 3 [010074F013262000] v1.3.0 - Disable Scaling
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Disables resolution scaling, Game will display 1080p, and 720p respectively. All cutscenes are 720p
+
+@enabled
+00E623A8 17000014
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

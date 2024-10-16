@@ -1,0 +1,17 @@
+@nsobid-F7F74F8045642CBE1539B3D44828C6CBECF296CA
+
+# Pokémon Violet [0100A3D008C5C000] v1.0.1 - Improved Camera v2
+
+@flag print_values
+@flag offset_shift 0x100
+
+// This adjusts the speed of camera to make the game feel better 30% faster.
+
+@enabled
+00AC2000 575DA852
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+Commissioned by: @SardineCat
+

@@ -1,0 +1,18 @@
+@nsobid-DC27156B7AB58D316ADF871ACD610929EDEF08FA
+
+# NINJA GAIDEN Σ2 [0100696014F4A000] v1.0.1 - 4K
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 4K
+
+@enabled
+00AB88E0 08E081D2
+00AB88E4 080EC1F2
+006C9790 08E081D2
+006C9794 080EC1F2
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

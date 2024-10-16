@@ -1,0 +1,15 @@
+@nsobid-C32B29CB5FBA96D9CBAE5927951D35895AB70D6F
+
+# Ni no Kuni Wrath of the White Witch™ [0100E5600D446000] v1.0.0 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60fps
+
+@enabled
+00B52B18 0110A0E3
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

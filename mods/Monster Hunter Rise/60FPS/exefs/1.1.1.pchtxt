@@ -1,0 +1,18 @@
+@nsobid-6CDEC176EA1D12C5C4F85BF17213377C22D1EEEF
+
+# MONSTER HUNTER RISE [0100B04011742000] v1.1.1 - 60fps
+
+@flag print_values
+@flag offset_shift 0x100
+
+// 60fps
+
+@enabled
+05682D78 08000014
+030CFD90 094EA852
+@stop
+
+Credit: @theboy181
+https://linktr.ee/theboy181
+
+Special Thanks to @MHVuze for the commission work on this hack!

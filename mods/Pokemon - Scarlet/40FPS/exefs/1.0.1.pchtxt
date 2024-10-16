@@ -1,0 +1,16 @@
+@nsobid-B26A631109A291248088E011A01ABA82AAE1C0EE
+
+# Pokémon Scarlet [0100A3D008C5C000] v1.0.1 - 40fps v1
+
+@flag print_values
+@flag offset_shift 0x100
+
+// wip1 - Need to lock FPS with Driver or 3rd party app to 40fps
+
+@enabled
+009BE554 21008052
+03826ED8 91155301
+@stop
+
+@theboy181
+https://linktr.ee/theboy181

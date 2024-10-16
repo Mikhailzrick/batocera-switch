@@ -1,0 +1,38 @@
+@nsobid-B26A631109A291248088E011A01ABA82AAE1C0EE
+
+# Pokémon Scarlet [0100A3D008C5C000] v1.0.1 - Improved LODs v1
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Improves the LOD's of TREES/NPC/PKM/OBJECTS
+
+@enabled
+00AFD158 0A08A852
+009F15C0 C0035FD6
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
+
+Special Thanks to:
+
+AliciaBurrito
+atro
+Bread
+BSoD Gaming
+cucholix
+Derva
+DrDoom23
+HS
+JoFu
+myths
+Nemui
+Octolimar
+Sakuba
+SardineCat
+!Mattie
+Selmer
+Traki
+UltraEgoKain
+ItzSka

@@ -1,0 +1,15 @@
+@nsobid-16F4915DF864674DFD6BE2EB7298E3FC25ABBBA4
+
+# Xenoblade Chronicles 3 [010074F013262000] v1.1.0 - Remove Motion Blur
+
+@flag print_values
+@flag offset_shift 0x100
+
+// Removes all motion blur
+
+@enabled
+00CC89CC C0035FD6
+@stop
+
+@theboy181
+https://linktr.ee/theboy181
