@@ -549,6 +549,10 @@ def getHudConfig(system, systemName, emulator, core, rom, gameinfos, bezel):
 def runCommand(command):
     global proc
 
+    command.array.insert(0, "nice")
+    command.array.insert(1, "-n")
+    command.array.insert(2, "-11")
+
     command.env.update(os.environ)
     eslog.debug(f"command: {str(command)}")
     eslog.debug(f"command: {str(command.array)}")
