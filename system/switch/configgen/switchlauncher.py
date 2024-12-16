@@ -268,17 +268,17 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
         try:
             from Evmapy import Evmapy
             #Test Batocera Version
-            #cmd = os.system( "batocera-es-swissknife --version" ) 
+            #cmd = os.system( "batocera-es-swissknife --version" )
             a = subprocess.Popen('batocera-es-swissknife --version', shell=True, stdout=subprocess.PIPE)
             b = a.stdout.read().decode("utf-8")
             if version.parse(platform.release()) < version.parse("6.2"):
                 if(b.startswith('35')):
                     Evmapy.start(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers)
                 else:
-                    Evmapy.start(systemName, system.config, effectiveCore, effectiveRomConfiguration, playersControllers)                
+                    Evmapy.start(systemName, system.config, effectiveCore, effectiveRomConfiguration, playersControllers)
             else:
                 Evmapy.start(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers, guns)
-            
+
             # change directory if wanted
             executionDirectory = generator.executionDirectory(system.config, effectiveRom)
             if executionDirectory is not None:
@@ -414,7 +414,7 @@ def getHudBezel(system, generator, rom, gameResolution, bordersSize):
         if abs((infos_left  - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
             eslog.debug(f"bezel left covers too much the game image : {infos_left  - ((bezel_width-img_width)/2.0)} / {img_width} > {max_cover}")
             return None
-        
+
     if "right" not in infos:
         eslog.debug(f"bezel has no right info in {overlay_info_file}")
         # assume default is 4/3 over 16/9
@@ -422,7 +422,7 @@ def getHudBezel(system, generator, rom, gameResolution, bordersSize):
         if abs((infos_right - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
             eslog.debug(f"bezel right covers too much the game image : {infos_right  - ((bezel_width-img_width)/2.0)} / {img_width} > {max_cover}")
             return None
-    
+
     if "left"  in infos and abs((infos["left"]  - ((bezel_width-img_width)/2.0)) / img_width) > max_cover:
         eslog.debug("bezel left covers too much the game image : {} / {} > {}".format(infos["left"]  - ((bezel_width-img_width)/2.0), img_width, max_cover))
         return None
@@ -551,7 +551,7 @@ def runCommand(command):
 
     command.array.insert(0, "nice")
     command.array.insert(1, "-n")
-    command.array.insert(2, "-11")
+    command.array.insert(2, "-4")
 
     command.env.update(os.environ)
     eslog.debug(f"command: {str(command)}")
