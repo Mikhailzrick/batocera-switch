@@ -5,10 +5,6 @@
 #              > github.com/mikhailzrick/batocera-switch            #
 #####################################################################
 
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
-export LANGUAGE=C.UTF-8
-
 # Determine text size based on resolution
 determine_text_size() {
     # Get resolution
@@ -73,7 +69,7 @@ if wget -q --tries=5 --no-check-certificate --no-cache --no-cookies -O "$updater
         -fg black \
         -bg black \
         -fa "DejaVuSansMono" \
-        -en UTF-8 \
+        -en en_US.utf8 \
         -e bash "$updater"
 else
     # Notify about the error using curl
