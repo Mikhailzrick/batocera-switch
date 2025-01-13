@@ -1,368 +1,146 @@
-#!/usr/bin/env bash 
-# BATOCERA.PRO INSTALLER
-######################################################################
-#--------------------------------------------------------------------- 
-APPNAME="SWITCH-EMULATION" 
-ORIGIN="github.com/mikhailzrick/batocera-switch" 
-#---------------------------------------------------------------------
-######################################################################
-ORIGIN="${ORIGIN^^}"
-extra=/userdata/system/switch/extra 
-mkdir /userdata/system/switch 2>/dev/null 
-mkdir /userdata/system/switch/extra 2>/dev/null 
-sysctl -w net.ipv6.conf.default.disable_ipv6=1 1>/dev/null 2>/dev/null
-sysctl -w net.ipv6.conf.all.disable_ipv6=1 1>/dev/null 2>/dev/null
-#/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-# --------------------------------------------------------------------
-#\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\   
-function batocera-pro-installer {
-APPNAME=$1
-ORIGIN=$2
-# --------------------------------------------------------------------
-# -- colors: 
-###########################
-X='\033[0m'               # / resetcolor
-W='\033[0;37m'            # white
-#-------------------------#
-RED='\033[1;31m'          # red
-BLUE='\033[1;34m'         # blue
-GREEN='\033[1;32m'        # green
-PURPLE='\033[1;35m'       # purple
-DARKRED='\033[0;31m'      # darkred
-DARKBLUE='\033[0;34m'     # darkblue
-DARKGREEN='\033[0;32m'    # darkgreen
-DARKPURPLE='\033[0;35m'   # darkpurple
-###########################
-# -- display theme:
-L=$W
-T=$W
-R=$RED
-B=$BLUE
-G=$GREEN
-P=$PURPLE
-W=$X
-# --------------------------------------------------------------------
-clear
-echo
-echo
-echo
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo
-echo
-echo
-sleep 0.33
+#!/bin/bash
 
-clear
-echo
-echo
-echo
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo
-echo
-echo
-sleep 0.33
+APPNAME="SWITCH-EMULATION"
+ORIGIN="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main"
 
-clear
-echo
-echo
-echo -e "${X}- - - - - - - - -"
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo -e "${X}- - - - - - - - -"
-echo
-echo
-sleep 0.33
-clear
+BASE_DIR="$BASE_DIR"
+EXTRA_DIR="$BASE_DIR/extra"
+LOG_DIR="$BASE_DIR/logs"
 
-echo
-echo -e "${X}- - - - - - - - -"
-echo
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo 
-echo -e "${X}- - - - - - - - -"
-echo
-sleep 0.33
+# Directories to create
+declare -a DIRECTORIES=(
+    "$BASE_DIR"
+    "$EXTRA_DIR"
+    "$LOG_DIR"
+    "$EXTRA_DIR/backup"
+    "$BASE_DIR/configgen"
+    "$BASE_DIR/configgen/generators"
+    "/userdata/roms/switch"
+    "/userdata/roms/ports"
+    "/userdata/roms/ports/images"
+    "/userdata/bios/switch"
+    "/userdata/bios/switch/firmware"
+    "/userdata/system/configs"
+    "/userdata/system/configs/emulationstation"
+    "/userdata/system/configs/evmapy"
+)
 
-clear
-echo -e "${X}- - - - - - - - -"
-echo 
-echo 
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo 
-echo 
-echo -e "${X}- - - - - - - - -"
-sleep 0.33
+# File download paths and URLs
+declare -A FILES_TO_DOWNLOAD=(
+    # Lib files
+    #["$EXTRA_DIR/libs/libselinux.so.1"]="$ORIGIN/system/switch/extra/libs/libselinux.so.1"
+    #["$EXTRA_DIR/libs/libthai.so.0.3"]="$ORIGIN/system/switch/extra/libs/libthai.so.0.3"
+    #["$EXTRA_DIR/libs/libtinfo.so.6"]="$ORIGIN/system/switch/extra/libs/libtinfo.so.6"
+    #["$EXTRA_DIR/libs/libthai.so.0.3.1"]="$ORIGIN/system/switch/extra/libs/libthai.so.0.3.1"
+    # Configgen generators
+    ["$BASE_DIR/configgen/generators/Generator.py"]="$ORIGIN/system/switch/configgen/generators/Generator.py"
+    ["$BASE_DIR/configgen/generators/__init__.py"]="$ORIGIN/system/switch/configgen/generators/__init__.py"
+    # Configgens
+    ["$BASE_DIR/configgen/GeneratorImporter.py"]="$ORIGIN/system/switch/configgen/GeneratorImporter.py"
+    ["$BASE_DIR/configgen/switchlauncher.py"]="$ORIGIN/system/switch/configgen/switchlauncher.py"
+    # EmulationStation
+    ["/userdata/system/configs/emulationstation/es_systems_switch.cfg"]="$ORIGIN/system/configs/emulationstation/es_systems_switch.cfg"
+    ["/userdata/system/configs/emulationstation/es_features_switch.cfg"]="$ORIGIN/system/configs/emulationstation/es_features_switch.cfg"
+    # Evmapy configuration
+    ["/userdata/system/configs/evmapy/switch.keys"]="$ORIGIN/system/configs/evmapy/switch.keys"
+    # Ports script and images
+    ["/userdata/roms/ports/Switch Updater.sh"]="$ORIGIN/roms/ports/Switch Updater.sh"
+    ["/userdata/roms/ports/images/Switch Updater-boxart.png"]="$ORIGIN/roms/ports/images/Switch Updater-boxart.png"
+    ["/userdata/roms/ports/images/Switch Updater-cartridge.png"]="$ORIGIN/roms/ports/images/Switch Updater-cartridge.png"
+    ["/userdata/roms/ports/images/Switch Updater-mix.png"]="$ORIGIN/roms/ports/images/Switch Updater-mix.png"
+    ["/userdata/roms/ports/images/Switch Updater-screenshot.png"]="$ORIGIN/roms/ports/images/Switch Updater-screenshot.png"
+    ["/userdata/roms/ports/images/Switch Updater-wheel.png"]="$ORIGIN/roms/ports/images/Switch Updater-wheel.png"
+    # Info
+    ["/userdata/roms/switch/_info.txt"]="$ORIGIN/roms/switch/_info.txt"
+    ["/userdata/bios/switch/_info.txt"]="$ORIGIN/bios/switch/_info.txt"
+)
 
-clear
+# Start installation
+echo "--------------------------------"
+echo "$APPNAME INSTALLER"
+echo "--------------------------------"
 echo
-echo
-echo 
-echo -e "${X}${X}$APPNAME${X} INSTALLER ${X}"
-echo 
-echo 
-echo
-sleep 0.33
 
-echo -e "${X}INSTALLING $APPNAME FOR BATOCERA"
-echo -e "${X}USING $ORIGIN"
-echo 
-echo
-echo
-sleep 3
-# --------------------------------------------------------------------
-# -- check system before proceeding
-if [[ "$(uname -a | grep "x86_64")" != "" ]]; then 
-:
-else
-echo
-echo -e "${X}ERROR: SYSTEM NOT SUPPORTED"
-echo -e "${X}YOU NEED BATOCERA X86_64${X}"
-echo
-sleep 5
+start_installation() {
+    echo "Starting installation..."
+
+    # Check if x86_64
+    ARCH=$(uname -m)
+    if [[ "$ARCH" != "x86_64" ]]; then
+        echo "ERROR: Detected architecture is $ARCH. Installation requires x86_64. Exiting..."
+        sleep 3
+        exit 1
+    fi
+
+    # Check if file system supports symlinks
+    FS_TYPE=$(df -T /userdata | awk 'NR==2 {print $2}')
+    if [[ "$FS_TYPE" != "ext4" && "$FS_TYPE" != "btrfs" ]]; then
+        echo "ERROR: File system type ($FS_TYPE) does not support symlinks. Exiting..."
+        sleep 3
+        exit 1
+    fi
+
+    # Create directories
+    for dir in "${DIRECTORIES[@]}"; do
+        mkdir -p "$dir"
+    done
+
+    echo "Directories created."
+}
+
+# Download Files
+download_files() {
+    echo "Downloading system files..."
+
+    total_files=${#FILES_TO_DOWNLOAD[@]}
+    completed_files=0
+
+    # Download files and show progress
+    for file_path in "${!FILES_TO_DOWNLOAD[@]}"; do
+        url="${FILES_TO_DOWNLOAD[$file_path]}"
+
+        # Download the file
+        if wget -q --tries=5 --no-check-certificate -O "$file_path" "$url"; then
+            ((completed_files++))
+
+            progress=$((completed_files * 100 / total_files))
+            echo -ne "\rProgress: $progress% \r"
+        else
+            sleep 3
+            echo -e "\nError: Failed to download $url." >&2
+            exit 1
+        fi
+    done
+    echo -ne "\rProgress: 100%\n"
+}
+
+# Final confirmation
+finalize_installation() {
+    echo "--------------------------------"
+    echo "$APPNAME INSTALLATION COMPLETE"
+    echo "--------------------------------"
+    echo
+    echo "All necessary files and directories have been set up."
+    echo "To update emulators, use the 'Switch Updater' in Ports."
+    echo "Ensure all necessary BIOS and firmware files are in the correct directories:"
+    echo "- BIOS: /userdata/bios/switch/"
+    echo "- Firmware: /userdata/bios/switch/firmware/"
+    echo
+    echo "Use Switch Updater in Ports to update emulators."
+    echo "Installation process complete. Enjoy!"
+}
+
+start_installation
+download_files
+finalize_installation
+
+echo -n "Launching Switch Updater in "
+for i in {3..1}; do
+    echo -ne "\rLaunching Switch Updater in $i... "  # Overwrite the line
+    sleep 1
+done
+
+# Launch the Switch Updater script
+bash "/userdata/roms/ports/Switch Updater.sh"
+
 exit 0
-# quit
-exit 0
-fi
-# --------------------------------------------------------------------
-# -------------------------------------------------------------------- 
-# -------------------------------------------------------------------- 
-echo -e "${X}PLEASE WAIT${X} . . ." 
-#echo -e "${X}${X}" 
-# -------------------------------------------------------------------- 
-# -------------------------------------------------------------------- 
-# -------------------------------------------------------------------- 
-# PRESERVE CONFIG FILE 
-cfg=/userdata/system/switch/CONFIG.txt 
-if [[ -f "$cfg" ]]; then 
-      # check config file version & update ---------------------------
-      link_defaultconfig=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-config.txt
-      wget -q --no-check-certificate --no-cache --no-cookies -O "/tmp/.CONFIG.txt" "$link_defaultconfig"
-         currentver=$(cat "$cfg" | grep "(ver " | head -n1 | sed 's,^.*(ver ,,g' | cut -d ")" -f1)
-            if [[ "$currentver" = "" ]]; then currentver=1.0.0; fi
-         latestver=$(cat "/tmp/.CONFIG.txt" | grep "(ver " | head -n1 | sed 's,^.*(ver ,,g' | cut -d ")" -f1)
-            if [[ "$latestver" > "$currentver" ]]; then 
-               cp /tmp/.CONFIG.txt $cfg 2>/dev/null
-               echo -e "\n~/switch/CONFIG.txt FILE HAS BEEN UPDATED!\n"
-            fi
-      # check config file version & update ---------------------------
-   cp $cfg /tmp/.userconfigfile 2>/dev/null
-fi
-# -------------------------------------------------------------------- 
-# PURGE OLD INSTALLS 
-rm -rf /userdata/system/switch 2>/dev/null
-rm /userdata/system/configs/emulationstation/add_feat_switch.cfg 2>/dev/null
-rm /userdata/system/configs/emulationstation/es_features.cfg 2>/dev/null
-# -------------------------------------------------------------------- 
-# FILL PATHS
-#mkdir -p /userdata/roms/ports/images 2>/dev/null
-#mkdir -p /userdata/roms/switch 2>/dev/null
-#mkdir -p /userdata/bios/switch 2>/dev/null
-#mkdir -p /userdata/bios/switch/firmware 2>/dev/null
-#mkdir -p /userdata/system/configs/emulationstation 2>/dev/null
-#mkdir -p /userdata/system/configs/evmapy 2>/dev/null
-#mkdir -p /userdata/system/switch/configgen/generators/yuzu 2>/dev/null
-#mkdir -p /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
-#mkdir -p /userdata/system/switch/extra 2>/dev/null
-
-mkdir /userdata/roms/switch 2>/dev/null
-mkdir /userdata/roms/ports 2>/dev/null
-mkdir /userdata/roms/ports/images 2>/dev/null
-
-mkdir /userdata/bios/switch 2>/dev/null
-mkdir /userdata/bios/switch/firmware 2>/dev/null
-
-mkdir /userdata/system/switch 2>/dev/null
-mkdir /userdata/system/switch/extra 2>/dev/null
-mkdir /userdata/system/switch/configgen 2>/dev/null
-mkdir /userdata/system/switch/configgen/generators 2>/dev/null
-mkdir /userdata/system/switch/configgen/generators/yuzu 2>/dev/null
-mkdir /userdata/system/switch/configgen/generators/ryujinx 2>/dev/null
-
-mkdir /userdata/system/configs 2>/dev/null
-mkdir /userdata/system/configs/evmapy 2>/dev/null
-mkdir /userdata/system/configs/emulationstation 2>/dev/null
-
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/SYSTEM/SWITCH/EXTRA
-path=/userdata/system/switch/extra
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-ryujinx" "$url/batocera-config-ryujinx"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-ryujinx-avalonia" "$url/batocera-config-ryujinx-avalonia"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-yuzu" "$url/batocera-config-yuzu"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-config-yuzuEA" "$url/batocera-config-yuzuEA"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-libselinux.so.1" "$url/batocera-switch-libselinux.so.1"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-libthai.so.0.3" "$url/batocera-switch-libthai.so.0.3"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-libtinfo.so.6" "$url/batocera-switch-libtinfo.so.6"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-sshupdater.sh" "$url/batocera-switch-sshupdater.sh"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-tar" "$url/batocera-switch-tar"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-tput" "$url/batocera-switch-tput"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/batocera-switch-updater.sh" "$url/batocera-switch-updater.sh"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_ryujinx.png" "$url/icon_ryujinx.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/icon_yuzu.png" "$url/icon_yuzu.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/libthai.so.0.3.1" "$url/libthai.so.0.3.1"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinx-avalonia.png" "$url/ryujinx-avalonia.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinx.png" "$url/ryujinx.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzu.png" "$url/yuzu.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuEA.png" "$url/yuzuEA.png"
-# -------------------------------------------------------------------- 
-# + get default config file: 
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/userdata/system/switch/CONFIG.txt" "https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-config.txt"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/RYUJINX
-path=/userdata/system/switch/configgen/generators/ryujinx
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators/ryujinx
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/ryujinxMainlineGenerator.py" "$url/ryujinxMainlineGenerator.py"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS/YUZU
-path=/userdata/system/switch/configgen/generators/yuzu
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators/yuzu
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/yuzuMainlineGenerator.py" "$url/yuzuMainlineGenerator.py"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN/GENERATORS
-path=/userdata/system/switch/configgen/generators
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen/generators
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/__init__.py" "$url/__init__.py"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Generator.py" "$url/Generator.py"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/SYSTEM/SWITCH/CONFIGGEN
-path=/userdata/system/switch/configgen
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/configgen
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/GeneratorImporter.py" "$url/GeneratorImporter.py"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher.py" "$url/switchlauncher.py"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switchlauncher2.py" "$url/switchlauncher2.py"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/SYSTEM/CONFIGS/EMULATIONSTATION
-path=/userdata/system/configs/emulationstation
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/configs/emulationstation
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/es_features_switch.cfg" "$url/es_features_switch.cfg"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/es_systems_switch.cfg" "$url/es_systems_switch.cfg"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/SYSTEM/CONFIGS/EMULATIONSTATION 
-path=/userdata/system/configs/evmapy
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/configs/evmapy
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/switch.keys" "$url/switch.keys"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/ROMS/PORTS 
-path=/userdata/roms/ports 
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/ports
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater.sh" "$url/Switch Updater.sh"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/ROMS/PORTS/IMAGES 
-path=/userdata/roms/ports/images
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/ports/images
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-boxart.png" "$url/Switch Updater-boxart.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-cartridge.png" "$url/Switch Updater-cartridge.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-mix.png" "$url/Switch Updater-mix.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-screenshot.png" "$url/Switch Updater-screenshot.png"
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/Switch Updater-wheel.png" "$url/Switch Updater-wheel.png"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/ROMS/SWITCH
-path=/userdata/roms/switch
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/roms/switch
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/_info.txt" "$url/_info.txt"
-# -------------------------------------------------------------------- 
-# FILL /USERDATA/BIOS/SWITCH 
-path=/userdata/bios/switch
-url=https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/bios/switch
-wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "$path/_info.txt" "$url/_info.txt"
-# -------------------------------------------------------------------- 
-# REMOVE OLD UPDATERS 
-rm /userdata/roms/ports/updateyuzu.sh 2>/dev/null 
-rm /userdata/roms/ports/updateyuzuea.sh 2>/dev/null
-rm /userdata/roms/ports/updateyuzuEA.sh 2>/dev/null 
-rm /userdata/roms/ports/updateryujinx.sh 2>/dev/null
-rm /userdata/roms/ports/updateryujinxavalonia.sh 2>/dev/null
-# --------------------------------------------------------------------
-dos2unix /userdata/system/switch/extra/*.sh 2>/dev/null
-dos2unix /userdata/system/switch/extra/batocera-config* 2>/dev/null
-chmod a+x /userdata/system/switch/extra/*.sh 2>/dev/null
-chmod a+x /userdata/system/switch/extra/batocera-config* 2>/dev/null
-chmod a+x /userdata/system/switch/extra/batocera-switch-lib* 2>/dev/null
-chmod a+x /userdata/system/switch/extra/*.desktop 2>/dev/null
-# --------------------------------------------------------------------
-echo -e "${X} > INSTALLED OK${X}" 
-sleep 1
-echo
-echo
-echo
-# restore xterm font
-X='\033[0m' # / resetcolor
-#echo -e "${X}LOADING ${X}SWITCH UPDATER${X} . . ." 
-#echo -e "${X} "
-rm -rf /userdata/system/switch/extra/installation 2>/dev/null
-rm /tmp/batocera-switch-updater.sh 2>/dev/null 
-#mkdir -p /tmp 2>/dev/null
-#wget -q --tries=10 --no-check-certificate --no-cache --no-cookies -O "/tmp/batocera-switch-updater.sh" "https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main/system/switch/extra/batocera-switch-updater.sh" 
-#sed -i 's,MODE=DISPLAY,MODE=CONSOLE,g' /tmp/batocera-switch-updater.sh 2>/dev/null
-#dos2unix /tmp/batocera-switch-updater.sh 2>/dev/null 
-#chmod a+x /tmp/batocera-switch-updater.sh 2>/dev/null 
-#/tmp/batocera-switch-updater.sh CONSOLE 
-sleep 0.1 
-echo "OK" >> /userdata/system/switch/extra/installation
-sleep 0.1
-   # --- \ restore user config file for the updater if running clean install/update from the switch installer 
-   if [[ -e /tmp/.userconfigfile ]]; then 
-      cp /tmp/.userconfigfile /userdata/system/switch/CONFIG.txt 2>/dev/null
-   fi 
-   # --- /
-} 
-export -f batocera-pro-installer 2>/dev/null 
-# --------------------------------------------------------------------
-batocera-pro-installer "$APPNAME" "$ORIGIN" 
-# --------------------------------------------------------------------
-sysctl -w net.ipv6.conf.default.disable_ipv6=0 1>/dev/null 2>/dev/null
-sysctl -w net.ipv6.conf.all.disable_ipv6=0 1>/dev/null 2>/dev/null
-X='\033[0m' # / resetcolor
-if [[ -e /userdata/system/switch/extra/installation ]]; then
-rm /userdata/system/switch/extra/installation 2>/dev/null
-clear
-echo 
-echo 
-echo -e "   ${X}$APPNAME INSTALLED${X}" 
-echo 
-echo 
-echo
-echo -e "   ${X}-----------------------------------------------------${X}"
-echo -e "   ${X}Place install files into /userdata/system/switch/${X}"
-echo -e "   ${X}Run Switch Updater.sh from ports${X}"
-echo -e "   ${X}Place your keys into /userdata/bios/switch/${X}" 
-echo -e "   ${X}Firmware *.nca into /userdata/bios/switch/firmware/${X}" 
-echo
-echo -e "   ${X}Use Switch Updater in Ports to update emulators${X}" 
-echo -e "   ${X}For Switch Updater settings, check:${X}"
-echo -e "   ${X}/userdata/system/switch/CONFIG.txt${X}" 
-echo -e "   ${X}-----------------------------------------------------${X}"
-echo
-echo
-echo -e "   ${X}-----------------------------------------------------${X}"
-echo -e "   ${X}IN CASE OF ISSUES: ${X}"
-echo 
-echo -e "   ${X}1) try using opengl instead of vulkan ${X}"
-echo -e "   ${X}2) use [autocontroller = off] in advanced settings & ${X}"
-echo -e "   ${X}   configure controller manually in f1-applications ${X}"
-echo
-echo -e "   ${X}CHECK LOGS: ${X}"
-echo -e "   ${X}> emulators logs are in /userdata/system/switch/logs/${X}" 
-echo -e "   ${X}> emulationstation logs are in /userdata/system/logs/${X}" 
-echo -e "   ${X}-----------------------------------------------------${X}"
-echo 
-echo 
-else
-clear 
-echo 
-echo 
-echo -e "   ${X}Looks like the installation failed :(${X}" 
-echo
-echo -e "   ${X}Try running the script again...${X}" 
-echo
-echo
-echo -e "   ${X}If it still fails, try installing using this command instead: "
-echo
-echo -e "   ${X}cd /userdata ; wget -O s batocera.pro/s ; chmod 777 s ; ./s "
-echo 
-echo 
-sleep 1
-exit 0
-fi
-# done. 
