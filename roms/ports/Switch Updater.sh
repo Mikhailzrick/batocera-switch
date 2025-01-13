@@ -8,15 +8,11 @@
 # Determine text size based on resolution
 determine_text_size() {
     # Get resolution
-    local resolution=$(cat /sys/class/graphics/fb0/virtual_size 2>/dev/null)
-
-    # Extract width and height from the resolution
-    local width=${resolution%,*}
-    local height=${resolution#*,}
+    local resolution=$(xrandr | grep '*' | awk '{print $1}')
 
     # Determine text size based on common resolutions
-    case "${width}x${height}" in
-        "720x480"|"640x480") # 480p
+    case "$resolution" in
+        "640x480") # 480p
             TEXT_SIZE=12
             ;;
         "1280x720") # 720p
@@ -69,7 +65,7 @@ if wget -q --tries=5 --no-check-certificate --no-cache --no-cookies -O "$updater
         -fg black \
         -bg black \
         -fa "DejaVuSansMono" \
-        -en en_US.utf8 \
+        -en UTF-8 \
         -e bash "$updater"
 else
     # Notify about the error using curl
