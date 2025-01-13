@@ -3,7 +3,7 @@
 APPNAME="SWITCH-EMULATION"
 ORIGIN="https://raw.githubusercontent.com/mikhailzrick/batocera-switch/main"
 
-BASE_DIR="$BASE_DIR"
+BASE_DIR="/userdata/system/switch"
 EXTRA_DIR="$BASE_DIR/extra"
 LOG_DIR="$BASE_DIR/logs"
 
