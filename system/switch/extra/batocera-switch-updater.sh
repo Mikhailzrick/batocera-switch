@@ -116,7 +116,6 @@ generate_shortcut() {
 install_yuzu_legacy() {
     local link_yuzu_legacy="/userdata/system/switch/yuzuea4176.AppImage" # Latest version (legacy)
     local checksum_verified="9f20b0e6bacd2eb9723637d078d463eb"
-    local yuzu_legacy_temp_dir="$TEMP_DIR/yuzu_legacy"
 
     # Files to download
     local -A YUZU_LEGACY_FILES_TO_DOWNLOAD=(
@@ -143,7 +142,8 @@ install_yuzu_legacy() {
     fi
 
     # Prepare directories
-    mkdir -p "$BASE_DIR/configgen/generators/yuzu-legacy" "$yuzu_legacy_temp_dir"
+    mkdir -p "$BASE_DIR/configgen/generators/yuzu-legacy"
+    mkdir -p "$TEMP_DIR/yuzu_legacy/"
 
     echo "Downloading yuzu-legacy files..."
     local total_files=${#YUZU_LEGACY_FILES_TO_DOWNLOAD[@]}
@@ -165,11 +165,10 @@ install_yuzu_legacy() {
 
     # Extract and install yuzu-legacy AppImage
     cp "$link_yuzu_legacy" "/userdata/system/switch/extra/backup" 2>/dev/null
-    mv "$link_yuzu_legacy" "$yuzu_legacy_temp_dir/yuzu-legacy.AppImage"
-    chmod +x "$yuzu_legacy_temp_dir/yuzu-legacy.AppImage"
-    "$yuzu_legacy_temp_dir/yuzu-legacy.AppImage" --appimage-extract >/dev/null 2>&1
+    mv "$link_yuzu_legacy" "$TEMP_DIR/yuzu_legacy/yuzu-legacy.AppImage"
+    "$TEMP_DIR/yuzu_legacy/yuzu-legacy.AppImage" --appimage-extract >/dev/null 2>&1
 
-    local yuzu_legacy_extract_dir="$yuzu_legacy_temp_dir/squashfs-root"
+    local yuzu_legacy_extract_dir="$TEMP_DIR/yuzu_legacy/squashfs-root"
     mkdir -p /userdata/system/switch/extra/yuzu-legacy
 
     # Copy necessary files
