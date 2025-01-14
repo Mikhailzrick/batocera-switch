@@ -42,7 +42,7 @@ if [[ -z "$rom" ]]; then
     QT_PLUGIN_PATH=/usr/lib/qt/plugins:/userdata/system/switch/extra/lib/qt5plugins:/usr/plugins:${QT_PLUGIN_PATH} \
     QT_QPA_PLATFORM_PLUGIN_PATH=${QT_PLUGIN_PATH} \
     XDG_CONFIG_HOME=/userdata/system/configs XDG_CACHE_HOME=/userdata/system/.cache QT_QPA_PLATFORM=xcb \
-    /userdata/system/switch/extra/yuzu/yuzu-legacy -f -g > >(tee "$log1") 2> >(tee "$log2" >&2)
+    /userdata/system/switch/extra/yuzu-legacy/yuzu-legacy -f -g > >(tee "$log1") 2> >(tee "$log2" >&2)
 else
     # ROM provided, handle and launch with ROM
     if [[ "$(echo "$rom" | rev | cut -c 1-4 | rev)" = ".nsz" ]] || if [[ "$(echo "$rom" | rev | cut -c 1-4 | rev)" = ".xcz" ]]; then
@@ -70,5 +70,5 @@ else
     QT_PLUGIN_PATH=/usr/lib/qt/plugins:/userdata/system/switch/extra/lib/qt5plugins:/usr/plugins:${QT_PLUGIN_PATH} \
     QT_QPA_PLATFORM_PLUGIN_PATH=${QT_PLUGIN_PATH} \
     XDG_CONFIG_HOME=/userdata/system/configs XDG_CACHE_HOME=/userdata/system/.cache QT_QPA_PLATFORM=xcb \
-    /userdata/system/switch/extra/yuzu-legacy/yuzu -f -g "$ROM" > >(tee "$log1") 2> >(tee "$log2" >&2)
+    /userdata/system/switch/extra/yuzu-legacy/yuzu-legacy -f -g "$ROM" > >(tee "$log1") 2> >(tee "$log2" >&2)
 fi
