@@ -129,6 +129,7 @@ install_yuzu_legacy() {
 
     # Verify if the AppImage exists and has the correct checksum
     if [[ -f "$link_yuzu_legacy" ]]; then
+        chmod +x "$link_yuzu_legacy"
         local checksum_file
         checksum_file=$(md5sum "$link_yuzu_legacy" | awk '{print $1}')
 
