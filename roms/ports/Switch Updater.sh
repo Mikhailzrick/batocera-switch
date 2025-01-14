@@ -13,19 +13,19 @@ determine_text_size() {
     # Determine text size based on common resolutions
     case "$resolution" in
         "640x480") # 480p
-            TEXT_SIZE=12
-            ;;
-        "1280x720") # 720p
             TEXT_SIZE=16
             ;;
-        "1920x1080") # 1080p
+        "1280x720") # 720p
             TEXT_SIZE=20
             ;;
-        "2560x1440") # 1440p
+        "1920x1080") # 1080p
             TEXT_SIZE=24
             ;;
-        "3840x2160") # 4k
+        "2560x1440") # 1440p
             TEXT_SIZE=28
+            ;;
+        "3840x2160") # 4k
+            TEXT_SIZE=32
             ;;
         *) # Default text size for unknown resolutions
             TEXT_SIZE=10
@@ -47,7 +47,7 @@ if [[ "$FS_TYPE" != "ext4" && "$FS_TYPE" != "btrfs" ]]; then
     exit 1
 fi
 
-updater=/userdata/system/switch/extra/batocera-switch-updater.sh
+updater="/userdata/system/switch/extra/batocera-switch-updater.sh"
 
 # Remove any existing updater file
 rm "$updater" 2>/dev/null
@@ -57,18 +57,10 @@ if wget -q --tries=5 --no-check-certificate --no-cache --no-cookies -O "$updater
     # Check for best font size
     determine_text_size
 
-    # Launch xterm with custom arguments
-    DISPLAY=:0.0 unclutter-remote -h && \
-    DISPLAY=:0.0 xterm \
-        -maximized \
-        -fs "$TEXT_SIZE" \
-        -fg black \
-        -bg black \
-        -fa "DejaVuSansMono" \
-        -en UTF-8 \
-        -e bash "$updater"
+    # Launch xterm
+    DISPLAY=:0.0 unclutter-remote -h
+    DISPLAY=:0.0 LC_ALL=C xterm -maximized -fs "$TEXT_SIZE" -fg white -bg black -fa "DejaVuSansMono" -e bash "$updater"
 else
-    # Notify about the error using curl
     curl http://localhost:1234/messagebox -d "Error: Connection failed."
 fi
 

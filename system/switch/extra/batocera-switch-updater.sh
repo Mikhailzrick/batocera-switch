@@ -83,8 +83,8 @@ start_installation() {
             progress=$((completed_files * 100 / total_files))
             echo -ne "\rProgress: $progress% \r"
         else
-            sleep 3
             echo -e "\nError: Failed to download $url." >&2
+            sleep 3
             exit 1
         fi
     done
