@@ -163,10 +163,13 @@ install_yuzu_legacy() {
     done
     echo -ne "\rProgress: 100%\n"
 
+    echo "Starting installation of yuzu-legacy. Please wait..."
+
     # Extract and install yuzu-legacy AppImage
     cp "$link_yuzu_legacy" "/userdata/system/switch/extra/backup" 2>/dev/null
-    mv "$link_yuzu_legacy" "$TEMP_DIR/yuzu_legacy/yuzu-legacy.AppImage"
-    "$TEMP_DIR/yuzu_legacy/yuzu-legacy.AppImage" --appimage-extract >/dev/null 2>&1
+    mv "$link_yuzu_legacy" "$TEMP_DIR/yuzu_legacy/yuzuea4176.AppImage"
+    cd "$TEMP_DIR/yuzu_legacy"
+    ./yuzuea4176.AppImage --appimage-extract >/dev/null 2>&1
 
     local yuzu_legacy_extract_dir="$TEMP_DIR/yuzu_legacy/squashfs-root"
     mkdir -p /userdata/system/switch/extra/yuzu-legacy
@@ -184,16 +187,18 @@ install_yuzu_legacy() {
     cp "$yuzu_legacy_extract_dir/usr/optional/libgcc_s/libgcc_s.so.1" /userdata/system/switch/extra/yuzu-legacy/libgcc_s.so.1
     cp "$yuzu_legacy_extract_dir/usr/optional/exec.so" /userdata/system/switch/extra/yuzu-legacy/exec.so
     chmod +x /userdata/system/switch/extra/yuzu-legacy/lib* 2>/dev/null
-
-    # Move the launcher script
-    mv "$BASE_DIR/yuzu-legacy-launcher.sh" "$BASE_DIR/yuzu-legacy"
     chmod +x "/userdata/system/switch/extra/yuzu-legacy/yuzu-legacy" 2>/dev/null
     chmod +x "/userdata/system/switch/extra/yuzu-legacy/yuzu-legacy-room" 2>/dev/null
 
-    echo "yuzu-legacy installation completed."
+    # Rename the launcher script
+    mv "$BASE_DIR/yuzu-legacy-launcher.sh" "$BASE_DIR/yuzu-legacy"
 
     # Generate desktop shortcut
     generate_shortcut "yuzu-legacy" "$EXTRA_DIR/yuzu-legacy.png" "$BASE_DIR/yuzu-legacy"
+
+    echo "yuzu-legacy installation completed."
+
+    cd ~/
 }
 
 update_emulators() {
